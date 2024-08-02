@@ -1,11 +1,13 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaRobot, FaPaintBrush, FaCode } from 'react-icons/fa';
 
 const services = [
   {
     title: 'AI Development',
+    icon: <FaRobot />,
     details: [
       'Multi-Agent Systems',
       'Workflow Automation',
@@ -18,6 +20,7 @@ const services = [
   },
   {
     title: 'AI Generation',
+    icon: <FaPaintBrush />,
     details: [
       'Image Generation',
       'Code Generation',
@@ -32,6 +35,7 @@ const services = [
   },
   {
     title: 'Web Development',
+    icon: <FaCode />,
     details: [
       'Customer Experience Mapping',
       'UI/UX Design',
@@ -42,13 +46,23 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ title, details, isExpanded, onClick }) => {
+const ServiceCard = ({ title, icon, details, isExpanded, onClick, custom }) => {
   return (
     <motion.div
       className={`service-card ${isExpanded ? 'expanded' : ''}`}
       onClick={onClick}
-      whileHover={{ scale: isExpanded ? 1 : 1.02 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: custom * 0.2 }}
+      whileHover={{ scale: 1.05, boxShadow: '0 8px 16px rgba(192, 192, 192, 0.2)' }}
     >
+      <motion.div 
+        className="service-icon"
+        whileHover={{ rotate: 360 }}
+        transition={{ duration: 0.5 }}
+      >
+        {icon}
+      </motion.div>
       <h3>{title}</h3>
       <AnimatePresence>
         {isExpanded && (
@@ -61,8 +75,8 @@ const ServiceCard = ({ title, details, isExpanded, onClick }) => {
             {details.map((detail, index) => (
               <motion.li
                 key={index}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 {detail}
@@ -90,9 +104,11 @@ export default function Services() {
           <ServiceCard
             key={index}
             title={service.title}
+            icon={service.icon}
             details={service.details}
             isExpanded={expandedIndex === index}
             onClick={() => handleClick(index)}
+            custom={index}
           />
         ))}
       </div>

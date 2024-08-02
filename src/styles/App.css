@@ -133,8 +133,25 @@ section {
 
 .services {
   background-color: #1e1e1e;
-  padding: 4rem 2rem 2rem; /* Reduced bottom padding */
+  padding: 4rem 2rem 2rem;
   color: #ffffff;
+  position: relative;
+  overflow: hidden;
+}
+
+.services::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, #2e2e2e 25%, transparent 25%, transparent 75%, #2e2e2e 75%, #2e2e2e),
+              linear-gradient(45deg, #2e2e2e 25%, transparent 25%, transparent 75%, #2e2e2e 75%, #2e2e2e);
+  background-size: 60px 60px;
+  background-position: 0 0, 30px 30px;
+  opacity: 0.05;
+  z-index: 0;
 }
 
 .section-header {
@@ -150,6 +167,7 @@ section {
   display: inline-block;
   left: 50%;
   transform: translateX(-50%);
+  z-index: 1;
 }
 
 .section-header::after {
@@ -167,11 +185,13 @@ section {
   justify-content: space-around;
   flex-wrap: wrap;
   gap: 2rem;
-  margin-bottom: 2rem; /* Added margin to reduce space to next section */
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
 }
 
 .service-card {
-  background-color: #2e2e2e;
+  background-color: rgba(46, 46, 46, 0.8);
   border-radius: 10px;
   padding: 2rem;
   width: calc(33.333% - 2rem);
@@ -181,6 +201,7 @@ section {
   transition: all 0.3s ease;
   overflow: hidden;
   position: relative;
+  backdrop-filter: blur(5px);
 }
 
 .service-card::before {
@@ -198,6 +219,13 @@ section {
 
 .service-card:hover::before {
   transform: scaleX(1);
+}
+
+.service-icon {
+  font-size: 3rem;
+  color: #c0c0c0;
+  margin-bottom: 1rem;
+  text-align: center;
 }
 
 .service-card h3 {
@@ -234,7 +262,7 @@ section {
 }
 
 .service-card.expanded {
-  background-color: #3e3e3e;
+  background-color: rgba(62, 62, 62, 0.9);
 }
 
 @media (max-width: 768px) {
@@ -245,6 +273,22 @@ section {
   .section-header {
     font-size: 2.5rem;
   }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.service-icon {
+  animation: float 3s ease-in-out infinite;
 }
 
 /* Projects Section */
