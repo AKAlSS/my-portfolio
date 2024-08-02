@@ -251,6 +251,10 @@ section {
   align-items: center;
 }
 
+.service-card:not(.expanded) {
+  height: 150px; /* Adjust this value as needed */
+}
+
 .service-card::before {
   content: '';
   position: absolute;
@@ -305,6 +309,7 @@ section {
 }
 
 .service-card.expanded {
+  height: auto;
   background-color: rgba(62, 62, 62, 0.9);
 }
 

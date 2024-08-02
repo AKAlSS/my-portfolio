@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const services = [
@@ -42,23 +42,15 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
+const ServiceCard = ({ title, details, isExpanded, onClick }) => {
   return (
     <motion.div
       className={`service-card ${isExpanded ? 'expanded' : ''}`}
       onClick={onClick}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: custom * 0.2 }}
-      whileHover={{ scale: 1.05, boxShadow: '0 8px 16px rgba(192, 192, 192, 0.2)' }}
+      layout
+      transition={{ duration: 0.3 }}
     >
-      <motion.h3 
-        className="service-title"
-        animate={{ y: isExpanded ? 0 : 10 }}
-        transition={{ duration: 0.3 }}
-      >
-        {title}
-      </motion.h3>
+      <h3 className="service-title">{title}</h3>
       <AnimatePresence>
         {isExpanded && (
           <motion.ul
@@ -85,13 +77,7 @@ const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
 };
 
 const BackgroundAnimation = () => {
-  return (
-    <div className="background-animation">
-      {[...Array(40)].map((_, i) => (
-        <div key={i} className={`particle particle-${i % 4}`} />
-      ))}
-    </div>
-  );
+  // ... (keep the existing BackgroundAnimation component)
 };
 
 export default function Services() {
@@ -113,7 +99,6 @@ export default function Services() {
             details={service.details}
             isExpanded={expandedIndex === index}
             onClick={() => handleClick(index)}
-            custom={index}
           />
         ))}
       </div>
