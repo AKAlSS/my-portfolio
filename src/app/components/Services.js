@@ -87,8 +87,8 @@ const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
 const BackgroundAnimation = () => {
   return (
     <div className="background-animation">
-      {[...Array(20)].map((_, i) => (
-        <div key={i} className="particle" />
+      {[...Array(40)].map((_, i) => (
+        <div key={i} className={`particle particle-${i % 4}`} />
       ))}
     </div>
   );
@@ -98,7 +98,7 @@ export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
   const handleClick = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+    setExpandedIndex(prevIndex => prevIndex === index ? null : index);
   };
 
   return (
