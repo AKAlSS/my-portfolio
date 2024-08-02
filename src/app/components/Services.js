@@ -1,13 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaRobot, FaPaintBrush, FaCode } from 'react-icons/fa';
 
 const services = [
   {
     title: 'AI Development',
-    icon: <FaRobot />,
     details: [
       'Multi-Agent Systems',
       'Workflow Automation',
@@ -20,7 +18,6 @@ const services = [
   },
   {
     title: 'AI Generation',
-    icon: <FaPaintBrush />,
     details: [
       'Image Generation',
       'Code Generation',
@@ -35,7 +32,6 @@ const services = [
   },
   {
     title: 'Web Development',
-    icon: <FaCode />,
     details: [
       'Customer Experience Mapping',
       'UI/UX Design',
@@ -46,7 +42,7 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ title, icon, details, isExpanded, onClick, custom }) => {
+const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
   return (
     <motion.div
       className={`service-card ${isExpanded ? 'expanded' : ''}`}
@@ -56,14 +52,13 @@ const ServiceCard = ({ title, icon, details, isExpanded, onClick, custom }) => {
       transition={{ duration: 0.5, delay: custom * 0.2 }}
       whileHover={{ scale: 1.05, boxShadow: '0 8px 16px rgba(192, 192, 192, 0.2)' }}
     >
-      <motion.div 
-        className="service-icon"
-        whileHover={{ rotate: 360 }}
-        transition={{ duration: 0.5 }}
+      <motion.h3 
+        className="service-title"
+        animate={{ y: isExpanded ? 0 : 10 }}
+        transition={{ duration: 0.3 }}
       >
-        {icon}
-      </motion.div>
-      <h3>{title}</h3>
+        {title}
+      </motion.h3>
       <AnimatePresence>
         {isExpanded && (
           <motion.ul
@@ -104,7 +99,6 @@ export default function Services() {
           <ServiceCard
             key={index}
             title={service.title}
-            icon={service.icon}
             details={service.details}
             isExpanded={expandedIndex === index}
             onClick={() => handleClick(index)}
