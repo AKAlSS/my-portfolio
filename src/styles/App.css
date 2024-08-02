@@ -139,19 +139,40 @@ section {
   overflow: hidden;
 }
 
-.services::before {
-  content: '';
+.background-animation {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(45deg, #2e2e2e 25%, transparent 25%, transparent 75%, #2e2e2e 75%, #2e2e2e),
-              linear-gradient(45deg, #2e2e2e 25%, transparent 25%, transparent 75%, #2e2e2e 75%, #2e2e2e);
-  background-size: 60px 60px;
-  background-position: 0 0, 30px 30px;
-  opacity: 0.05;
+  overflow: hidden;
   z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  background: rgba(192, 192, 192, 0.3);
+  border-radius: 50%;
+  animation: float 15s infinite linear;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(100vw);
+    opacity: 0;
+  }
 }
 
 .section-header {
@@ -275,7 +296,7 @@ section {
   }
 }
 
-@keyframes float {
+@keyframes titleFloat {
   0% {
     transform: translateY(0px);
   }
@@ -288,8 +309,30 @@ section {
 }
 
 .service-title {
-  animation: float 3s ease-in-out infinite;
+  animation: titleFloat 3s ease-in-out infinite;
 }
+
+/* Particle positioning */
+.particle:nth-child(1) { top: 10%; left: 20%; }
+.particle:nth-child(2) { top: 30%; left: 50%; }
+.particle:nth-child(3) { top: 50%; left: 80%; }
+.particle:nth-child(4) { top: 70%; left: 10%; }
+.particle:nth-child(5) { top: 90%; left: 40%; }
+.particle:nth-child(6) { top: 20%; left: 60%; }
+.particle:nth-child(7) { top: 40%; left: 30%; }
+.particle:nth-child(8) { top: 60%; left: 70%; }
+.particle:nth-child(9) { top: 80%; left: 90%; }
+.particle:nth-child(10) { top: 15%; left: 85%; }
+.particle:nth-child(11) { top: 35%; left: 15%; }
+.particle:nth-child(12) { top: 55%; left: 45%; }
+.particle:nth-child(13) { top: 75%; left: 75%; }
+.particle:nth-child(14) { top: 95%; left: 25%; }
+.particle:nth-child(15) { top: 5%; left: 55%; }
+.particle:nth-child(16) { top: 25%; left: 35%; }
+.particle:nth-child(17) { top: 45%; left: 65%; }
+.particle:nth-child(18) { top: 65%; left: 5%; }
+.particle:nth-child(19) { top: 85%; left: 95%; }
+.particle:nth-child(20) { top: 0%; left: 100%; }
 
 /* Projects Section */
 .projects {

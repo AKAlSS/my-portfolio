@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const services = [
@@ -84,6 +84,16 @@ const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
   );
 };
 
+const BackgroundAnimation = () => {
+  return (
+    <div className="background-animation">
+      {[...Array(20)].map((_, i) => (
+        <div key={i} className="particle" />
+      ))}
+    </div>
+  );
+};
+
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
@@ -93,6 +103,7 @@ export default function Services() {
 
   return (
     <section className="services" id="services">
+      <BackgroundAnimation />
       <h2 className="section-header">SERVICES</h2>
       <div className="services-container">
         {services.map((service, index) => (
