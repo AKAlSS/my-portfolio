@@ -309,7 +309,6 @@ section {
 }
 
 .service-card.expanded {
-  height: auto;
   background-color: rgba(62, 62, 62, 0.9);
 }
 

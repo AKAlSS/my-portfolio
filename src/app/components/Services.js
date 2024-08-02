@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const services = [
@@ -42,15 +42,23 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ title, details, isExpanded, onClick }) => {
+const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
   return (
     <motion.div
       className={`service-card ${isExpanded ? 'expanded' : ''}`}
       onClick={onClick}
-      layout
-      transition={{ duration: 0.3 }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: custom * 0.2 }}
+      whileHover={{ scale: 1.05, boxShadow: '0 8px 16px rgba(192, 192, 192, 0.2)' }}
     >
-      <h3 className="service-title">{title}</h3>
+      <motion.h3 
+        className="service-title"
+        animate={{ y: isExpanded ? 0 : 10 }}
+        transition={{ duration: 0.3 }}
+      >
+        {title}
+      </motion.h3>
       <AnimatePresence>
         {isExpanded && (
           <motion.ul
@@ -77,8 +85,36 @@ const ServiceCard = ({ title, details, isExpanded, onClick }) => {
 };
 
 const BackgroundAnimation = () => {
-  // ... (keep the existing BackgroundAnimation component)
+  return (
+    <div className="background-animation">
+      {[...Array(40)].map((_, i) => (
+        <div key={i} className={`particle particle-${i % 4}`} />
+      ))}
+    </div>
+  );
 };
+
+const ParticleBackground = () => {
+  useEffect(() => {
+    const particlesContainer = document.querySelector('.services');
+    const particlesCount = 30; // Increased particle count
+
+    for (let i = 0; i < particlesCount; i++) {
+      const particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = `${Math.random() * 100}%`;
+      particle.style.top = `${Math.random() * 100}%`;
+      particle.style.width = `${Math.random() * 3 + 1}px`;
+      particle.style.height = particle.style.width;
+      particle.style.animationDuration = `${Math.random() * 30 + 10}s`;
+      particle.style.animationDelay = `${Math.random() * 5}s`;
+      particlesContainer.appendChild(particle);
+    }
+  }, []);
+
+  return null;
+};
+
 
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -99,6 +135,7 @@ export default function Services() {
             details={service.details}
             isExpanded={expandedIndex === index}
             onClick={() => handleClick(index)}
+            custom={index}
           />
         ))}
       </div>
