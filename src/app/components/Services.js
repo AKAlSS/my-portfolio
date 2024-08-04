@@ -154,12 +154,30 @@ const AnimatedTitle = ({ text }) => {
   );
 };
 
+
+
+
+const GlowingOrb = () => {
+  return <div className="glowing-orb"></div>;
+};
+
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [showOrb, setShowOrb] = useState(false);
 
   const handleClick = (index) => {
     setExpandedIndex(prevIndex => prevIndex === index ? null : index);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowOrb(true);
+      setTimeout(() => setShowOrb(false), 2000); // Orb visible for 2 seconds
+    }, Math.random() * 2000 + 3000); // Random interval between 3-5 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
 
   return (
     <section className="services" id="services">
@@ -177,6 +195,7 @@ export default function Services() {
           />
         ))}
       </div>
+      {showOrb && <GlowingOrb />}
     </section>
   );
 }
