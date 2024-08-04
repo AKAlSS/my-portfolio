@@ -181,33 +181,94 @@ section {
   }
 }
 
-.glowing-orb {
+.glowing-orb-container {
   position: absolute;
-  bottom: 40px;
-  left: -50px;
-  width: 20px;
+  bottom: 10px;
+  width: 100%;
   height: 20px;
-  background: radial-gradient(circle, rgb(0, 0, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(0,230,255,0) 70%);
-  border-radius: 50%;
-  animation: moveOrb 1s linear;
   z-index: 3;
+  pointer-events: none;
 }
 
-@keyframes moveOrb {
-  0% {
-    left: -50px;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% + 50px);
-    opacity: 0;
-  }
+.glowing-orb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.orb-trail {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.trail-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+/* Speed variations */
+.fast {
+  animation-duration: 2s;
+}
+
+.slow {
+  animation-duration: 4s;
+}
+
+/* Direction variations */
+.left-to-right {
+  animation-name: moveOrbLeftToRight;
+}
+
+.right-to-left {
+  animation-name: moveOrbRightToLeft;
+}
+
+/* Color variations */
+.white {
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 70%);
+}
+
+.grey {
+  background: radial-gradient(circle, rgba(128,128,128,1) 0%, rgba(128,128,128,0.5) 50%, rgba(128,128,128,0) 70%);
+}
+
+.black {
+  background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 70%);
+}
+
+/* Animations */
+@keyframes moveOrbLeftToRight {
+  0% { left: -50px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: calc(100% + 50px); opacity: 0; }
+}
+
+@keyframes moveOrbRightToLeft {
+  0% { right: -50px; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { right: calc(100% + 50px); opacity: 0; }
+}
+
+.glowing-orb-container, .orb-trail {
+  animation-timing-function: linear;
+  animation-iteration-count: 2;
+}
+
+.trail-particle {
+  animation: fadeTrail 2s linear;
+}
+
+@keyframes fadeTrail {
+  0% { opacity: 0.5; }
+  100% { opacity: 0; }
 }
 
 

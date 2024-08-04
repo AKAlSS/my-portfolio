@@ -155,10 +155,21 @@ const AnimatedTitle = ({ text }) => {
 };
 
 
-
-
 const GlowingOrb = () => {
-  return <div className="glowing-orb"></div>;
+  const speed = Math.random() < 0.5 ? 'fast' : 'slow';
+  const direction = Math.random() < 0.5 ? 'left-to-right' : 'right-to-left';
+  const color = ['white', 'grey', 'black'][Math.floor(Math.random() * 3)];
+
+  return (
+    <div className={`glowing-orb-container ${speed} ${direction}`}>
+      <div className={`glowing-orb ${color}`}></div>
+      <div className="orb-trail">
+        {[...Array(5)].map((_, index) => (
+          <div key={index} className={`trail-particle ${color}`} style={{animationDelay: `${index * 0.1}s`}}></div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default function Services() {
@@ -172,12 +183,11 @@ export default function Services() {
   useEffect(() => {
     const interval = setInterval(() => {
       setShowOrb(true);
-      setTimeout(() => setShowOrb(false), 2000); // Orb visible for 2 seconds
+      setTimeout(() => setShowOrb(false), 3000); // Orb visible for 3 seconds
     }, Math.random() * 2000 + 3000); // Random interval between 3-5 seconds
 
     return () => clearInterval(interval);
   }, []);
-
 
   return (
     <section className="services" id="services">
