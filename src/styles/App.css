@@ -132,9 +132,9 @@ section {
 }
 
 .services {
-  background: linear-gradient(-45deg, #1e1e1e, #2a2a2a, #1e1e1e, #2e2e2e);
+  background: linear-gradient(-45deg, #1a1a1a, #2d2d2d, #1e1e1e, #333333);
   background-size: 400% 400%;
-  animation: gradientBG 15s ease infinite;
+  animation: gradientBG 20s ease infinite;
   padding: 4rem 2rem 2rem;
   color: #ffffff;
   position: relative;
@@ -154,6 +154,36 @@ section {
     background-position: 0% 50%;
   }
 }
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: floatParticle 20s infinite ease-in-out;
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(50px, -50px);
+  }
+  50% {
+    transform: translate(-20px, 60px);
+  }
+  75% {
+    transform: translate(40px, 30px);
+  }
+}
+
+.services-container {
+  position: relative;
+  z-index: 2;
+}
+
 
 .section-header {
   text-align: center;

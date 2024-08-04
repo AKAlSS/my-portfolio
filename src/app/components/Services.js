@@ -94,27 +94,44 @@ const BackgroundAnimation = () => {
   );
 };
 
-const ParticleBackground = () => {
-  useEffect(() => {
-    const particlesContainer = document.querySelector('.services');
-    const particlesCount = 70; // Increased particle count
+const Particle = ({ style }) => (
+  <motion.div
+    className="particle"
+    style={style}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ duration: 1 }}
+  />
+);
 
-    for (let i = 0; i < particlesCount; i++) {
-      const particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      particle.style.width = `${Math.random() * 3 + 1}px`;
-      particle.style.height = particle.style.width;
-      particle.style.animationDuration = `${Math.random() * 30 + 10}s`;
-      particle.style.animationDelay = `${Math.random() * 5}s`;
-      particlesContainer.appendChild(particle);
-    }
+const ParticleBackground = () => {
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const particlesCount = 50;
+    const newParticles = Array.from({ length: particlesCount }, (_, i) => ({
+      id: i,
+      style: {
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        width: `${Math.random() * 4 + 1}px`,
+        height: `${Math.random() * 4 + 1}px`,
+        opacity: Math.random() * 0.5 + 0.1,
+        animationDuration: `${Math.random() * 40 + 20}s`,
+        animationDelay: `${Math.random() * 5}s`
+      }
+    }));
+    setParticles(newParticles);
   }, []);
 
-  return null;
+  return (
+    <>
+      {particles.map((particle) => (
+        <Particle key={particle.id} style={particle.style} />
+      ))}
+    </>
+  );
 };
-
 
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
@@ -125,7 +142,7 @@ export default function Services() {
 
   return (
     <section className="services" id="services">
-      <BackgroundAnimation />
+      <ParticleBackground />
       <h2 className="section-header">SERVICES</h2>
       <div className="services-container">
         {services.map((service, index) => (
