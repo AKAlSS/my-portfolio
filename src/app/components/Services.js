@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FaChevronDown } from 'react-icons/fa';  // Add this line
+
 
 const services = [
   {
@@ -42,42 +44,45 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ title, details, isExpanded, onClick, custom }) => {
+
+const ServiceCard = ({ title, details, isExpanded, onClick }) => {
   return (
     <motion.div
       className={`service-card ${isExpanded ? 'expanded' : ''}`}
       onClick={onClick}
-      initial={{ opacity: 0, y: 50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: custom * 0.2 }}
-      whileHover={{ scale: 1.05, boxShadow: '0 8px 16px rgba(192, 192, 192, 0.2)' }}
+      layout
+      transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
     >
-      <motion.h3 
-        className="service-title"
-        animate={{ y: isExpanded ? 0 : 10 }}
-        transition={{ duration: 0.3 }}
-      >
-        {title}
-      </motion.h3>
+      <motion.h3 className="service-title">{title}</motion.h3>
       <AnimatePresence>
-        {isExpanded && (
+        {isExpanded ? (
           <motion.ul
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
             {details.map((detail, index) => (
               <motion.li
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 {detail}
               </motion.li>
             ))}
           </motion.ul>
+        ) : (
+          <motion.div 
+            className="card-arrow"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <FaChevronDown />
+          </motion.div>
         )}
       </AnimatePresence>
     </motion.div>
