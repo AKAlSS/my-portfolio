@@ -155,42 +155,63 @@ const AnimatedTitle = ({ text }) => {
 };
 
 
-const GlowingOrb = () => {
-  const speed = Math.random() < 0.5 ? 'fast' : 'slow';
-  const direction = Math.random() < 0.5 ? 'left-to-right' : 'right-to-left';
-  const color = ['white', 'grey', 'black'][Math.floor(Math.random() * 3)];
+const ShootingOrb = ({ id }) => {
+  const startPosition = Math.random() * 100;
+  const endPosition = Math.random() * 100;
+  const duration = Math.random() * 2 + 1; // 1-3 seconds
+  const delay = Math.random() * 5; // 0-5 seconds delay
+  const size = Math.random() * 2 + 1; // 1-3px
+  const opacity = Math.random() * 0.5 + 0.5; // 0.5-1 opacity
 
   return (
-    <div className={`glowing-orb-container ${speed} ${direction}`}>
-      <div className={`glowing-orb ${color}`}></div>
-      <div className="orb-trail">
-        {[...Array(5)].map((_, index) => (
-          <div key={index} className={`trail-particle ${color}`} style={{animationDelay: `${index * 0.1}s`}}></div>
-        ))}
-      </div>
+    <div 
+      className="shooting-orb"
+      style={{
+        '--start': `${startPosition}%`,
+        '--end': `${endPosition}%`,
+        '--duration': `${duration}s`,
+        '--delay': `${delay}s`,
+        '--size': `${size}px`,
+        '--opacity': opacity,
+      }}
+    ></div>
+  );
+};
+
+const SpaceBackground = () => {
+  const [orbs, setOrbs] = useState([]);
+
+  useEffect(() => {
+    const createOrb = () => {
+      const newOrb = { id: Math.random() };
+      setOrbs(prevOrbs => [...prevOrbs, newOrb]);
+      setTimeout(() => {
+        setOrbs(prevOrbs => prevOrbs.filter(orb => orb.id !== newOrb.id));
+      }, 5000); // Remove orb after 5 seconds
+    };
+
+    const interval = setInterval(createOrb, 200); // Create new orb every 200ms
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="space-background">
+      {orbs.map(orb => <ShootingOrb key={orb.id} id={orb.id} />)}
     </div>
   );
 };
 
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
-  const [showOrb, setShowOrb] = useState(false);
 
   const handleClick = (index) => {
     setExpandedIndex(prevIndex => prevIndex === index ? null : index);
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setShowOrb(true);
-      setTimeout(() => setShowOrb(false), 3000); // Orb visible for 3 seconds
-    }, Math.random() * 2000 + 3000); // Random interval between 3-5 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <section className="services" id="services">
+      <SpaceBackground />
       <ParticleBackground />
       <AnimatedTitle text="SERVICES" />
       <div className="services-container">
@@ -205,7 +226,6 @@ export default function Services() {
           />
         ))}
       </div>
-      {showOrb && <GlowingOrb />}
     </section>
   );
 }
