@@ -97,7 +97,7 @@ const BackgroundAnimation = () => {
 const ParticleBackground = () => {
   useEffect(() => {
     const particlesContainer = document.querySelector('.services');
-    const particlesCount = 30; // Increased particle count
+    const particlesCount = 70; // Increased particle count
 
     for (let i = 0; i < particlesCount; i++) {
       const particle = document.createElement('div');
