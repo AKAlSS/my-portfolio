@@ -191,14 +191,7 @@ section {
 }
 
 .shooting-orb {
-  position: absolute;
-  width: var(--size);
-  height: var(--size);
-  background: #fff;
-  border-radius: 50%;
-  opacity: var(--opacity);
   filter: blur(1px);
-  animation: shootAcross var(--duration) linear var(--delay) infinite;
 }
 
 .shooting-orb::after {

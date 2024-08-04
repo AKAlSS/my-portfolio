@@ -154,50 +154,94 @@ const AnimatedTitle = ({ text }) => {
   );
 };
 
+const movementPatterns = [
+  { start: { x: 0, y: 'random' }, end: { x: '100%', y: 'random' } },    // left to right
+  { start: { x: '100%', y: 'random' }, end: { x: 0, y: 'random' } },    // right to left
+  { start: { x: 'random', y: '100%' }, end: { x: 'random', y: 0 } },    // bottom to top
+  { start: { x: 'random', y: 0 }, end: { x: 'random', y: '100%' } },    // top to bottom
+  { start: { x: 0, y: '100%' }, end: { x: '100%', y: 0 } },             // bottom left to top right
+  { start: { x: '100%', y: '100%' }, end: { x: 0, y: 0 } },             // bottom right to top left
+  { start: { x: 0, y: 0 }, end: { x: '100%', y: '100%' } },             // top left to bottom right
+  { start: { x: '100%', y: 0 }, end: { x: 0, y: '100%' } }              // top right to bottom left
+];
 
-const ShootingOrb = ({ id }) => {
-  const startPosition = Math.random() * 100;
-  const endPosition = Math.random() * 100;
-  const duration = Math.random() * 2 + 1; // 1-3 seconds
-  const delay = Math.random() * 5; // 0-5 seconds delay
+const ShootingOrb = ({ pattern }) => {
+  const duration = Math.random() * 2 + 3; // 3-5 seconds
   const size = Math.random() * 2 + 1; // 1-3px
   const opacity = Math.random() * 0.5 + 0.5; // 0.5-1 opacity
 
+  const start = {
+    x: pattern.start.x === 'random' ? `${Math.random() * 100}%` : pattern.start.x,
+    y: pattern.start.y === 'random' ? `${Math.random() * 100}%` : pattern.start.y
+  };
+
+  const end = {
+    x: pattern.end.x === 'random' ? `${Math.random() * 100}%` : pattern.end.x,
+    y: pattern.end.y === 'random' ? `${Math.random() * 100}%` : pattern.end.y
+  };
+
   return (
-    <div 
+    <motion.div 
       className="shooting-orb"
+      initial={start}
+      animate={end}
+      transition={{ duration, ease: "linear" }}
       style={{
-        '--start': `${startPosition}%`,
-        '--end': `${endPosition}%`,
-        '--duration': `${duration}s`,
-        '--delay': `${delay}s`,
-        '--size': `${size}px`,
-        '--opacity': opacity,
+        width: size,
+        height: size,
+        opacity,
+        background: '#fff',
+        borderRadius: '50%',
+        position: 'absolute',
+        zIndex: 1,
       }}
-    ></div>
+    >
+      <motion.div 
+        className="orb-streak"
+        style={{
+          position: 'absolute',
+          width: '50px',
+          height: '2px',
+          background: 'linear-gradient(to left, rgba(255,255,255,0.3), transparent)',
+          transformOrigin: 'left center',
+        }}
+        initial={{ rotate: 0 }}
+        animate={{ rotate: Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) }}
+      />
+    </motion.div>
   );
 };
 
 const SpaceBackground = () => {
   const [orbs, setOrbs] = useState([]);
+  const [lastPattern, setLastPattern] = useState(null);
 
   useEffect(() => {
     const createOrb = () => {
-      const newOrb = { id: Math.random() };
+      if (orbs.length >= 2) return; // Limit to 2 orbs at a time
+
+      let newPattern;
+      do {
+        newPattern = movementPatterns[Math.floor(Math.random() * movementPatterns.length)];
+      } while (newPattern === lastPattern);
+
+      setLastPattern(newPattern);
+      const newOrb = { id: Math.random(), pattern: newPattern };
       setOrbs(prevOrbs => [...prevOrbs, newOrb]);
+
       setTimeout(() => {
         setOrbs(prevOrbs => prevOrbs.filter(orb => orb.id !== newOrb.id));
       }, 5000); // Remove orb after 5 seconds
     };
 
-    const interval = setInterval(createOrb, 200); // Create new orb every 200ms
+    const interval = setInterval(createOrb, 2000); // Try to create new orb every 2 seconds
 
     return () => clearInterval(interval);
-  }, []);
+  }, [orbs, lastPattern]);
 
   return (
     <div className="space-background">
-      {orbs.map(orb => <ShootingOrb key={orb.id} id={orb.id} />)}
+      {orbs.map(orb => <ShootingOrb key={orb.id} pattern={orb.pattern} />)}
     </div>
   );
 };
@@ -213,6 +257,7 @@ export default function Services() {
     <section className="services" id="services">
       <SpaceBackground />
       <ParticleBackground />
+      <BackgroundAnimation />
       <AnimatedTitle text="SERVICES" />
       <div className="services-container">
         {services.map((service, index) => (
