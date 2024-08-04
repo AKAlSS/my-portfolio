@@ -132,8 +132,10 @@ section {
 }
 
 .services {
-  background: linear-gradient(-45deg, #1a1a1a, #2d2d2d, #1e1e1e, #333333);
-  background-size: 400% 400%;
+  background: linear-gradient(135deg, #1a1a1a, #2d2d2d, #1e1e1e, #333333),
+              radial-gradient(circle at top left, rgba(30,30,30,0.5), transparent 50%),
+              radial-gradient(circle at bottom right, rgba(45,45,45,0.5), transparent 50%);
+  background-size: 400% 400%, 200% 200%, 200% 200%;
   animation: gradientBG 20s ease infinite;
   padding: 4rem 2rem 2rem;
   color: #ffffff;
@@ -145,13 +147,13 @@ section {
 
 @keyframes gradientBG {
   0% {
-    background-position: 0% 50%;
+    background-position: 0% 50%, 0% 0%, 100% 100%;
   }
   50% {
-    background-position: 100% 50%;
+    background-position: 100% 50%, 100% 0%, 0% 100%;
   }
   100% {
-    background-position: 0% 50%;
+    background-position: 0% 50%, 0% 0%, 100% 100%;
   }
 }
 
@@ -184,7 +186,6 @@ section {
   z-index: 2;
 }
 
-
 .section-header {
   text-align: center;
   font-size: 3rem;
@@ -199,6 +200,15 @@ section {
   left: 50%;
   transform: translateX(-50%);
   z-index: 2;
+}
+
+.animated-letter {
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.animated-letter:hover {
+  color: #00e6ff;
 }
 
 .section-header::after {

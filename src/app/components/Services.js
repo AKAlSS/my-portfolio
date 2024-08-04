@@ -133,6 +133,27 @@ const ParticleBackground = () => {
   );
 };
 
+
+const AnimatedTitle = ({ text }) => {
+  return (
+    <h2 className="section-header">
+      {text.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          className="animated-letter"
+          whileHover={{ 
+            scale: 1.2, 
+            color: '#737373',
+            transition: { duration: 0.1 }
+          }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </h2>
+  );
+};
+
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
@@ -143,7 +164,7 @@ export default function Services() {
   return (
     <section className="services" id="services">
       <ParticleBackground />
-      <h2 className="section-header">SERVICES</h2>
+      <AnimatedTitle text="SERVICES" />
       <div className="services-container">
         {services.map((service, index) => (
           <ServiceCard
