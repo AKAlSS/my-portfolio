@@ -476,6 +476,7 @@ section {
 .projects-subsection h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
+  opacity: 100;
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -492,14 +493,11 @@ section {
   transition: all 0.3s ease;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 .project-card:hover {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.project-card.expanded {
-  grid-column: span 2;
 }
 
 .project-header {
@@ -511,19 +509,29 @@ section {
 
 .project-card h3 {
   margin: 0;
+  font-size: 1.5rem;
   color: rgba(255, 255, 255, 0.87);
 }
 
-.project-description {
+.expand-icon {
   color: rgba(255, 255, 255, 0.6);
+  font-size: 1.2rem;
+}
+
+.project-preview {
   margin-bottom: 1rem;
+}
+
+.project-preview p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
 }
 
 .project-tags {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1rem;
 }
 
 .tag {
@@ -534,23 +542,6 @@ section {
   font-size: 0.8rem;
 }
 
-.project-links {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
-}
-
-.project-links a {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 1.2rem;
-  margin-left: 0.5rem;
-  transition: color 0.3s ease;
-}
-
-.project-links a:hover {
-  color: #00e6ff;
-}
-
 .project-details {
   margin-top: 1rem;
 }
@@ -559,15 +550,18 @@ section {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
   color: rgba(0, 230, 255, 0.87);
+  font-size: 1.2rem;
 }
 
 .project-details p {
   color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .project-images {
   position: relative;
-  margin-top: 1rem;
+  margin: 1rem 0;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -602,21 +596,33 @@ section {
   right: 10px;
 }
 
+.project-links {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-links a {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.87);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.project-links a:hover {
+  color: #00e6ff;
+}
+
+.project-links a svg {
+  margin-right: 0.5rem;
+}
+
 @media (max-width: 768px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .project-card.expanded {
-    grid-column: span 1;
-  }
-
-  .section-header {
-    font-size: 2.5rem;
-  }
-
-  .projects-subsection h3 {
-    font-size: 1.8rem;
+  .project-card h3 {
+    font-size: 1.3rem;
   }
 }
 
