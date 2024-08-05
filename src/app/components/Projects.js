@@ -4,6 +4,26 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt, FaChevronDown, FaChevronUp, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
+const AnimatedTitle = ({ text }) => {
+  return (
+    <h2 className="section-header">
+      {text.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          className="animated-letter"
+          whileHover={{ 
+            scale: 1.2, 
+            color: '#414141',
+            transition: { duration: 0.1 }
+          }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </h2>
+  );
+};
+
 const projects = [
   {
     id: 1,
@@ -214,7 +234,7 @@ const ProjectsSection = () => {
 
   return (
     <section className="projects-section" id="projects">
-      <h2 className="section-header">PROJECTS</h2>
+      <AnimatedTitle text="PROJECTS" />
       
       <div className="projects-subsection">
         <h3>Completed Projects</h3>

@@ -464,19 +464,39 @@ section {
   font-size: 3rem;
   font-weight: 300;
   margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.87);
+  opacity: 1;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.87);
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
-.projects-subsection {
-  margin-bottom: 4rem;
+.animated-letter {
+  display: inline-block;
+  transition: color 0.3s ease;
+}
+
+.animated-letter:hover {
+  color: #3d3d3d;
+}
+
+.section-header::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 25%;
+  width: 50%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
 }
 
 .projects-subsection h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  opacity: 100;
+  opacity: 1;
   color: rgba(255, 255, 255, 0.87);
 }
 
