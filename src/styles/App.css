@@ -466,6 +466,7 @@ section {
   margin-bottom: 3rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .projects-subsection {
@@ -475,7 +476,7 @@ section {
 .projects-subsection h3 {
   font-size: 2rem;
   margin-bottom: 2rem;
-  color: #f8f8f8;
+  color: rgba(255, 255, 255, 0.87);
 }
 
 .projects-grid {
@@ -485,7 +486,7 @@ section {
 }
 
 .project-card {
-  background-color: #2e2e2e;
+  background-color: rgba(46, 46, 46, 0.8);
   border-radius: 10px;
   padding: 1.5rem;
   transition: all 0.3s ease;
@@ -510,7 +511,27 @@ section {
 
 .project-card h3 {
   margin: 0;
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.87);
+}
+
+.project-description {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 1rem;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tag {
+  background-color: rgba(0, 230, 255, 0.2);
+  color: rgba(255, 255, 255, 0.87);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
 }
 
 .project-links {
@@ -520,7 +541,7 @@ section {
 }
 
 .project-links a {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.6);
   font-size: 1.2rem;
   margin-left: 0.5rem;
   transition: color 0.3s ease;
@@ -537,7 +558,11 @@ section {
 .project-details h4 {
   margin-top: 1rem;
   margin-bottom: 0.5rem;
-  color: #00e6ff;
+  color: rgba(0, 230, 255, 0.87);
+}
+
+.project-details p {
+  color: rgba(255, 255, 255, 0.6);
 }
 
 .project-images {
@@ -547,7 +572,7 @@ section {
   overflow: hidden;
 }
 
-.project-images img {
+.project-images img, .project-video video {
   width: 100%;
   height: auto;
   display: block;
@@ -575,26 +600,6 @@ section {
 
 .image-nav.next {
   right: 10px;
-}
-
-.image-indicator {
-  display: flex;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.image-indicator span {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #555;
-  margin: 0 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.image-indicator span.active {
-  background-color: #00e6ff;
 }
 
 @media (max-width: 768px) {

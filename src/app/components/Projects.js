@@ -7,45 +7,29 @@ import { FaGithub, FaExternalLinkAlt, FaChevronDown, FaChevronUp, FaArrowLeft, F
 const projects = [
   {
     id: 1,
-    name: "AI Image Generator",
-    description: "A tool that generates images using AI",
+    name: "Advanced AI Generated Art and Community Engagement Initiative",
+    description: "This project blends AI innovation with a passion for dark fantasy and anime to create unique, engaging art. My work has built a lively community and opened paths to sustainable monetization, all through the power of art and AI image generation.",
     status: "Completed",
-    tech: ["Python", "TensorFlow", "React"],
-    githubUrl: "https://github.com/yourusername/ai-image-generator",
-    liveUrl: "https://ai-image-generator-demo.com",
-    summary: "An AI-powered tool that creates unique images based on text descriptions.",
-    problem: "The need for quick, customizable image creation for various purposes.",
-    solution: "Utilizing advanced machine learning models to generate high-quality images from text input.",
-    images: [
-      "/path-to-image1.jpg",
-      "/path-to-image2.jpg",
-      "/path-to-image3.jpg",
-      "/path-to-image4.jpg",
-      "/path-to-image5.jpg"
-    ],
-    demoUrl: "https://www.youtube.com/watch?v=demovideoID"
+    tags: ["AI Image Generation", "Midjourney", "ChatGPT", "Text-To-Image"],
+    githubUrl: "",
+    liveUrl: "",
+    largerDescription: "This project is a creative fusion of AI and classic dark fantasy anime aesthetics. This project utilizes Midjourney, an AI tool, to generate unique artworks that resonate deeply with fans of the genre. I developed a system that automates the generation process using make.com and Airtable, enabling consistent production without sacrificing the creativity and uniqueness of each piece. Through careful tweaking of prompts in ChatGPT, we maintain a fresh and evolving artistic output that keeps the community engaged. This project has not only grown to over 20,000 followers on TikTok but also established a monetization model through sponsorships and a Patreon community, demonstrating the commercial viability of AI-generated art.",
+    innovation: "It's next steps consist of creating a custom solution outside of paid services such as make.com and airtable in replacement of it's autonomous process.",
+    images: ["/path-to-ai-art-1.jpg", "/path-to-ai-art-2.jpg", "/path-to-ai-art-3.jpg"],
   },
   {
     id: 2,
-    name: "Portfolio Website",
-    description: "My personal portfolio website (this one!)",
+    name: "Creative Dreamlike AI Generated Videos",
+    description: "This project transforms dreamlike and weirdcore concepts into visually stunning artworks using a combination of AI-driven tools. This project highlights the entire workflow from prompt generation to final video production, showcasing the innovative use of multiple AI tools to create high quality videos.",
     status: "Completed",
-    tech: ["React", "Next.js", "Framer Motion"],
-    githubUrl: "https://github.com/yourusername/portfolio",
-    detailedDescription: "A showcase of my skills and projects, built with modern web technologies...",
-    image: "/path-to-project-image.jpg"
+    tags: ["Midjourney", "ChatGPT", "AI Video Generation", "AI Image Generation"],
+    githubUrl: "",
+    liveUrl: "",
+    largerDescription: "The journey begins with generating multiple image prompts using ChatGPT, which are designed to evoke a dreamlike, weirdcore aesthetic. These prompts are then brought to life using Midjourney, an advanced AI tool, to create detailed and surreal images. The final step involves using Pika to animate these static images into moving visuals, adding a dynamic and mesmerizing layer to the artwork. This process not only demonstrates the creative potential of AI in art production but also emphasize the seamless integration of different AI technologies to enhance artistic expression.",
+    innovation: "The next steps for enhancing the project involve incorporating high-quality voiceovers using ElevenLabs' text-to-speech technology to add compelling narratives to the visuals, enriching the experience. Simultaneously, we will fine-tune advanced video generation models available on platforms like Hugging Face and Civitai, leveraging a curated dataset of dreamlike and weirdcore content to achieve superior video quality. This combined approach will result in more immersive, coherent, and visually stunning outputs that seamlessly blend narrative and animation.",
+    videoUrl: "/path-to-demo-video.mp4",
   },
-  {
-    id: 3,
-    name: "AI-Powered Trading Bot",
-    description: "A machine learning model for stock prediction",
-    status: "In Progress",
-    tech: ["Python", "TensorFlow", "Alpaca API"],
-    githubUrl: "https://github.com/yourusername/trading-bot",
-    detailedDescription: "This ongoing project aims to leverage machine learning for stock market predictions...",
-    image: "/path-to-project-image.jpg"
-  },
-  // Add more projects as needed
+  // ... Add other projects similarly
 ];
 
 const ProjectCard = ({ project }) => {
@@ -81,7 +65,12 @@ const ProjectCard = ({ project }) => {
         <h3>{project.name}</h3>
         {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
       </motion.div>
-      <p>{project.description}</p>
+      <p className="project-description">{project.description}</p>
+      <div className="project-tags">
+        {project.tags.map((tag, index) => (
+          <span key={index} className="tag">{tag}</span>
+        ))}
+      </div>
       
       <AnimatePresence>
         {isExpanded && (
@@ -92,12 +81,10 @@ const ProjectCard = ({ project }) => {
             transition={{ duration: 0.3 }}
             className="project-details"
           >
-            <h4>Summary</h4>
-            <p>{project.summary}</p>
-            <h4>Problem</h4>
-            <p>{project.problem}</p>
-            <h4>Solution</h4>
-            <p>{project.solution}</p>
+            <h4>Detailed Description</h4>
+            <p>{project.largerDescription}</p>
+            <h4>Innovation</h4>
+            <p>{project.innovation}</p>
             
             {project.images && project.images.length > 0 && (
               <div className="project-images">
@@ -111,15 +98,9 @@ const ProjectCard = ({ project }) => {
               </div>
             )}
             
-            {project.images && project.images.length > 1 && (
-              <div className="image-indicator">
-                {project.images.map((_, index) => (
-                  <span 
-                    key={index} 
-                    className={index === currentImageIndex ? 'active' : ''}
-                    onClick={() => setCurrentImageIndex(index)}
-                  />
-                ))}
+            {project.videoUrl && (
+              <div className="project-video">
+                <video controls src={project.videoUrl} />
               </div>
             )}
           </motion.div>
@@ -128,18 +109,13 @@ const ProjectCard = ({ project }) => {
       
       <div className="project-links">
         {project.githubUrl && (
-          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="github-link">
             <FaGithub />
           </a>
         )}
         {project.liveUrl && (
-          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="live-link">
             <FaExternalLinkAlt />
-          </a>
-        )}
-        {project.demoUrl && (
-          <a href={project.demoUrl} target="_blank" rel="noopener noreferrer">
-            Demo
           </a>
         )}
       </div>
@@ -149,7 +125,15 @@ const ProjectCard = ({ project }) => {
 
 const ProjectsSection = () => {
   const completedProjects = projects.filter(project => project.status === "Completed");
-  const activeProjects = projects.filter(project => project.status === "In Progress");
+  const activeProjects = [
+    {
+      id: 'future-1',
+      name: "Customer Service Multi-Agent System",
+      description: "A future project built with crewAI",
+      status: "In Progress",
+      tags: ["crewAI", "Multi-Agent Systems", "Customer Service"],
+    }
+  ];
 
   return (
     <section className="projects-section" id="projects">
