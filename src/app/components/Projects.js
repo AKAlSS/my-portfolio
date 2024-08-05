@@ -1,7 +1,8 @@
-'use client';
+'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Parallax } from 'react-scroll-parallax';
 import { FaGithub, FaExternalLinkAlt, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
 const projects = [
@@ -9,30 +10,33 @@ const projects = [
     id: 1,
     name: "AI Assistant",
     description: "A conversational AI assistant powered by GPT-3",
-    category: "Completed",
+    status: "Completed",
     tech: ["Python", "OpenAI API", "Flask"],
     githubUrl: "https://github.com/yourusername/ai-assistant",
     liveUrl: "https://ai-assistant-demo.com",
     detailedDescription: "This project showcases the power of GPT-3 in creating human-like conversations...",
-    demoUrl: "https://www.youtube.com/watch?v=demovideoID"
+    demoUrl: "https://www.youtube.com/watch?v=demovideoID",
+    image: "/path-to-project-image.jpg"
   },
   {
     id: 2,
     name: "Portfolio Website",
     description: "My personal portfolio website (this one!)",
-    category: "Completed",
+    status: "Completed",
     tech: ["React", "Next.js", "Framer Motion"],
     githubUrl: "https://github.com/yourusername/portfolio",
-    detailedDescription: "A showcase of my skills and projects, built with modern web technologies..."
+    detailedDescription: "A showcase of my skills and projects, built with modern web technologies...",
+    image: "/path-to-project-image.jpg"
   },
   {
     id: 3,
     name: "AI-Powered Trading Bot",
     description: "A machine learning model for stock prediction",
-    category: "In Progress",
+    status: "In Progress",
     tech: ["Python", "TensorFlow", "Alpaca API"],
     githubUrl: "https://github.com/yourusername/trading-bot",
-    detailedDescription: "This ongoing project aims to leverage machine learning for stock market predictions..."
+    detailedDescription: "This ongoing project aims to leverage machine learning for stock market predictions...",
+    image: "/path-to-project-image.jpg"
   },
   // Add more projects as needed
 ];
@@ -44,6 +48,7 @@ const ProjectCard = ({ project, onExpand }) => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
+      <div className="project-image" style={{backgroundImage: `url(${project.image})`}} />
       <h3>{project.name}</h3>
       <p>{project.description}</p>
       <div className="project-links">
@@ -103,14 +108,31 @@ const ProjectDetails = ({ project, onClose }) => {
   );
 };
 
+const AnimatedTitle = ({ text }) => {
+  return (
+    <h2 className="section-header">
+      {text.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          className="animated-letter"
+          whileHover={{ 
+            scale: 1.2, 
+            color: '#414141',
+            transition: { duration: 0.1 }
+          }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </h2>
+  );
+};
+
 const ProjectsSection = () => {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [filter, setFilter] = useState('All');
-  const containerRef = useRef(null);
 
-  const filteredProjects = filter === 'All' 
-    ? projects 
-    : projects.filter(project => project.category === filter);
+  const completedProjects = projects.filter(project => project.status === "Completed");
+  const activeProjects = projects.filter(project => project.status === "In Progress");
 
   const expandProject = (project) => {
     setSelectedProject(project);
@@ -120,27 +142,30 @@ const ProjectsSection = () => {
     setSelectedProject(null);
   };
 
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
-  }, [selectedProject]);
-
   return (
-    <section className="projects-section" ref={containerRef}>
-      <h2>My Projects</h2>
-      <div className="project-filters">
-        <button onClick={() => setFilter('All')} className={filter === 'All' ? 'active' : ''}>All</button>
-        <button onClick={() => setFilter('Completed')} className={filter === 'Completed' ? 'active' : ''}>Completed</button>
-        <button onClick={() => setFilter('In Progress')} className={filter === 'In Progress' ? 'active' : ''}>In Progress</button>
+    <section className="projects-section" id="projects">
+      <Parallax translateY={[-20, 20]}>
+        <AnimatedTitle text="PROJECTS" />
+      </Parallax>
+      
+      <div className="projects-subsection">
+        <h3>Completed Projects</h3>
+        <div className="projects-grid">
+          {completedProjects.map(project => (
+            <ProjectCard key={project.id} project={project} onExpand={expandProject} />
+          ))}
+        </div>
       </div>
-      <motion.div className="projects-grid">
-        {filteredProjects.map(project => (
-          <ProjectCard key={project.id} project={project} onExpand={expandProject} />
-        ))}
-      </motion.div>
+      
+      <div className="projects-subsection">
+        <h3>Active Projects</h3>
+        <div className="projects-grid">
+          {activeProjects.map(project => (
+            <ProjectCard key={project.id} project={project} onExpand={expandProject} />
+          ))}
+        </div>
+      </div>
+
       <AnimatePresence>
         {selectedProject && (
           <motion.div 
