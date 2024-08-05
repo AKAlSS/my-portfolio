@@ -1,81 +1,160 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { Parallax } from 'react-scroll-parallax';
-import Image from 'next/image';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { FaGithub, FaExternalLinkAlt, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
 const projects = [
-  { title: 'AI Assistant', description: 'A conversational AI assistant', imageUrl: '/placeholder.jpg', projectUrl: '#', githubUrl: '#' },
-  { title: 'Web Portfolio', description: 'Interactive personal portfolio', imageUrl: '/placeholder.jpg', projectUrl: '#', githubUrl: '#' },
-  { title: 'Data Visualization', description: 'Interactive data charts', imageUrl: '/placeholder.jpg', githubUrl: '#' },
-  { title: '3D Animation', description: 'Three.js based 3D animation', imageUrl: '/placeholder.jpg', projectUrl: '#' },
-  { title: 'AI Model API', description: 'RESTful API for AI model integration', imageUrl: '/placeholder.jpg', githubUrl: '#' },
+  {
+    id: 1,
+    name: "AI Assistant",
+    description: "A conversational AI assistant powered by GPT-3",
+    category: "Completed",
+    tech: ["Python", "OpenAI API", "Flask"],
+    githubUrl: "https://github.com/yourusername/ai-assistant",
+    liveUrl: "https://ai-assistant-demo.com",
+    detailedDescription: "This project showcases the power of GPT-3 in creating human-like conversations...",
+    demoUrl: "https://www.youtube.com/watch?v=demovideoID"
+  },
+  {
+    id: 2,
+    name: "Portfolio Website",
+    description: "My personal portfolio website (this one!)",
+    category: "Completed",
+    tech: ["React", "Next.js", "Framer Motion"],
+    githubUrl: "https://github.com/yourusername/portfolio",
+    detailedDescription: "A showcase of my skills and projects, built with modern web technologies..."
+  },
+  {
+    id: 3,
+    name: "AI-Powered Trading Bot",
+    description: "A machine learning model for stock prediction",
+    category: "In Progress",
+    tech: ["Python", "TensorFlow", "Alpaca API"],
+    githubUrl: "https://github.com/yourusername/trading-bot",
+    detailedDescription: "This ongoing project aims to leverage machine learning for stock market predictions..."
+  },
+  // Add more projects as needed
 ];
 
-export default function Projects() {
-  const containerRef = useRef(null);
-  const [isScrollable, setIsScrollable] = useState(true);
+const ProjectCard = ({ project, onExpand }) => {
+  return (
+    <motion.div 
+      className="project-card"
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      <h3>{project.name}</h3>
+      <p>{project.description}</p>
+      <div className="project-links">
+        {project.githubUrl && (
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+            <FaGithub />
+          </a>
+        )}
+        {project.liveUrl && (
+          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+            <FaExternalLinkAlt />
+          </a>
+        )}
+        <button onClick={() => onExpand(project)}>
+          <FaInfoCircle />
+        </button>
+      </div>
+    </motion.div>
+  );
+};
 
-  const scroll = (direction) => {
-    if (containerRef.current) {
-      const scrollAmount = direction === 'left' ? -300 : 300;
-      containerRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    }
+const ProjectDetails = ({ project, onClose }) => {
+  return (
+    <motion.div 
+      className="project-details"
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 50 }}
+    >
+      <button className="close-btn" onClick={onClose}>
+        <FaTimes />
+      </button>
+      <h2>{project.name}</h2>
+      <p>{project.detailedDescription}</p>
+      <div className="tech-stack">
+        <h3>Tech Stack:</h3>
+        <ul>
+          {project.tech.map((tech, index) => (
+            <li key={index}>{tech}</li>
+          ))}
+        </ul>
+      </div>
+      {project.demoUrl && (
+        <div className="demo-section">
+          <h3>Demo:</h3>
+          <iframe 
+            width="560" 
+            height="315" 
+            src={project.demoUrl} 
+            frameBorder="0" 
+            allow="autoplay; encrypted-media" 
+            allowFullScreen
+          />
+        </div>
+      )}
+    </motion.div>
+  );
+};
+
+const ProjectsSection = () => {
+  const [selectedProject, setSelectedProject] = useState(null);
+  const [filter, setFilter] = useState('All');
+  const containerRef = useRef(null);
+
+  const filteredProjects = filter === 'All' 
+    ? projects 
+    : projects.filter(project => project.category === filter);
+
+  const expandProject = (project) => {
+    setSelectedProject(project);
   };
 
-  const checkScrollable = () => {
-    if (containerRef.current) {
-      const { scrollWidth, clientWidth } = containerRef.current;
-      setIsScrollable(scrollWidth > clientWidth);
-    }
+  const closeProjectDetails = () => {
+    setSelectedProject(null);
   };
 
   useEffect(() => {
-    checkScrollable();
-    window.addEventListener('resize', checkScrollable);
-    return () => window.removeEventListener('resize', checkScrollable);
-  }, []);
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [selectedProject]);
 
   return (
-    <section className="projects" id="projects">
-      <Parallax translateY={[-15, 15]}>
-        <h2 className="projects-title">Projects</h2>
-      </Parallax>
-      <div className="projects-container" ref={containerRef}>
-        {projects.map((project, index) => (
-          <Parallax key={index} translateX={[10, -10]} speed={-2}>
-            <div className="project-card">
-              <div className="project-image">
-                <Image src={project.imageUrl} alt={project.title} layout="fill" objectFit="cover" />
-              </div>
-              <div className="project-content">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="project-buttons">
-                  {project.projectUrl && (
-                    <a href={project.projectUrl} className="btn" target="_blank" rel="noopener noreferrer">View Project</a>
-                  )}
-                  {project.githubUrl && (
-                    <a href={project.githubUrl} className="btn btn-github" target="_blank" rel="noopener noreferrer">
-                      GitHub
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </Parallax>
-        ))}
+    <section className="projects-section" ref={containerRef}>
+      <h2>My Projects</h2>
+      <div className="project-filters">
+        <button onClick={() => setFilter('All')} className={filter === 'All' ? 'active' : ''}>All</button>
+        <button onClick={() => setFilter('Completed')} className={filter === 'Completed' ? 'active' : ''}>Completed</button>
+        <button onClick={() => setFilter('In Progress')} className={filter === 'In Progress' ? 'active' : ''}>In Progress</button>
       </div>
-      {isScrollable && (
-        <>
-          <button className="scroll-btn left" onClick={() => scroll('left')} aria-label="Scroll left">
-            ←
-          </button>
-          <button className="scroll-btn right" onClick={() => scroll('right')} aria-label="Scroll right">
-            →
-          </button>
-        </>
-      )}
+      <motion.div className="projects-grid">
+        {filteredProjects.map(project => (
+          <ProjectCard key={project.id} project={project} onExpand={expandProject} />
+        ))}
+      </motion.div>
+      <AnimatePresence>
+        {selectedProject && (
+          <motion.div 
+            className="project-details-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <ProjectDetails project={selectedProject} onClose={closeProjectDetails} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
-}
+};
+
+export default ProjectsSection;

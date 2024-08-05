@@ -453,159 +453,129 @@ section {
 /* ... add more positions as needed ... */
 
 /* Projects Section */
-.projects {
+.projects-section {
+  padding: 4rem 2rem;
   background-color: #1e1e1e;
-  color: white;
-  padding: 4rem 0;
-  position: relative;
-  overflow: hidden;
+  color: #fff;
 }
 
-.projects-title {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 3rem;
-  opacity: 100;
-  animation: fadeInUp 0.8s ease forwards;
-}
-
-.projects-container {
+.project-filters {
   display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 1rem;
-  margin: 0 -1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
 }
 
-.projects-container::-webkit-scrollbar {
-  display: none;
+.project-filters button {
+  background: none;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.project-filters button.active,
+.project-filters button:hover {
+  background-color: #fff;
+  color: #1e1e1e;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
 }
 
 .project-card {
-  flex: 0 0 auto;
-  width: 300px;
   background-color: #2e2e2e;
-  margin-right: 2rem;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
-}
-
-.project-image {
-  width: 100%;
-  height: 180px;
-  overflow: hidden;
-}
-
-.project-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.project-card:hover .project-image img {
-  transform: scale(1.05);
-}
-
-.project-content {
+  border-radius: 10px;
   padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
 .project-card h3 {
-  font-size: 1.25rem;
   margin-bottom: 0.5rem;
 }
 
-.project-card p {
-  font-size: 0.9rem;
-  color: #b0b0b0;
-  margin-bottom: 1rem;
-}
-
-.project-buttons {
+.project-links {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  margin-top: 1rem;
 }
 
-.btn {
-  padding: 0.5rem 1rem;
-  background-color: #3e3e3e;
-  color: white;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background-color 0.3s, transform 0.2s;
-  font-size: 0.9rem;
-  display: flex;
-  align-items: center;
-}
-
-.btn:hover {
-  background-color: #4a4a4a;
-  transform: translateY(-2px);
-}
-
-.btn-github svg {
-  margin-right: 0.5rem;
-}
-
-.scroll-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+.project-links a,
+.project-links button {
+  background: none;
   border: none;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  color: #fff;
+  font-size: 1.2rem;
+  margin-left: 0.5rem;
   cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.project-links a:hover,
+.project-links button:hover {
+  color: #00e6ff;
+}
+
+.project-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
-  align-items: center;
   justify-content: center;
-  transition: background-color 0.3s, transform 0.2s;
+  align-items: center;
+  z-index: 1000;
 }
 
-.scroll-btn:hover {
-  background-color: rgba(0, 0, 0, 0.7);
-  transform: translateY(-50%) scale(1.1);
+.project-details {
+  background-color: #2e2e2e;
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
 }
 
-.scroll-btn.left {
-  left: 1rem;
-}
-
-.scroll-btn.right {
+.close-btn {
+  position: absolute;
+  top: 1rem;
   right: 1rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.tech-stack ul {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding: 0;
+}
+
+.tech-stack li {
+  background-color: #3e3e3e;
+  color: #fff;
+  padding: 0.3rem 0.7rem;
+  border-radius: 15px;
+  margin: 0.3rem;
+}
+
+.demo-section {
+  margin-top: 2rem;
 }
 
 @media (max-width: 768px) {
-  .project-card {
-    width: 250px;
-  }
-  
-  .scroll-btn {
-    width: 32px;
-    height: 32px;
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
 }
 
