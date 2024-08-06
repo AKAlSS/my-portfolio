@@ -55,7 +55,7 @@ const FlipCard = ({ hobby, icon, description }) => {
       >
         <div className="flip-card-front">
           <span className="hobby-icon">{icon}</span>
-          <h3 className="hobby-title">{hobby}</h3>
+          <h2 className="hobby-title">{hobby}</h2>
         </div>
         <div className="flip-card-back">
           <p>{description}</p>
