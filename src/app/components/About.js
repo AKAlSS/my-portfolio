@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const AnimatedTitle = ({ text }) => {
   return (
@@ -42,17 +42,15 @@ const ScrollOpacityText = ({ text }) => {
   );
 };
 
-const HobbyItem = ({ hobby, icon, description, index }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.5 });
-  
+const HobbyItem = ({ hobby, icon, description }) => {
   return (
     <motion.div 
-      ref={ref}
       className="hobby-item"
-      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      viewport={{ once: true, amount: 0.5 }}
+      whileHover={{ scale: 1.05 }}
     >
       <div className="hobby-icon">{icon}</div>
       <div className="hobby-content">
@@ -60,29 +58,6 @@ const HobbyItem = ({ hobby, icon, description, index }) => {
         <p className="hobby-description">{description}</p>
       </div>
     </motion.div>
-  );
-};
-
-const AnimatedTimeline = () => {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-
-  const scaleProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  return (
-    <div ref={ref} className="timeline-container">
-      <motion.div 
-        className="timeline"
-        style={{ scaleY: scaleProgress }}
-      />
-    </div>
   );
 };
 
@@ -105,10 +80,9 @@ const AboutSection = () => {
       </div>
       <div className="hobbies-container">
         <h3 className="hobbies-title">My Hobbies</h3>
-        <div className="hobbies-timeline">
-          <AnimatedTimeline />
+        <div className="hobbies-list">
           {hobbies.map((hobby, index) => (
-            <HobbyItem key={index} {...hobby} index={index} />
+            <HobbyItem key={index} hobby={hobby.name} icon={hobby.icon} description={hobby.description} />
           ))}
         </div>
       </div>
