@@ -254,7 +254,8 @@ section {
 }
 
 .animated-letter:hover {
-  color: #3d3d3d;
+  color: #FFFFFF;
+  text-shadow: 0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF;
 }
 
 .section-header::after {
