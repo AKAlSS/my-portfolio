@@ -809,6 +809,10 @@ section {
 
 .flip-card-front {
   color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .flip-card-back {
@@ -818,7 +822,17 @@ section {
 
 .hobby-icon {
   font-size: 3rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.hobby-title {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  opacity: 1;
+  color: white;
+  text-align: center;
+  width: 100%;
+  word-wrap: break-word;
 }
 
 .flip-card h3 {
