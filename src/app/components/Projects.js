@@ -206,36 +206,30 @@ const ProjectShowcaseSlider = () => {
             <AnimatePresence>
               {isExpanded && (
                 <motion.div
-                  className="project-details"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h4>Detailed Description</h4>
-                  <p>{currentProject.detailedDescription}</p>
-                  {currentProject.methodology && (
-                    <>
-                      <h4>Methodology</h4>
-                      <p>{currentProject.methodology}</p>
-                    </>
-                  )}
-                  {currentProject.innovation && (
-                    <>
-                      <h4>Innovation</h4>
-                      <p>{currentProject.innovation}</p>
-                    </>
-                  )}
-                  {currentProject.achievements && (
-                    <>
-                      <h4>Key Achievements</h4>
-                      <ul>
-                        {currentProject.achievements.map((achievement, index) => (
-                          <li key={index}>{achievement}</li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
+                className="project-details"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 50 }}
+                transition={{ duration: 0.3 }}
+              >
+                <h4 style={{ color: '#FFFFFF' }}>Detailed Description</h4>
+                <p>{currentProject.detailedDescription}</p>
+                {currentProject.methodology && (
+                  <>
+                    <h4 style={{ color: '#FFFFFF' }}>Methodology</h4>
+                    <p>{currentProject.methodology}</p>
+                  </>
+                )}
+                {currentProject.achievements && (
+                  <>
+                    <h4 style={{ color: '#FFFFFF' }}>Key Achievements</h4>
+                    <ul>
+                      {currentProject.achievements.map((achievement, index) => (
+                        <li key={index}>{achievement}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
                   <div className="project-links">
                     {currentProject.github && (
                       <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
