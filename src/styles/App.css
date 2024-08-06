@@ -751,20 +751,18 @@ section {
 
 /* Content Styles */
 .about-section {
-  position: relative;
   padding: 4rem 2rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: hidden;
   background-color: #121212;
   color: #ffffff;
 }
 
 .section-header {
   font-size: 3rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.2em;
@@ -775,79 +773,91 @@ section {
   transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.interactive-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.glow {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(0,230,255,0.2) 0%, rgba(0,230,255,0) 70%);
-  border-radius: 50%;
-  pointer-events: none;
-}
-
 .about-content {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 0 auto 3rem;
   text-align: left;
-  z-index: 2;
-  position: relative;
 }
 
 .scroll-opacity-text {
-  line-height: 1.6;
+  line-height: 1.8;
   font-size: 1.1rem;
+  margin-bottom: 2rem;
 }
 
-.fade-in-word {
-  display: inline-block;
-  margin-right: 0.25rem;
+.hobbies-container {
+  width: 100%;
+  max-width: 1200px;
 }
 
-.hobby-wheel {
-  position: relative;
-  width: 300px;
+.hobbies-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.hobbies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  justify-items: center;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 250px;
   height: 300px;
-  margin-top: 3rem;
+  perspective: 1000px;
+  cursor: pointer;
 }
 
-.hobby-item {
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-front, .flip-card-back {
   position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 80px;
-  height: 80px;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-  transition: background-color 0.3s ease;
 }
 
-.hobby-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+.flip-card-front {
+  color: white;
+}
+
+.flip-card-back {
+  background-color: rgba(0, 230, 255, 0.2);
+  color: white;
+  transform: rotateY(180deg);
 }
 
 .hobby-icon {
-  font-size: 1.5rem;
-  margin-bottom: 0.5rem;
+  font-size: 3rem;
+  margin-bottom: 1rem;
 }
 
-.hobby-name {
-  font-size: 0.7rem;
-  text-align: center;
-  max-width: 70px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+@media (max-width: 768px) {
+  .hobbies-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+
+  .flip-card {
+    width: 200px;
+    height: 250px;
+  }
 }
 
 /* Scrollbar Styling */
