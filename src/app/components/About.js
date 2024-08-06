@@ -1,7 +1,8 @@
 'use client'
 
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 
 // Custom hook for scroll animations
 const useScrollAnimation = () => {
@@ -31,6 +32,22 @@ const useScrollAnimation = () => {
   }, []);
 
   return [ref, isVisible];
+};
+
+// Background shapes component
+const BackgroundShapes = () => {
+  const { scrollYProgress } = useScroll();
+  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+
+  return (
+    <div className="background-shapes">
+      <motion.div className="shape shape1" style={{ y: y1, rotate }} />
+      <motion.div className="shape shape2" style={{ y: y2 }} />
+      <motion.div className="shape shape3" style={{ y: y1, rotate }} />
+    </div>
+  );
 };
 
 const AnimatedText = ({ text }) => {
@@ -86,6 +103,27 @@ const HobbyItem = ({ hobby, description, icon }) => {
 };
 
 const AboutSection = () => {
+  const [backgroundColor, setBackgroundColor] = useState('rgb(18, 18, 18)');
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const sectionHeight = sectionRef.current.offsetHeight;
+      const scrollPercentage = scrollPosition / sectionHeight;
+      
+      // Gradient transition from dark to slightly lighter
+      const r = Math.floor(18 + (scrollPercentage * 20));
+      const g = Math.floor(18 + (scrollPercentage * 20));
+      const b = Math.floor(18 + (scrollPercentage * 20));
+      
+      setBackgroundColor(`rgb(${r}, ${g}, ${b})`);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const sections = [
     "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt.",
     "I like getting my hands dirty and find things out the hard way.",
@@ -102,32 +140,44 @@ const AboutSection = () => {
     { hobby: "Psychology, Neuroscience, Philosophy, History, Religion", description: "The more I learn the more I realize how stupid I am", icon: "🧠" }
   ];
 
-  const [titleRef, isTitleVisible] = useScrollAnimation();
-
   return (
-    <section className="about-section">
-      <motion.h2
-        ref={titleRef}
-        className="about-title"
-        initial={{ opacity: 0, y: -50 }}
-        animate={isTitleVisible ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5 }}
-      >
-        About Me
-      </motion.h2>
-      <div className="about-content">
-        {sections.map((text, index) => (
-          <AnimatedText key={index} text={text} />
-        ))}
-      </div>
-      <div className="hobbies-section">
-        <h3>My Hobbies</h3>
-        {hobbies.map((hobby, index) => (
-          <HobbyItem key={index} {...hobby} />
-        ))}
-      </div>
-      <AnimatedText text="Come back soon! 👋" />
-    </section>
+    <ParallaxProvider>
+      <section className="about-section" ref={sectionRef} style={{ backgroundColor }}>
+        <BackgroundShapes />
+        
+        <Parallax speed={-5}>
+          <motion.h2
+            className="about-title"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            About Me
+          </motion.h2>
+        </Parallax>
+
+        <div className="about-content">
+          {sections.map((text, index) => (
+            <Parallax key={index} speed={5}>
+              <AnimatedText text={text} />
+            </Parallax>
+          ))}
+        </div>
+
+        <Parallax speed={10}>
+          <div className="hobbies-section">
+            <h3>My Hobbies</h3>
+            {hobbies.map((hobby, index) => (
+              <HobbyItem key={index} {...hobby} />
+            ))}
+          </div>
+        </Parallax>
+
+        <Parallax speed={-5}>
+          <AnimatedText text="Come back soon! 👋" />
+        </Parallax>
+      </section>
+    </ParallaxProvider>
   );
 };
 
