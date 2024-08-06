@@ -1,24 +1,28 @@
 'use client'
 
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 
 const AnimatedTitle = ({ text }) => {
   return (
     <h2 className="section-header">
-      {text.split('').map((letter, index) => (
-        <motion.span
-          key={index}
-          className="animated-letter"
-          whileHover={{ 
-            scale: 1.2, 
-            color: '#00e6ff',
-            textShadow: '0 0 10px #00e6ff, 0 0 20px #00e6ff, 0 0 30px #00e6ff',
-            transition: { duration: 0.1 }
-          }}
-        >
-          {letter}
-        </motion.span>
+      {text.split(' ').map((word, wordIndex) => (
+        <span key={wordIndex} className="word-wrapper">
+          {word.split('').map((letter, letterIndex) => (
+            <motion.span
+              key={letterIndex}
+              className="animated-letter"
+              whileHover={{ 
+                scale: 1.2, 
+                color: '#00e6ff',
+                textShadow: '0 0 10px #00e6ff, 0 0 20px #00e6ff, 0 0 30px #00e6ff',
+                transition: { duration: 0.1 }
+              }}
+            >
+              {letter}
+            </motion.span>
+          ))}
+        </span>
       ))}
     </h2>
   );
@@ -38,23 +42,15 @@ const ScrollOpacityText = ({ text }) => {
   );
 };
 
-
-
-
 const FlipCard = ({ hobby, icon, description }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
   return (
     <motion.div 
       className="flip-card"
       whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={() => setIsFlipped(!isFlipped)}
     >
       <motion.div 
         className="flip-card-inner"
-        initial={false}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
+        whileHover={{ rotateY: 180 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
         <div className="flip-card-front">
@@ -69,19 +65,42 @@ const FlipCard = ({ hobby, icon, description }) => {
   );
 };
 
+const BackgroundAnimation = () => {
+  return (
+    <div className="background-animation">
+      {[...Array(20)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="floating-particle"
+          animate={{
+            x: [0, Math.random() * 100 - 50],
+            y: [0, Math.random() * 100 - 50],
+          }}
+          transition={{
+            duration: Math.random() * 10 + 10,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const AboutSection = () => {
   const aboutText = "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and finding things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this I appreciate that, I would also like to let you know that I stole 15 seconds of your time. If you want it back, just shoot me a message.";
 
   const hobbies = [
-    { hobby: "BJJ, Kickboxing, MMA", icon: "🥋", description: "It's pretty cool I guess 🤷‍♂️😏" },
-    { hobby: "Hockey, Soccer, Basketball", icon: "⚽", description: "Something I typically look forward to, keeps me fresh" },
-    { hobby: "Running, Gym", icon: "🏃", description: "This makes me happy" },
-    { hobby: "Games", icon: "🎮", description: "You'd think this helps me relax but it's actually the complete opposite" },
-    { hobby: "Psychology, Neuroscience", icon: "🧠", description: "The more I learn the more I realize how stupid I am" },
+    { hobby: "Martial Arts", icon: "🥋", description: "BJJ, Kickboxing, MMA - It's pretty cool I guess 🤷‍♂️😏" },
+    { hobby: "Team Sports", icon: "⚽", description: "Hockey, Soccer, Basketball - Something I typically look forward to, keeps me fresh" },
+    { hobby: "Fitness", icon: "🏃", description: "Running, Gym - This makes me happy" },
+    { hobby: "Gaming", icon: "🎮", description: "You'd think this helps me relax but it's actually the complete opposite" },
+    { hobby: "Brain Science", icon: "🧠", description: "Psychology, Neuroscience - The more I learn the more I realize how stupid I am" },
   ];
 
   return (
     <section className="about-section">
+      <BackgroundAnimation />
       <AnimatedTitle text="ABOUT ME" />
       <div className="about-content">
         <ScrollOpacityText text={aboutText} />
