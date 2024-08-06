@@ -57,10 +57,6 @@ body, html {
   box-shadow: 0 0 10px #FFFFFF;
 }
 
-.nav-link:hover {
-  color: #00e6ff;
-}
-
 .nav-link:hover::after {
   width: 100%;
   left: 0;
@@ -494,8 +490,8 @@ section {
 }
 
 .animated-letter:hover {
-  color: #00e6ff;
-  text-shadow: 0 0 10px #00e6ff, 0 0 20px #00e6ff, 0 0 30px #00e6ff;
+  color: #ffffff;
+  text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
 
 .slider-container {
@@ -526,7 +522,7 @@ section {
 
 .project-slide:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 230, 255, 0.2);
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.2);
 }
 
 .project-info {
@@ -558,8 +554,8 @@ section {
 }
 
 .tag {
-  background-color: rgba(0, 230, 255, 0.2);
-  color: #fff;
+  background-color: #E0E0E0;
+  color: #000000;
   padding: 0.3rem 0.6rem;
   border-radius: 20px;
   font-size: 0.9rem;
@@ -569,8 +565,8 @@ section {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 230, 255, 0.1);
-  color: #fff;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
   border: none;
   width: 60px;
   height: 60px;
@@ -584,9 +580,13 @@ section {
 }
 
 .nav-btn:hover {
-  background-color: rgba(0, 230, 255, 0.3);
-  box-shadow: 0 0 20px rgba(0, 230, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
   transform: translateY(-50%) scale(1.1);
+}
+
+.nav-btn:hover svg {
+  color: #000000;
 }
 
 .nav-btn.prev {
@@ -608,14 +608,14 @@ section {
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.795);
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .progress-dot.active {
-  background-color: #00e6ff;
-  box-shadow: 0 0 10px #00e6ff, 0 0 20px #00e6ff;
+  background-color: #000000;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff;
 }
 
 .project-details {
@@ -989,12 +989,7 @@ section {
   opacity: 1;
 }
 
-/* Hover and Click Effects */
-a:hover, button:hover {
-  color: #00e6ff;
-  text-decoration: underline;
-  transform: scale(1.05);
-}
+
 
 a:active, button:active {
   transform: scale(0.95);
