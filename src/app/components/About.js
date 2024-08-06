@@ -1,61 +1,104 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Parallax } from 'react-scroll-parallax';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const hobbies = [
-  { icon: '🥋', name: 'BJJ, Kickboxing, MMA', description: "It's pretty cool I guess 🤷‍♂️😏" },
-  { icon: '⚽', name: 'Hockey, Soccer, Basketball', description: "Something I typically look forward to, keeps me fresh." },
-  { icon: '🏃', name: 'Running, Gym', description: "Some people hate running but it's something I do every single day." },
-  { icon: '🎮', name: 'Games', description: "You'd think this helps me relax but it's actually the complete opposite." },
-  { icon: '🧠', name: 'Psychology, Neuroscience, Philosophy, History, Religion', description: "The more I learn the more I realize how stupid I am." }
-];
+const KineticTypography = () => {
+  const [words, setWords] = useState([]);
+  const [animationState, setAnimationState] = useState('initial');
+  const text = "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt.";
 
-const HobbyIcon = ({ hobby }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  useEffect(() => {
+    setWords(text.split(' '));
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.08 },
+    },
+    scattered: {
+      transition: { staggerChildren: 0.05 },
+    },
+    spiral: {
+      transition: { staggerChildren: 0.03, delayChildren: 0.5 },
+    },
+  };
+
+  const wordVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { type: 'spring', damping: 12, stiffness: 200 },
+    },
+    scattered: (i) => ({
+      x: Math.random() * 800 - 400,
+      y: Math.random() * 300 - 150,
+      rotate: Math.random() * 360,
+      transition: { type: 'spring', damping: 10, stiffness: 100 },
+    }),
+    spiral: (i) => {
+      const angle = i * 0.5;  // Adjust this value to change the spiral tightness
+      const radius = 5 * i;   // Adjust this value to change the spiral size
+      return {
+        x: radius * Math.cos(angle),
+        y: radius * Math.sin(angle),
+        rotate: angle * (180 / Math.PI),
+        scale: 1 - i * 0.02,  // Makes words smaller as they go out
+        transition: { type: 'spring', damping: 15, stiffness: 150 },
+      };
+    },
+  };
+
+  useEffect(() => {
+    const sequence = async () => {
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setAnimationState('scattered');
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setAnimationState('spiral');
+    };
+    sequence();
+  }, []);
 
   return (
-    <motion.div
-      className="hobby-icon"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ scale: 1.05 }}
-    >
-      <span className="icon">{hobby.icon}</span>
-      <span className="name">{hobby.name}</span>
-      {isHovered && (
+    <section className="about-section">
+      <motion.h2
+        className="about-title"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        About Me
+      </motion.h2>
+      <div className="about-paragraph">
         <motion.div
-          className="description"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate={animationState}
         >
-          {hobby.description}
+          <AnimatePresence>
+            {words.map((word, index) => (
+              <motion.span
+                key={word + index}
+                className="about-word"
+                variants={wordVariants}
+                custom={index}
+                whileHover={{
+                  scale: 1.2,
+                  color: '#00a8ff',
+                  transition: { duration: 0.2 },
+                }}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </AnimatePresence>
         </motion.div>
-      )}
-    </motion.div>
-  );
-};
-
-export default function About() {
-  return (
-    <section className="about" id="about">
-      <Parallax translateY={[-20, 20]}>
-        <h2>About Me</h2>
-      </Parallax>
-      <Parallax translateY={[-10, 10]} speed={-3}>
-        <p className="about-intro">
-          I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and find things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this I appreciate that, I would also like to let you know that I stole 15 seconds of your time. If you want it back, just shoot me a message.
-        </p>
-      </Parallax>
-      <div className="hobbies-container">
-        {hobbies.map((hobby, index) => (
-          <Parallax key={index} translateY={[20, -20]} speed={-2}>
-            <HobbyIcon hobby={hobby} />
-          </Parallax>
-        ))}
       </div>
     </section>
   );
-}
+};
+
+export default KineticTypography;

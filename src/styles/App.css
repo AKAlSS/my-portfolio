@@ -684,94 +684,37 @@ section {
 }
 
 /* About Section */
-.about {
+.about-section {
+  background-color: #121212;
+  color: #ffffff;
   padding: 4rem 2rem;
-  background-color: #1e1e1e;
-  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
-.about h2 {
-  font-size: 2.5rem;
-  text-align: center;
+.about-title {
+  font-size: 3rem;
   margin-bottom: 2rem;
 }
 
-.about-intro {
-  max-width: 800px;
-  margin: 0 auto 3rem;
-  font-size: 1.1rem;
+.about-paragraph {
+  font-size: 1.2rem;
   line-height: 1.6;
-  text-align: center;
-}
-
-.hobbies-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2rem;
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
-}
-
-.hobby-icon {
-  width: 200px;
-  height: 200px;
-  background-color: #2e2e2e;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
+  height: 300px;
   position: relative;
-  overflow: hidden;
-  cursor: pointer;
 }
 
-.hobby-icon .icon {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
-}
-
-.hobby-icon .name {
-  font-size: 1rem;
-  text-align: center;
-  font-weight: bold;
-}
-
-.hobby-icon .description {
+.about-word {
+  display: inline-block;
+  margin-right: 0.25rem;
+  cursor: default;
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  text-align: center;
-  font-size: 0.9rem;
-}
-
-@media (max-width: 768px) {
-  .hobby-icon {
-    width: 150px;
-    height: 150px;
-  }
-
-  .hobby-icon .icon {
-    font-size: 2.5rem;
-  }
-
-  .hobby-icon .name {
-    font-size: 0.9rem;
-  }
-
-  .hobby-icon .description {
-    font-size: 0.8rem;
-  }
 }
 
 
