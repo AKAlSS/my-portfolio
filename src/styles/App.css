@@ -39,7 +39,7 @@ body, html {
   color: #fff;
   text-decoration: none;
   font-size: 16px;
-  padding: 10px 15px;
+  padding: 10px 150px; /* Increased horizontal padding */
   position: relative;
   transition: color 0.3s ease;
 }
@@ -57,6 +57,7 @@ body, html {
 }
 
 .nav-link:hover::after {
+  background-color: #121212;
   width: 100%;
   left: 0;
 }
