@@ -33,6 +33,12 @@ body, html {
   height: 60px;
 }
 
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .logo a {
   color: #fff;
   text-decoration: none;
@@ -75,18 +81,19 @@ body, html {
   left: 0;
 }
 
-.cv-link {
+.cv-button {
   background-color: #FFFFFF;
   color: #121212;
   border-radius: 5px;
   padding: 8px 15px;
+  text-decoration: none;
   transition: all 0.3s ease;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  font-size: 16px;
 }
 
-.cv-link:hover {
-  background-color: #fff;
-  color: #121212;
+.cv-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
 }
 
 .mobile-menu-button {
@@ -96,6 +103,7 @@ body, html {
   color: #fff;
   font-size: 24px;
   cursor: pointer;
+  padding: 0;
 }
 
 @media (max-width: 768px) {
@@ -130,9 +138,13 @@ body, html {
     padding: 15px 0;
   }
 
-  .cv-link {
-    display: inline-block;
-    margin-top: 10px;
+  .cv-button {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px 12px;
+    font-size: 14px;
   }
 }
 
