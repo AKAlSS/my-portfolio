@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
+import ProjectShowcaseSlider from './components/ProjectShowcaseSlider';
 
 const Header = dynamic(() => import('./components/Header'), { ssr: false });
 const Hero = dynamic(() => import('./components/Hero'), { ssr: false });
@@ -15,6 +16,7 @@ export default function Home() {
         <Header />
         <Hero />
         <Services />
+        <ProjectShowcaseSlider />
         <Projects />
         <About />
         <Contact />
