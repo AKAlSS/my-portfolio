@@ -177,7 +177,6 @@ const AboutSection = () => {
         </Parallax>
 
         <Parallax speed={-5}>
-          <AnimatedText text="Come back soon! 👋" />
         </Parallax>
       </section>
     </ParallaxProvider>
