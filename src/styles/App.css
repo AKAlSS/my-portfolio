@@ -39,7 +39,8 @@ body, html {
   color: #fff;
   text-decoration: none;
   font-size: 16px;
-  padding: 10px 150px; /* Increased horizontal padding */
+  padding: 10px 50px;
+  margin: 0 50px; /* Add margin for spacing */
   position: relative;
   transition: color 0.3s ease;
 }
@@ -84,6 +85,7 @@ body, html {
   .nav-link {
     font-size: 16px;
     padding: 10px 5px;
+    margin: 0 10px; /* Adjust margin for smaller screens */
   }
 }
 

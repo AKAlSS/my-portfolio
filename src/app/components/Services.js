@@ -67,6 +67,7 @@ const ServiceCard = ({ title, details, isExpanded, onClick }) => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20, transition: { duration: 0.5, ease: "easeInOut" } }}
                 transition={{ delay: index * 0.1 }}
               >
                 {detail}
