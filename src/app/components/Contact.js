@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaEnvelope, FaGithub, FaClock } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaFileDownload, FaClock } from 'react-icons/fa';
 
-export default function Contact() {
+export default function Footer() {
   const [time, setTime] = useState('');
 
   useEffect(() => {
@@ -16,17 +16,21 @@ export default function Contact() {
   return (
     <footer className="footer" id="contact">
       <div className="footer-content">
-        <div className="footer-item">
+        <a href="mailto:ahmadkkaiss@gmail.com" className="footer-item">
           <FaEnvelope className="footer-icon" />
-          <a href="mailto:ahmadkkaiss@gmail.com">ahmadkkaiss@gmail.com</a>
-        </div>
-        <div className="footer-item">
+          <span>ahmadkkaiss@gmail.com</span>
+        </a>
+        <a href="https://github.com/AKAlSS" target="_blank" rel="noopener noreferrer" className="footer-item">
           <FaGithub className="footer-icon" />
-          <a href="https://github.com/AKAlSS" target="_blank" rel="noopener noreferrer">github.com/AKAlSS</a>
-        </div>
+          <span>github.com/AKAlSS</span>
+        </a>
+        <a href="/path-to-your-cv.pdf" download className="footer-item">
+          <FaFileDownload className="footer-icon" />
+          <span>Download CV</span>
+        </a>
         <div className="footer-item">
           <FaClock className="footer-icon" />
-          <span>{time}</span>
+          <span>Open for work | {time} EST</span>
         </div>
       </div>
       <div className="copyright">© 2023 Ahmad Kaiss. All rights reserved.</div>
