@@ -3,6 +3,59 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const HandsAnimation = () => {
+  const [showHands, setShowHands] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowHands(true), 9000); // Start after seesaw animation
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handPath = "M10,50 Q25,40 40,50 Q50,60 60,50 Q75,40 90,50 L90,90 Q75,80 60,90 Q50,100 40,90 Q25,80 10,90 Z";
+  const handprintPath = "M20,20 Q40,10 60,20 Q80,30 100,20 V80 Q80,70 60,80 Q40,90 20,80 Z";
+
+  return (
+    <motion.div 
+      className="hands-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: showHands ? 1 : 0 }}
+      transition={{ duration: 1 }}
+    >
+      <svg width="200" height="200" viewBox="0 0 100 100">
+        <motion.path
+          d={handPath}
+          fill="#00a8ff"
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: showHands ? 0 : 100, opacity: showHands ? 1 : 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+        />
+        <motion.path
+          d={handprintPath}
+          fill="#00a8ff"
+          initial={{ scale: 0, opacity: 0 }}
+          animate={{ 
+            scale: showHands ? [0, 1.2, 1] : 0, 
+            opacity: showHands ? 1 : 0,
+            transition: { 
+              duration: 1, 
+              delay: 1.5,
+              times: [0, 0.8, 1]
+            }
+          }}
+        />
+      </svg>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: showHands ? 1 : 0, y: showHands ? 0 : 20 }}
+        transition={{ duration: 0.5, delay: 2.5 }}
+      >
+        I like getting my hands dirty
+      </motion.p>
+    </motion.div>
+  );
+};
+
+
 const SeesawAnimation = () => {
   const [seesaw, setSeesaw] = useState(false);
 
@@ -125,6 +178,7 @@ const KineticTypography = () => {
           </AnimatePresence>
         </motion.div>
         <SeesawAnimation />
+        <HandsAnimation />
       </div>
     </section>
   );
