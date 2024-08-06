@@ -99,23 +99,23 @@ const hobbies = [
   { icon: '🧠', name: 'Psychology, Neuroscience, Philosophy, History, Religion', description: "The more I learn the more I realize how stupid I am." }
 ];
 
-  return (
-    <section className="about-section">
-      <BackgroundAnimation />
-      <AnimatedTitle text="ABOUT ME" />
-      <div className="about-content">
-        <ScrollOpacityText text={aboutText} />
+return (
+  <section className="about-section">
+    <BackgroundAnimation />
+    <AnimatedTitle text="ABOUT ME" />
+    <div className="about-content">
+      <ScrollOpacityText text={aboutText} />
+    </div>
+    <div className="hobbies-container">
+      <h3 className="hobbies-title" style={{ opacity: 1 }}>My Hobbies</h3>
+      <div className="hobbies-grid">
+        {hobbies.map((hobby, index) => (
+          <FlipCard key={index} {...hobby} />
+        ))}
       </div>
-      <div className="hobbies-container">
-        <h3 className="hobbies-title">My Hobbies</h3>
-        <div className="hobbies-grid">
-          {hobbies.map((hobby, index) => (
-            <FlipCard key={index} {...hobby} />
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+    </div>
+  </section>
+);
 };
 
 export default AboutSection;
