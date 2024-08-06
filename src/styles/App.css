@@ -57,7 +57,6 @@ body, html {
 }
 
 .nav-link:hover::after {
-  background-color: #121212;
   width: 100%;
   left: 0;
 }
