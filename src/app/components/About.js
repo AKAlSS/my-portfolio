@@ -46,7 +46,7 @@ export default function About() {
       </Parallax>
       <Parallax translateY={[-10, 10]} speed={-3}>
         <p className="about-intro">
-          I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I tend to enjoy (not really) finding things out the hard way and that seems to be a consistent theme throughout my hobbies. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this I appreciate that, I would also like to let you know that I stole 20 seconds of your time. If you want it back, just shoot me a message.
+          I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and find things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this I appreciate that, I would also like to let you know that I stole 15 seconds of your time. If you want it back, just shoot me a message.
         </p>
       </Parallax>
       <div className="hobbies-container">
