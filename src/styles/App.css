@@ -52,8 +52,9 @@ body, html {
   height: 2px;
   bottom: 0;
   left: 50%;
-  background-color: #00e6ff;
+  background-color: #FFFFFF;
   transition: all 0.3s ease;
+  box-shadow: 0 0 10px #FFFFFF;
 }
 
 .nav-link:hover {
