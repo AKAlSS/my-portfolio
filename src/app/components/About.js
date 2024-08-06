@@ -1,7 +1,7 @@
 'use client'
 
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const AnimatedTitle = ({ text }) => {
   return (
@@ -42,29 +42,33 @@ const ScrollOpacityText = ({ text }) => {
   );
 };
 
-const FlipCard = ({ hobby, icon, description }) => {
+const HobbyCard = ({ hobby, icon, description }) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
   return (
     <motion.div 
-      className="flip-card"
+      className="hobby-card"
       whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      onClick={() => setIsFlipped(!isFlipped)}
     >
       <motion.div 
-        className="flip-card-inner"
-        whileHover={{ rotateY: 180 }}
+        className="hobby-card-inner"
+        initial={false}
+        animate={{ rotateY: isFlipped ? 180 : 0 }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
-        <div className="flip-card-front">
+        <div className="hobby-card-front">
           <span className="hobby-icon">{icon}</span>
-          <p className="hobby-title">{hobby}</p> {/* Added this line */}
+          <h3 className="hobby-title">{hobby}</h3>
         </div>
-        <div className="flip-card-back">
+        <div className="hobby-card-back">
           <p>{description}</p>
         </div>
       </motion.div>
     </motion.div>
   );
 };
-
 
 const BackgroundAnimation = () => {
   return (
@@ -91,31 +95,43 @@ const BackgroundAnimation = () => {
 const AboutSection = () => {
   const aboutText = "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and finding things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this I appreciate that, I would also like to let you know that I stole 15 seconds of your time. If you want it back, just shoot me a message.";
 
-const hobbies = [
-  { icon: '🥋', name: 'BJJ, Kickboxing, MMA', description: "It's pretty cool I guess 🤷‍♂️😏" },
-  { icon: '⚽', name: 'Hockey, Soccer, Basketball', description: "Something I typically look forward to, keeps me fresh." },
-  { icon: '🏃', name: 'Running, Gym', description: "Some people hate running but it's something I do every single day." },
-  { icon: '🎮', name: 'Games', description: "You'd think this helps me relax but it's actually the complete opposite." },
-  { icon: '🧠', name: 'Psychology, Neuroscience, Philosophy, History, Religion', description: "The more I learn the more I realize how stupid I am." }
-];
+  const hobbies = [
+    { icon: '🥋', name: 'BJJ, Kickboxing, MMA', description: "It's pretty cool I guess 🤷‍♂️😏" },
+    { icon: '⚽', name: 'Hockey, Soccer, Basketball', description: "Something I typically look forward to, keeps me fresh." },
+    { icon: '🏃', name: 'Running, Gym', description: "Some people hate running but it's something I do every single day." },
+    { icon: '🎮', name: 'Games', description: "You'd think this helps me relax but it's actually the complete opposite." },
+    { icon: '🧠', name: 'Psychology, Neuroscience, Philosophy, History, Religion', description: "The more I learn the more I realize how stupid I am." }
+  ];
 
-return (
-  <section className="about-section">
-    <BackgroundAnimation />
-    <AnimatedTitle text="ABOUT ME" />
-    <div className="about-content">
-      <ScrollOpacityText text={aboutText} />
-    </div>
-    <div className="hobbies-container">
-      <h3 className="hobbies-title" style={{ opacity: 1 }}>My Hobbies</h3>
-      <div className="hobbies-grid">
-        {hobbies.map((hobby, index) => (
-          <FlipCard key={index} {...hobby} />
-        ))}
+  return (
+    <section className="about-section">
+      <BackgroundAnimation />
+      <AnimatedTitle text="ABOUT ME" />
+      <div className="about-content">
+        <ScrollOpacityText text={aboutText} />
       </div>
-    </div>
-  </section>
-);
+      <div className="hobbies-container">
+        <h3 className="hobbies-title">My Hobbies</h3>
+        <motion.div 
+          className="hobbies-grid"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.5, staggerChildren: 0.1 }}
+        >
+          {hobbies.map((hobby, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <HobbyCard {...hobby} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default AboutSection;
