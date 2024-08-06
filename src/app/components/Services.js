@@ -57,15 +57,15 @@ const ServiceCard = ({ title, details, isExpanded, onClick }) => {
       <AnimatePresence>
         {isExpanded ? (
           <motion.ul
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.5, ease: "easeInOut" }}
           >
             {details.map((detail, index) => (
               <motion.li
                 key={index}
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
@@ -148,7 +148,8 @@ const AnimatedTitle = ({ text }) => {
           className="animated-letter"
           whileHover={{ 
             scale: 1.2, 
-            color: '#414141',
+            color: '#FFFFFF',
+            textShadow: '0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF',
             transition: { duration: 0.1 }
           }}
         >
