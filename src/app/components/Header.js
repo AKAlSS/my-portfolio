@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa';
 
@@ -8,6 +8,7 @@ export default function Header() {
   const [isVisible, setIsVisible] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,8 +17,19 @@ export default function Header() {
       setPrevScrollPos(currentScrollPos);
     };
 
+    const handleClickOutside = (event) => {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, [prevScrollPos]);
 
   const toggleMobileMenu = () => {
@@ -34,13 +46,15 @@ export default function Header() {
           <Link href="#hero">AK</Link>
         </div>
         <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
-        <ul className={`nav-list ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          <li><Link href="#hero" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-          <li><Link href="#services" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Services</Link></li>
-          <li><Link href="#projects" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Projects</Link></li>
-          <li><Link href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
-          <li><Link href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
-        </ul>
+        <div className={`nav-list-container ${isMobileMenuOpen ? 'mobile-open' : ''}`} ref={mobileMenuRef}>
+          <ul className="nav-list">
+            <li><Link href="#hero" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
+            <li><Link href="#services" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Services</Link></li>
+            <li><Link href="#projects" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Projects</Link></li>
+            <li><Link href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
+            <li><Link href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
+          </ul>
+        </div>
       </nav>
     </header>
   );
