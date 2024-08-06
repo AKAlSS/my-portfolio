@@ -38,6 +38,9 @@ const ScrollOpacityText = ({ text }) => {
   );
 };
 
+
+
+
 const FlipCard = ({ hobby, icon, description }) => {
   const [isFlipped, setIsFlipped] = useState(false);
 
