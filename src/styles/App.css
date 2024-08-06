@@ -724,85 +724,96 @@ section {
 
 .hobbies-title {
   font-size: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 3.3rem;
+  opacity: 100;
   text-align: center;
 }
 
-.hobbies-list {
+.hobbies-grid {
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
 }
 
-.hobby-item {
+.hobby-icon-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 15px;
-  padding: 1.5rem;
+  width: 120px;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.hobby-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+.hobby-icon-wrapper:hover {
+  transform: translateY(-5px);
 }
 
 .hobby-icon {
-  font-size: 2.5rem;
-  margin-right: 1.5rem;
-  background-color: rgba(255, 255, 255, 0.15);
+  font-size: 3rem;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: all 0.3s ease;
-}
-
-.hobby-item:hover .hobby-icon {
-  transform: scale(1.1) rotate(5deg);
-}
-
-.hobby-content {
-  flex: 1;
-}
-
-.hobby-title {
-  font-size: 1.4rem;
   margin-bottom: 0.5rem;
-  color: #00e6ff;
   transition: all 0.3s ease;
 }
 
-.hobby-item:hover .hobby-title {
-  transform: translateX(5px);
+.hobby-icon-wrapper:hover .hobby-icon {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.hobby-name {
+  font-size: 0.9rem;
+  text-align: center;
+  opacity: 100;
+  margin-bottom: 0.5rem;
 }
 
 .hobby-description {
-  font-size: 1rem;
+  font-size: 0.8rem;
+  text-align: center;
   color: rgba(255, 255, 255, 0.8);
+  max-width: 200px;
+  overflow: hidden;
 }
 
+/* Mobile Styles */
 @media (max-width: 768px) {
-  .hobby-item {
+  .hobbies-carousel {
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: center;
+    align-items: center;
+    width: 100%;
   }
 
-  .hobby-icon {
-    margin-right: 0;
-    margin-bottom: 1rem;
+  .hobby-icon-wrapper {
+    width: 100%;
+    max-width: 200px;
   }
 
-  .hobby-title {
-    font-size: 1.2rem;
+  .carousel-indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
   }
 
-  .hobby-description {
-    font-size: 0.9rem;
+  .indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .indicator.active {
+    background-color: rgba(255, 255, 255, 0.8);
   }
 }
 
