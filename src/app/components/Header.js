@@ -27,6 +27,7 @@ export default function Header() {
           <li><Link href="#projects" className="nav-link">Projects</Link></li>
           <li><Link href="#about" className="nav-link">About</Link></li>
           <li><Link href="#contact" className="nav-link">Contact</Link></li>
+          <li><a href="/path-to-your-cv.pdf" download className="nav-link cv-link">CV</a></li>
         </ul>
       </nav>
     </header>

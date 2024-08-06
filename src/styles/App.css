@@ -815,7 +815,7 @@ section {
   width: 200px;
   height: 250px;
   perspective: 1000px;
-  cursor: pointer;
+  margin: 1rem;
 }
 
 .flip-card-inner {
@@ -838,7 +838,7 @@ section {
   align-items: center;
   padding: 1rem;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -848,7 +848,6 @@ section {
 
 .flip-card-back {
   background-color: rgba(0, 230, 255, 0.2);
-  color: white;
   transform: rotateY(180deg);
 }
 
@@ -874,8 +873,8 @@ section {
 
 .floating-particle {
   position: absolute;
-  width: 10px;
-  height: 10px;
+  width: 5px;
+  height: 5px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 50%;
 }
