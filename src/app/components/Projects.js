@@ -13,7 +13,7 @@ const AnimatedTitle = ({ text }) => {
           className="animated-letter"
           whileHover={{ 
             scale: 1.2, 
-            color: '#00e6ff',
+            color: '#ffffff',
             textShadow: '0 0 10px #00e6ff, 0 0 20px #00e6ff, 0 0 30px #00e6ff',
             transition: { duration: 0.1 }
           }}
