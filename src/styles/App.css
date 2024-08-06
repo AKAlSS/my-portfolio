@@ -758,6 +758,8 @@ section {
   align-items: center;
   background-color: #121212;
   color: #ffffff;
+  position: relative;
+  overflow: hidden;
 }
 
 .section-header {
@@ -766,6 +768,11 @@ section {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.2em;
+}
+
+.word-wrapper {
+  display: inline-block;
+  margin-right: 0.5rem;
 }
 
 .animated-letter {
@@ -778,9 +785,6 @@ section {
   margin: 0 auto 3rem;
   text-align: left;
 }
-
-
-
 
 .scroll-opacity-text {
   line-height: 1.8;
@@ -800,16 +804,16 @@ section {
 }
 
 .hobbies-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  justify-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .flip-card {
   background-color: transparent;
-  width: 250px;
-  height: 300px;
+  width: 200px;
+  height: 250px;
   perspective: 1000px;
   cursor: pointer;
 }
@@ -834,7 +838,8 @@ section {
   align-items: center;
   padding: 1rem;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .flip-card-front {
@@ -852,14 +857,39 @@ section {
   margin-bottom: 1rem;
 }
 
-@media (max-width: 768px) {
-  .hobbies-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+.flip-card h3 {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
 
+.background-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.floating-particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+
+@media (max-width: 1024px) {
+  .hobbies-grid {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
   .flip-card {
-    width: 200px;
-    height: 250px;
+    width: 180px;
+    height: 220px;
   }
 }
 
