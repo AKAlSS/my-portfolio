@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useRef, useEffect } from 'react';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 
 const AnimatedTitle = ({ text }) => {
   return (
@@ -42,52 +42,46 @@ const ScrollOpacityText = ({ text }) => {
   );
 };
 
-const HobbyCard = ({ hobby, icon, description }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
-
+const HobbyItem = ({ hobby, icon, description, index }) => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.5 });
+  
   return (
     <motion.div 
-      className="hobby-card"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      onClick={() => setIsFlipped(!isFlipped)}
+      ref={ref}
+      className="hobby-item"
+      initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+      animate={isInView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
     >
-      <motion.div 
-        className="hobby-card-inner"
-        initial={false}
-        animate={{ rotateY: isFlipped ? 180 : 0 }}
-        transition={{ duration: 0.6, ease: "easeInOut" }}
-      >
-        <div className="hobby-card-front">
-          <span className="hobby-icon">{icon}</span>
-          <h3 className="hobby-title">{hobby}</h3>
-        </div>
-        <div className="hobby-card-back">
-          <p>{description}</p>
-        </div>
-      </motion.div>
+      <div className="hobby-icon">{icon}</div>
+      <div className="hobby-content">
+        <h3 className="hobby-title">{hobby}</h3>
+        <p className="hobby-description">{description}</p>
+      </div>
     </motion.div>
   );
 };
 
-const BackgroundAnimation = () => {
+const AnimatedTimeline = () => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+
+  const scaleProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
-    <div className="background-animation">
-      {[...Array(20)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="floating-particle"
-          animate={{
-            x: [0, Math.random() * 100 - 50],
-            y: [0, Math.random() * 100 - 50],
-          }}
-          transition={{
-            duration: Math.random() * 10 + 10,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-      ))}
+    <div ref={ref} className="timeline-container">
+      <motion.div 
+        className="timeline"
+        style={{ scaleY: scaleProgress }}
+      />
     </div>
   );
 };
@@ -105,30 +99,18 @@ const AboutSection = () => {
 
   return (
     <section className="about-section">
-      <BackgroundAnimation />
       <AnimatedTitle text="ABOUT ME" />
       <div className="about-content">
         <ScrollOpacityText text={aboutText} />
       </div>
       <div className="hobbies-container">
         <h3 className="hobbies-title">My Hobbies</h3>
-        <motion.div 
-          className="hobbies-grid"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, staggerChildren: 0.1 }}
-        >
+        <div className="hobbies-timeline">
+          <AnimatedTimeline />
           {hobbies.map((hobby, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-            >
-              <HobbyCard {...hobby} />
-            </motion.div>
+            <HobbyItem key={index} {...hobby} index={index} />
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
