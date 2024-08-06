@@ -134,6 +134,11 @@ const ProjectCard = ({ project }) => {
   return (
     <motion.div 
       className={`project-card ${isExpanded ? 'expanded' : ''}`}
+      style={{
+        backgroundImage: `linear-gradient(rgba(46, 46, 46, 0.8), rgba(46, 46, 46, 0.8)), url(${project.backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
+      }}
       layout
       transition={{ duration: 0.3, layout: { duration: 0.3 } }}
       onClick={toggleExpand}
@@ -234,6 +239,15 @@ const ProjectsSection = () => {
 
   return (
     <section className="projects-section" id="projects">
+      {[...Array(20)].map((_, i) => (
+        <div key={i} className="particle" style={{
+          top: `${Math.random() * 100}%`,
+          left: `${Math.random() * 100}%`,
+          width: `${Math.random() * 4 + 1}px`,
+          height: `${Math.random() * 4 + 1}px`,
+          animationDelay: `${Math.random() * 5}s`
+        }} />
+      ))}
       <AnimatedTitle text="PROJECTS" />
       
       <div className="projects-subsection">

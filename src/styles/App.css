@@ -455,8 +455,15 @@ section {
 /* Projects Section */
 .projects-section {
   padding: 4rem 2rem;
-  background-color: #1e1e1e;
+  background: linear-gradient(
+    to bottom,
+    rgba(30, 30, 30, 1) 0%,
+    rgba(40, 40, 40, 1) 50%,
+    rgba(50, 50, 50, 1) 100%
+  );
   color: #fff;
+  position: relative;
+  overflow: hidden;
 }
 
 .section-header {
@@ -506,6 +513,43 @@ section {
   gap: 2rem;
 }
 
+.projects-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at top left, rgba(30,30,30,0.5), transparent 50%),
+    radial-gradient(circle at bottom right, rgba(45,45,45,0.5), transparent 50%);
+  pointer-events: none;
+}
+
+
+.particle {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+  animation: particleAnimation 20s infinite ease-in-out;
+}
+
+@keyframes particleAnimation {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-100px) translateX(100px);
+  }
+}
+
+
 .project-card {
   background-color: rgba(46, 46, 46, 0.8);
   border-radius: 10px;
@@ -514,6 +558,7 @@ section {
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  margin-bottom: 2rem;
 }
 
 .project-card:hover {
@@ -524,8 +569,9 @@ section {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
+
 
 .project-card h3 {
   margin: 0;
@@ -567,7 +613,7 @@ section {
 }
 
 .project-details h4 {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   margin-bottom: 0.5rem;
   color: rgba(0, 230, 255, 0.87);
   font-size: 1.2rem;
