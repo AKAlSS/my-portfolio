@@ -285,15 +285,20 @@ section {
   min-width: 250px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: all 0.5s ease;
+  transition: all 0.5s ease;  /* Ensure smooth transition */
   overflow: hidden;
   position: relative;
   backdrop-filter: blur(5px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  height: auto;
 }
 
+.service-card.expanded {
+  height: auto;
+  background-color: rgba(255, 255, 255, 0.1);
+  transition: height 0.5s ease-in-out; /* Add height transition */
+}
 
 .service-card:hover {
   box-shadow: 0 6px 12px rgba(255, 255, 255, 0.1);
@@ -337,7 +342,7 @@ section {
 .service-card ul {
   list-style-type: none;
   padding: 0;
-  margin-top: 1.5rem;
+  margin: 0;
   width: 100%;
 }
 
@@ -432,30 +437,50 @@ section {
 .particle:nth-child(4) { top: 70%; left: 10%; }
 .particle:nth-child(5) { top: 90%; left: 40%; }
 .particle:nth-child(6) { top: 15%; left: 40%; }
-.particle:nth-child(7) { top: 90%; left: 40%; }
-.particle:nth-child(8) { top: 90%; left: 40%; }
-.particle:nth-child(9) { top: 90%; left: 40%; }
-.particle:nth-child(10) { top: 90%; left: 40%; }
-.particle:nth-child(11) { top: 50%; left: 60%; }
-.particle:nth-child(12) { top: 90%; left: 40%; }
-.particle:nth-child(13) { top: 90%; left: 40%; }
-.particle:nth-child(14) { top: 90%; left: 40%; }
-.particle:nth-child(15) { top: 10%; left: 20%; }
-.particle:nth-child(16) { top: 30%; left: 50%; }
-.particle:nth-child(17) { top: 50%; left: 80%; }
-.particle:nth-child(18) { top: 70%; left: 10%; }
-.particle:nth-child(19) { top: 90%; left: 40%; }
-.particle:nth-child(20) { top: 15%; left: 40%; }
-.particle:nth-child(21) { top: 90%; left: 40%; }
-.particle:nth-child(22) { top: 90%; left: 40%; }
-.particle:nth-child(23) { top: 90%; left: 40%; }
-.particle:nth-child(24) { top: 90%; left: 40%; }
-.particle:nth-child(25) { top: 50%; left: 60%; }
-.particle:nth-child(26) { top: 90%; left: 40%; }
-.particle:nth-child(27) { top: 90%; left: 40%; }
-.particle:nth-child(28) { top: 90%; left: 40%; }
+.particle:nth-child(7) { top: 25%; left: 60%; }
+.particle:nth-child(8) { top: 35%; left: 70%; }
+.particle:nth-child(9) { top: 45%; left: 30%; }
+.particle:nth-child(10) { top: 55%; left: 50%; }
+.particle:nth-child(11) { top: 65%; left: 20%; }
+.particle:nth-child(12) { top: 75%; left: 40%; }
+.particle:nth-child(13) { top: 85%; left: 70%; }
+.particle:nth-child(14) { top: 95%; left: 60%; }
+.particle:nth-child(15) { top: 20%; left: 10%; }
+.particle:nth-child(16) { top: 40%; left: 30%; }
+.particle:nth-child(17) { top: 60%; left: 50%; }
+.particle:nth-child(18) { top: 80%; left: 20%; }
+.particle:nth-child(19) { top: 10%; left: 60%; }
+.particle:nth-child(20) { top: 30%; left: 70%; }
+.particle:nth-child(21) { top: 50%; left: 90%; }
+.particle:nth-child(22) { top: 70%; left: 50%; }
+.particle:nth-child(23) { top: 90%; left: 80%; }
+.particle:nth-child(24) { top: 15%; left: 90%; }
+.particle:nth-child(25) { top: 35%; left: 20%; }
+.particle:nth-child(26) { top: 55%; left: 40%; }
+.particle:nth-child(27) { top: 75%; left: 60%; }
+.particle:nth-child(28) { top: 95%; left: 30%; }
+.particle:nth-child(29) { top: 25%; left: 80%; }
+.particle:nth-child(30) { top: 45%; left: 60%; }
+.particle:nth-child(31) { top: 65%; left: 40%; }
+.particle:nth-child(32) { top: 85%; left: 20%; }
+.particle:nth-child(33) { top: 10%; left: 30%; }
+.particle:nth-child(34) { top: 30%; left: 90%; }
+.particle:nth-child(35) { top: 50%; left: 70%; }
+.particle:nth-child(36) { top: 70%; left: 30%; }
+.particle:nth-child(37) { top: 90%; left: 10%; }
+.particle:nth-child(38) { top: 20%; left: 50%; }
+.particle:nth-child(39) { top: 40%; left: 70%; }
+.particle:nth-child(40) { top: 60%; left: 10%; }
+.particle:nth-child(41) { top: 80%; left: 50%; }
+.particle:nth-child(42) { top: 10%; left: 40%; }
+.particle:nth-child(43) { top: 30%; left: 60%; }
+.particle:nth-child(44) { top: 50%; left: 20%; }
+.particle:nth-child(45) { top: 70%; left: 90%; }
+.particle:nth-child(46) { top: 90%; left: 60%; }
+.particle:nth-child(47) { top: 20%; left: 70%; }
+.particle:nth-child(48) { top: 40%; left: 90%; }
 
-/* ... add more positions as needed ... */
+
 
 /* Projects Section */
 .project-showcase-slider {

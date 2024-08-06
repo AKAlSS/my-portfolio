@@ -238,7 +238,7 @@ const SpaceBackground = () => {
 
       setTimeout(() => {
         setOrbs(prevOrbs => prevOrbs.filter(orb => orb.id !== newOrb.id));
-      }, 5000); // Remove orb after 5 seconds
+      }, 5000); // Remove orb after 15 seconds
     };
 
     const interval = setInterval(createOrb, 2000); // Try to create new orb every 2 seconds
