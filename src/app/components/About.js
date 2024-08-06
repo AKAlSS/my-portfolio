@@ -3,6 +3,28 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const SeesawAnimation = () => {
+  const [seesaw, setSeesaw] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSeesaw(true), 6000); // Start after spiral animation
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <motion.div className="seesaw-container" animate={{ opacity: seesaw ? 1 : 0 }}>
+      <motion.div
+        className="seesaw"
+        animate={{ rotate: seesaw ? [-5, 5] : 0 }}
+        transition={{ duration: 1.5, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+      >
+        <motion.span className="seesaw-left">coping mechanism</motion.span>
+        <motion.span className="seesaw-right">benefit of doubt</motion.span>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const KineticTypography = () => {
   const [words, setWords] = useState([]);
   const [animationState, setAnimationState] = useState('initial');
@@ -24,6 +46,10 @@ const KineticTypography = () => {
     spiral: {
       transition: { staggerChildren: 0.03, delayChildren: 0.5 },
     },
+    hidden: {
+      opacity: 0,
+      transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    },
   };
 
   const wordVariants = {
@@ -40,13 +66,13 @@ const KineticTypography = () => {
       transition: { type: 'spring', damping: 10, stiffness: 100 },
     }),
     spiral: (i) => {
-      const angle = i * 0.5;  // Adjust this value to change the spiral tightness
-      const radius = 5 * i;   // Adjust this value to change the spiral size
+      const angle = i * 0.5;
+      const radius = 5 * i;
       return {
         x: radius * Math.cos(angle),
         y: radius * Math.sin(angle),
         rotate: angle * (180 / Math.PI),
-        scale: 1 - i * 0.02,  // Makes words smaller as they go out
+        scale: 1 - i * 0.02,
         transition: { type: 'spring', damping: 15, stiffness: 150 },
       };
     },
@@ -58,6 +84,8 @@ const KineticTypography = () => {
       setAnimationState('scattered');
       await new Promise(resolve => setTimeout(resolve, 2000));
       setAnimationState('spiral');
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setAnimationState('hidden');
     };
     sequence();
   }, []);
@@ -96,6 +124,7 @@ const KineticTypography = () => {
             ))}
           </AnimatePresence>
         </motion.div>
+        <SeesawAnimation />
       </div>
     </section>
   );
