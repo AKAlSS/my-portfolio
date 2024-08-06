@@ -208,66 +208,86 @@ const ProjectShowcaseSlider = () => {
               {isExpanded && (
                 <motion.div
                   className="project-details"
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-              >
-                <h4>Challenge</h4>
-                <p>{currentProject.challenge}</p>
-                <h4>Solution</h4>
-                <p>{currentProject.solution}</p>
-                <h4>Key Achievements</h4>
-                <ul>
-                  {currentProject.achievements.map((achievement, index) => (
-                    <li key={index}>{achievement}</li>
-                  ))}
-                </ul>
-                <div className="project-links">
-                  {currentProject.github && (
-                    <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
-                      <FaGithub /> GitHub
-                    </a>
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 50 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h4>Detailed Description</h4>
+                  <p>{currentProject.detailedDescription}</p>
+                  {currentProject.methodology && (
+                    <>
+                      <h4>Methodology</h4>
+                      <p>{currentProject.methodology}</p>
+                    </>
                   )}
-                  {currentProject.liveDemo && (
-                    <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer">
-                      <FaExternalLinkAlt /> Live Demo
-                    </a>
+                  {currentProject.innovation && (
+                    <>
+                      <h4>Innovation</h4>
+                      <p>{currentProject.innovation}</p>
+                    </>
                   )}
-                </div>
+                  {currentProject.achievements && (
+                    <>
+                      <h4>Key Achievements</h4>
+                      <ul>
+                        {currentProject.achievements.map((achievement, index) => (
+                          <li key={index}>{achievement}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                  <div className="project-links">
+                    {currentProject.github && (
+                      <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
+                        <FaGithub /> GitHub
+                      </a>
+                    )}
+                    {currentProject.liveDemo && (
+                      <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer">
+                        <FaExternalLinkAlt /> Live Demo
+                      </a>
+                    )}
+                    {currentProject.videoDemo && (
+                      <a href={currentProject.videoDemo} target="_blank" rel="noopener noreferrer">
+                        <FaPlay /> Video Demo
+                      </a>
+                    )}
+                  </div>
                 </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
-      </AnimatePresence>
-      <motion.button 
-        className="nav-btn prev" 
-        onClick={prevProject}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <FaArrowLeft />
-      </motion.button>
-      <motion.button 
-        className="nav-btn next" 
-        onClick={nextProject}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-      >
-        <FaArrowRight />
-      </motion.button>
-    </motion.div>
-    <div className="progress-bar">
-      {projects.map((project, index) => (
-        <motion.div
-          key={index}
-          className={`progress-dot ${index === currentIndex ? 'active' : ''}`}
-          onClick={() => setCurrentIndex(index)}
-          whileHover={{ scale: 1.2 }}
-        />
-      ))}
-    </div>
-  </section>
-);
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </AnimatePresence>
+        <motion.button 
+          className="nav-btn prev" 
+          onClick={prevProject}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaArrowLeft />
+        </motion.button>
+        <motion.button 
+          className="nav-btn next" 
+          onClick={nextProject}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <FaArrowRight />
+        </motion.button>
+      </motion.div>
+      <div className="progress-bar">
+        {projects.map((project, index) => (
+          <motion.div
+            key={index}
+            className={`progress-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => setCurrentIndex(index)}
+            whileHover={{ scale: 1.2 }}
+          />
+        ))}
+      </div>
+    </section>
+  );
 };
 
 export default ProjectShowcaseSlider;
