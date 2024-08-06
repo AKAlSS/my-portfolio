@@ -349,7 +349,7 @@ section {
   position: relative;
   padding-left: 20px;
   transition: color 0.3s ease;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 }
 
 .service-card li::before {
