@@ -56,18 +56,21 @@ const AnimatedText = ({ text }) => {
   return (
     <motion.p
       ref={ref}
+      className="animated-text"
       initial={{ opacity: 0, y: 20 }}
       animate={isVisible ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5 }}
     >
       {text.split(' ').map((word, index) => (
-        <motion.span
-          key={index}
-          className="animated-word"
-          whileHover={{ scale: 1.1, color: '#00a8ff' }}
-        >
-          {word}{' '}
-        </motion.span>
+        <React.Fragment key={index}>
+          <motion.span
+            className="animated-word"
+            whileHover={{ scale: 1.1, color: '#00a8ff' }}
+          >
+            {word}
+          </motion.span>
+          {index !== text.split(' ').length - 1 && ' '}
+        </React.Fragment>
       ))}
     </motion.p>
   );

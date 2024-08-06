@@ -764,10 +764,15 @@ section {
   font-size: 1.1rem;
 }
 
+.animated-text {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
 .animated-word {
   display: inline-block;
-  cursor: pointer;
-  transition: color 0.3s ease, transform 0.2s ease;
 }
 
 .animated-word:hover {
