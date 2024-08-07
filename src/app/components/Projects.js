@@ -82,10 +82,10 @@ const projects = [
   {
     id: 4,
     name: "Advanced AI Generated Art and Community Engagement",
-    description: "A project blending AI innovation with dark fantasy and anime to create unique, engaging art.",
-    image: "/path-to-ai-art-image.jpg",
+    description: "A project blending AI innovation with different art styles to create unique, engaging art.",
+    backgroundGif: "/Dreamlike.gif",
     tags: ["AI Image Generation", "Midjourney", "ChatGPT", "Text-To-Image"],
-    detailedDescription: "This project is a creative fusion of AI and classic dark fantasy anime aesthetics, utilizing Midjourney to generate unique artworks that resonate with fans of the genre.",
+    detailedDescription: "This project is a creative fusion of AI and classic dark fantasy, anime, 8-bit, and plenty of other aesthetics, utilizing Midjourney to generate unique artworks that resonate with fans of the genre.",
     methodology: "I developed a system that automates the generation process using make.com and Airtable, enabling consistent production without sacrificing creativity. ChatGPT is used for prompt tweaking to maintain fresh and evolving artistic output.",
     innovation: "Future steps include creating a custom solution to replace paid services like make.com and Airtable in the autonomous process.",
     achievements: [
