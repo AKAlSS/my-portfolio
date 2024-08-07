@@ -3,6 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
+import Image from 'next/image'; // Import the Next.js Image component
 
 const AnimatedTitle = ({ text }) => {
   return (
@@ -30,7 +31,7 @@ const projects = [
     id: 1,
     name: "Personal Portfolio Website",
     description: "An innovative personal portfolio website developed entirely through AI interactions.",
-    backgroundGif: "C:\Users\Ahmad\Documents\APersonalWeb\my-portfolio\public\TimelessCulture.gif", // Add the path to your GIF here
+    backgroundGif: "/TimelessCulture.gif", // Updated path
     tags: ["Code Generation", "Web Development", "Next.js", "React", "JavaScript", "CSS", "AI-Generated Content", "UI/UX Design"],
     detailedDescription: "This unique project leverages AI tools to generate every component of the website, from the underlying code to the visual elements and written content. Built with Next.js and React, the portfolio showcases my skills and projects in a dynamic and interactive manner.",
     methodology: "The methodology involved a collaborative process with AI, where I would specify requirements and context, and the AI would generate the corresponding code and assets. This included creating components for various sections such as the hero, services, projects, and about me sections, each designed to be modular and easy to maintain.",
