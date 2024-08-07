@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
-import Image from 'next/image'; // Import the Next.js Image component
+import Image from 'next/image';
 
 const AnimatedTitle = ({ text }) => {
   return (
@@ -31,7 +31,7 @@ const projects = [
     id: 1,
     name: "Personal Portfolio Website",
     description: "An innovative personal portfolio website developed entirely through AI interactions.",
-    backgroundGif: "/TimelessCulture.gif", // Updated path
+    backgroundGif: "/TimelessCulture.gif",
     tags: ["Code Generation", "Web Development", "Next.js", "React", "JavaScript", "CSS", "AI-Generated Content", "UI/UX Design"],
     detailedDescription: "This unique project leverages AI tools to generate every component of the website, from the underlying code to the visual elements and written content. Built with Next.js and React, the portfolio showcases my skills and projects in a dynamic and interactive manner.",
     methodology: "The methodology involved a collaborative process with AI, where I would specify requirements and context, and the AI would generate the corresponding code and assets. This included creating components for various sections such as the hero, services, projects, and about me sections, each designed to be modular and easy to maintain.",
@@ -99,7 +99,7 @@ const projects = [
     id: 5,
     name: "Creative Dreamlike AI Generated Videos",
     description: "A project transforming dreamlike and weirdcore concepts into visually stunning video artworks.",
-    backgroundGif: "/path-to-portfolio-gif.gif", // Add the path to your GIF here
+    backgroundGif: "/path-to-portfolio-gif.gif",
     tags: ["Midjourney", "ChatGPT", "AI Video Generation", "AI Image Generation"],
     detailedDescription: "This project highlights the entire workflow from prompt generation to final video production, showcasing the innovative use of multiple AI tools to create high-quality videos.",
     methodology: "The process begins with ChatGPT generating image prompts, which are then visualized using Midjourney. Pika is used to animate these static images into moving visuals.",
@@ -109,7 +109,7 @@ const projects = [
       "Creation of unique, dreamlike video content",
       "Demonstration of AI's potential in creative video production"
     ],
-    videoDemo: "/path-to-dreamlike-video-demo.mp4"
+    videoDemos: ["/path-to-dreamlike-video-demo1.mp4", "/path-to-dreamlike-video-demo2.mp4", "/path-to-dreamlike-video-demo3.mp4"]
   },
   {
     id: 6,
@@ -134,7 +134,7 @@ const projects = [
     tags: ["crewAI", "Multi-Agent Systems", "Customer Service", "E-commerce"],
     detailedDescription: "This ongoing project aims to create sophisticated multi-agent customer service systems tailored for e-commerce companies.",
     methodology: "Utilizing the crewAI framework to develop a network of AI agents capable of handling various aspects of customer service in an e-commerce context.",
-    status: "In Progress",
+    status: "Active - Ongoing Project",
     goals: [
       "Develop a scalable multi-agent system",
       "Improve customer service efficiency and quality",
@@ -197,7 +197,7 @@ const ProjectShowcaseSlider = () => {
           >
             <div className="background-gif-container">
               <Image
-                src={currentProject.backgroundGif}
+                src={currentProject.backgroundGif || currentProject.image}
                 alt={`${currentProject.name} background`}
                 layout="fill"
                 objectFit="cover"
@@ -221,24 +221,24 @@ const ProjectShowcaseSlider = () => {
               </AnimatePresence>
               <div className="project-tags">
                 {currentProject.tags.map((tag, index) => (
-                  <span key={index} className="tag">{tag}</span>
+                  <span key={index} className="project-tag">{tag}</span>
                 ))}
               </div>
               <div className="project-links">
                 {currentProject.github && (
-                  <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
+                  <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link">
                     <FaGithub /> GitHub
                   </a>
                 )}
                 {currentProject.liveDemo && (
-                  <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer">
+                  <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link">
                     <FaExternalLinkAlt /> Live Demo
                   </a>
                 )}
                 {currentProject.videoDemo && (
-                  <a href={currentProject.videoDemo} target="_blank" rel="noopener noreferrer">
+                  <button onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }} className="project-link">
                     <FaPlay /> Video Demo
-                  </a>
+                  </button>
                 )}
               </div>
             </motion.div>
@@ -246,9 +246,9 @@ const ProjectShowcaseSlider = () => {
               {isExpanded && (
                 <motion.div
                   className="project-details"
-                  initial={{ opacity: 0, y: 50 }}
+                  initial={{ opacity: 0, y: 100 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 50 }}
+                  exit={{ opacity: 0, y: 100 }}
                   transition={{ duration: 0.3 }}
                 >
                   <h4>Detailed Description</h4>
@@ -268,6 +268,68 @@ const ProjectShowcaseSlider = () => {
                         ))}
                       </ul>
                     </>
+                  )}
+                  {currentProject.videoDemo && (
+                    <div className="video-demo">
+                      <h4>Video Demo</h4>
+                      <video controls width="100%">
+                        <source src={currentProject.videoDemo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  )}
+                  {currentProject.screenshots && (
+                    <div className="project-screenshots">
+                      <h4>Screenshots</h4>
+                      <div className="screenshot-gallery">
+                        {currentProject.screenshots.map((screenshot, index) => (
+                          <Image 
+                            key={index}
+                            src={screenshot}
+                            alt={`Screenshot ${index + 1}`}
+                            width={200}
+                            height={150}
+                            objectFit="cover"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {currentProject.artSamples && (
+                    <div className="art-samples">
+                      <h4>Art Samples</h4>
+                      <div className="art-gallery">
+                        {currentProject.artSamples.map((sample, index) => (
+                          <Image 
+                            key={index}
+                            src={sample}
+                            alt={`Art Sample ${index + 1}`}
+                            width={200}
+                            height={200}
+                            objectFit="cover"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {currentProject.videoDemos && (
+                    <div className="video-demos">
+                      <h4>Video Demos</h4>
+                      <div className="video-gallery">
+                        {currentProject.videoDemos.map((video, index) => (
+                          <video key={index} controls width="300">
+                            <source src={video} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {currentProject.status && (
+                    <div className="project-status">
+                      <h4>Status</h4>
+                      <p>{currentProject.status}</p>
+                    </div>
                   )}
                 </motion.div>
               )}
