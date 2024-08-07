@@ -66,7 +66,7 @@ const projects = [
     id: 3,
     name: "AI Learning Hub",
     description: "An interactive game created using ChatDev to teach AI concepts through gamification.",
-    image: "/path-to-ai-learning-hub-image.jpg",
+    backgroundGif: "/AiLearningHub.gif",
     tags: ["AI-Agent Development", "Multi-Agent Systems", "Workflow Automation", "chatDEV", "Python"],
     detailedDescription: "AI Adventure Quest is an interactive educational project designed to teach users about artificial intelligence concepts through an engaging and gamified experience.",
     methodology: "The project uses a combination of lessons, quizzes, coding challenges, and mini-games to create a comprehensive learning environment. Built with Python's Tkinter library, it offers a graphical user interface for navigating through various educational modules.",
