@@ -31,7 +31,7 @@ const projects = [
     id: 1,
     name: "Personal Portfolio Website",
     description: "An innovative personal portfolio website developed entirely through AI interactions.",
-    backgroundGif: "/TimelessCulture.gif",
+    backgroundGif: "/PersonalPorfolio.gif",
     tags: ["Code Generation", "Web Development", "Next.js", "React", "JavaScript", "CSS", "AI-Generated Content", "UI/UX Design"],
     detailedDescription: "This unique project leverages AI tools to generate every component of the website, from the underlying code to the visual elements and written content. Built with Next.js and React, the portfolio showcases my skills and projects in a dynamic and interactive manner.",
     methodology: "The methodology involved a collaborative process with AI, where I would specify requirements and context, and the AI would generate the corresponding code and assets. This included creating components for various sections such as the hero, services, projects, and about me sections, each designed to be modular and easy to maintain.",
@@ -49,7 +49,7 @@ const projects = [
     id: 2,
     name: "Content Story V1: Automated Multimedia Storytelling",
     description: "An automated system for converting written articles into engaging video narratives.",
-    image: "/path-to-content-story-image.jpg",
+    backgroundGif: "/ContentStoryV1.gif",
     tags: ["Automated Workflow", "AI Code Generation", "ElevenLabs", "Airtable", "Make.com"],
     detailedDescription: "Content Story V1 showcases my role in pioneering automated digital storytelling, blending AI scripting, voice generation, and visual effects to create seamless video narratives from written content.",
     methodology: "The process begins with sourcing input articles, which are processed through ChatGPT to generate dynamic scripts. AI-driven ElevenLabs creates realistic voiceovers, while visual content is generated using Midjourney and/or Leonardo.ai. Airtable manages the workflow, and custom scripts automate the video assembly process.",
@@ -60,7 +60,7 @@ const projects = [
       "Scalable and efficient production process"
     ],
     github: "https://github.com/yourusername/content-story-v1",
-    videoDemo: "/path-to-content-story-demo.mp4"
+    videoDemo: "/ContentStoryVideoDemo.mp4"
   },
   {
     id: 3,
