@@ -77,13 +77,12 @@ const projects = [
       "User interaction tracking for analysis and improvement"
     ],
     github: "https://github.com/yourusername/ai-learning-hub",
-    screenshots: ["/path-to-screenshot1.jpg", "/path-to-screenshot2.jpg"]
   },
   {
     id: 4,
     name: "Advanced AI Generated Art and Community Engagement",
     description: "A project blending AI innovation with different art styles to create unique, engaging art.",
-    backgroundGif: "/Dreamlike.gif",
+    backgroundGif: "/TimelessCultureVid.gif",
     tags: ["AI Image Generation", "Midjourney", "ChatGPT", "Text-To-Image"],
     detailedDescription: "This project is a creative fusion of AI and classic dark fantasy, anime, 8-bit, and plenty of other aesthetics, utilizing Midjourney to generate unique artworks that resonate with fans of the genre.",
     methodology: "I developed a system that automates the generation process using make.com and Airtable, enabling consistent production without sacrificing creativity. ChatGPT is used for prompt tweaking to maintain fresh and evolving artistic output.",
@@ -93,13 +92,13 @@ const projects = [
       "Established monetization model through sponsorships and Patreon",
       "Demonstrated commercial viability of AI-generated art"
     ],
-    artSamples: ["/path-to-art-sample1.jpg", "/path-to-art-sample2.jpg", "/path-to-art-sample3.jpg"]
+    artSamples: ["/4.png", "/1.png", "/3.png", "/2.png", "/6.png", "/5.png", "/7.png", "/11.png", "/19.png", "/26.png", "/8.png", "/24.png", "/28.png", "/27.png", "/14.png", "/9.png", "/13.png", "/25.png", "/16.png", "/15.png"]
   },
   {
     id: 5,
     name: "Creative Dreamlike AI Generated Videos",
     description: "A project transforming dreamlike and weirdcore concepts into visually stunning video artworks.",
-    backgroundGif: "/path-to-portfolio-gif.gif",
+    backgroundGif: "/DreamlikeVid.gif",
     tags: ["Midjourney", "ChatGPT", "AI Video Generation", "AI Image Generation"],
     detailedDescription: "This project highlights the entire workflow from prompt generation to final video production, showcasing the innovative use of multiple AI tools to create high-quality videos.",
     methodology: "The process begins with ChatGPT generating image prompts, which are then visualized using Midjourney. Pika is used to animate these static images into moving visuals.",
@@ -109,7 +108,7 @@ const projects = [
       "Creation of unique, dreamlike video content",
       "Demonstration of AI's potential in creative video production"
     ],
-    videoDemos: ["/path-to-dreamlike-video-demo1.mp4", "/path-to-dreamlike-video-demo2.mp4", "/path-to-dreamlike-video-demo3.mp4"]
+    videoDemos: ["/Sarkaden1.mp4", "/Sarkaden2.mp4", "/Sarkaden4.mp4"]
   },
   {
     id: 6,
