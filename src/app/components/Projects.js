@@ -146,16 +146,19 @@ const projects = [
 const ProjectShowcaseSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const slideRef = useRef(null);
 
   const nextProject = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
     setIsExpanded(false);
+    setIsHovered(false);
   };
 
   const prevProject = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
     setIsExpanded(false);
+    setIsHovered(false);
   };
 
   const handleKeyDown = (event) => {
@@ -189,71 +192,83 @@ const ProjectShowcaseSlider = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5 }}
             onClick={() => setIsExpanded(!isExpanded)}
-            style={{
-              backgroundImage: `url(${currentProject.backgroundGif})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
           >
-            <motion.div 
-              className="project-info"
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-            >
-              <h3>{currentProject.name}</h3>
-              <p>{currentProject.description}</p>
+            <div className="background-gif-container">
+              <Image
+                src={currentProject.backgroundGif}
+                alt={`${currentProject.name} background`}
+                layout="fill"
+                objectFit="cover"
+                quality={100}
+              />
+            </div>
+            <motion.div className="project-content">
+              <h3 className="project-title">{currentProject.name}</h3>
+              <AnimatePresence>
+                {isHovered && (
+                  <motion.p
+                    className="project-description"
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {currentProject.description}
+                  </motion.p>
+                )}
+              </AnimatePresence>
               <div className="project-tags">
                 {currentProject.tags.map((tag, index) => (
                   <span key={index} className="tag">{tag}</span>
                 ))}
               </div>
+              <div className="project-links">
+                {currentProject.github && (
+                  <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
+                    <FaGithub /> GitHub
+                  </a>
+                )}
+                {currentProject.liveDemo && (
+                  <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer">
+                    <FaExternalLinkAlt /> Live Demo
+                  </a>
+                )}
+                {currentProject.videoDemo && (
+                  <a href={currentProject.videoDemo} target="_blank" rel="noopener noreferrer">
+                    <FaPlay /> Video Demo
+                  </a>
+                )}
+              </div>
             </motion.div>
             <AnimatePresence>
               {isExpanded && (
                 <motion.div
-                className="project-details"
-                initial={{ opacity: 0, y: 50 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 50 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h4 style={{ color: '#FFFFFF' }}>Detailed Description</h4>
-                <p>{currentProject.detailedDescription}</p>
-                {currentProject.methodology && (
-                  <>
-                    <h4 style={{ color: '#FFFFFF' }}>Methodology</h4>
-                    <p>{currentProject.methodology}</p>
-                  </>
-                )}
-                {currentProject.achievements && (
-                  <>
-                    <h4 style={{ color: '#FFFFFF' }}>Key Achievements</h4>
-                    <ul>
-                      {currentProject.achievements.map((achievement, index) => (
-                        <li key={index}>{achievement}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                  <div className="project-links">
-                    {currentProject.github && (
-                      <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
-                        <FaGithub /> GitHub
-                      </a>
-                    )}
-                    {currentProject.liveDemo && (
-                      <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer">
-                        <FaExternalLinkAlt /> Live Demo
-                      </a>
-                    )}
-                    {currentProject.videoDemo && (
-                      <a href={currentProject.videoDemo} target="_blank" rel="noopener noreferrer">
-                        <FaPlay /> Video Demo
-                      </a>
-                    )}
-                  </div>
+                  className="project-details"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 50 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h4>Detailed Description</h4>
+                  <p>{currentProject.detailedDescription}</p>
+                  {currentProject.methodology && (
+                    <>
+                      <h4>Methodology</h4>
+                      <p>{currentProject.methodology}</p>
+                    </>
+                  )}
+                  {currentProject.achievements && (
+                    <>
+                      <h4>Key Achievements</h4>
+                      <ul>
+                        {currentProject.achievements.map((achievement, index) => (
+                          <li key={index}>{achievement}</li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
                 </motion.div>
               )}
             </AnimatePresence>
