@@ -30,7 +30,7 @@ const projects = [
     id: 1,
     name: "Personal Portfolio Website",
     description: "An innovative personal portfolio website developed entirely through AI interactions.",
-    image: "/path-to-portfolio-image.jpg",
+    backgroundGif: "C:\Users\Ahmad\Documents\APersonalWeb\my-portfolio\public\TimelessCulture.gif", // Add the path to your GIF here
     tags: ["Code Generation", "Web Development", "Next.js", "React", "JavaScript", "CSS", "AI-Generated Content", "UI/UX Design"],
     detailedDescription: "This unique project leverages AI tools to generate every component of the website, from the underlying code to the visual elements and written content. Built with Next.js and React, the portfolio showcases my skills and projects in a dynamic and interactive manner.",
     methodology: "The methodology involved a collaborative process with AI, where I would specify requirements and context, and the AI would generate the corresponding code and assets. This included creating components for various sections such as the hero, services, projects, and about me sections, each designed to be modular and easy to maintain.",
@@ -98,7 +98,7 @@ const projects = [
     id: 5,
     name: "Creative Dreamlike AI Generated Videos",
     description: "A project transforming dreamlike and weirdcore concepts into visually stunning video artworks.",
-    image: "/path-to-dreamlike-video-image.jpg",
+    backgroundGif: "/path-to-portfolio-gif.gif", // Add the path to your GIF here
     tags: ["Midjourney", "ChatGPT", "AI Video Generation", "AI Image Generation"],
     detailedDescription: "This project highlights the entire workflow from prompt generation to final video production, showcasing the innovative use of multiple AI tools to create high-quality videos.",
     methodology: "The process begins with ChatGPT generating image prompts, which are then visualized using Midjourney. Pika is used to animate these static images into moving visuals.",
@@ -188,6 +188,12 @@ const ProjectShowcaseSlider = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5 }}
             onClick={() => setIsExpanded(!isExpanded)}
+            style={{
+              backgroundImage: `url(${currentProject.backgroundGif})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat'
+            }}
           >
             <motion.div 
               className="project-info"

@@ -18,7 +18,7 @@ export default function Header() {
     };
 
     const handleClickOutside = (event) => {
-      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.classList.contains('mobile-menu-button')) {
         setIsMobileMenuOpen(false);
       }
     };
@@ -45,7 +45,6 @@ export default function Header() {
         <div className="logo">
           <Link href="#hero">AK</Link>
         </div>
-        <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
         <div className={`nav-list-container ${isMobileMenuOpen ? 'mobile-open' : ''}`} ref={mobileMenuRef}>
           <ul className="nav-list">
             <li><Link href="#hero" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
@@ -55,6 +54,7 @@ export default function Header() {
             <li><Link href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
           </ul>
         </div>
+        <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
       </nav>
     </header>
   );
