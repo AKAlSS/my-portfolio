@@ -23,6 +23,7 @@ const AnimatedTitle = ({ text }) => {
               {letter}
             </motion.span>
           ))}
+          {wordIndex < text.split(' ').length - 1 && ' '}
         </span>
       ))}
     </h2>
@@ -133,7 +134,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section className="about-section">
+    <section className="about-section" id="about">
       <AnimatedTitle text="ABOUT ME" />
       <div className="about-content">
         <ScrollOpacityText text={aboutText} />

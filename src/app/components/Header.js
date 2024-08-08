@@ -36,6 +36,14 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <header className={`header ${isVisible ? 'visible' : 'hidden'}`}>
       <nav className="nav-container">
@@ -47,11 +55,10 @@ export default function Header() {
         </div>
         <div className={`nav-list-container ${isMobileMenuOpen ? 'mobile-open' : ''}`} ref={mobileMenuRef}>
           <ul className="nav-list">
-            <li><Link href="#hero" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Home</Link></li>
-            <li><Link href="#services" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Services</Link></li>
-            <li><Link href="#projects" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Projects</Link></li>
-            <li><Link href="#about" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>About</Link></li>
-            <li><Link href="#contact" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link></li>
+            <li><button onClick={() => scrollToSection('services')} className="nav-link">Services</button></li>
+            <li><button onClick={() => scrollToSection('projects')} className="nav-link">Projects</button></li>
+            <li><button onClick={() => scrollToSection('about')} className="nav-link">About</button></li>
+            <li><button onClick={() => scrollToSection('contact')} className="nav-link">Contact</button></li>
           </ul>
         </div>
         <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
