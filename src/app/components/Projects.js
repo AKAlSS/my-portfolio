@@ -162,7 +162,7 @@ const ProjectShowcaseSlider = () => {
   const currentProject = projects[currentIndex];
 
   return (
-    <section className="project-showcase-slider">
+<section className="project-showcase-slider" id="project-showcase-slider">
       <AnimatedTitle text="PROJECTS" />
       <motion.div className="slider-container" layout>
         <AnimatePresence mode="wait">
