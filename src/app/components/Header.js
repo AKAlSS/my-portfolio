@@ -1,3 +1,4 @@
+// Header.js
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
@@ -56,7 +57,7 @@ export default function Header() {
         <div className={`nav-list-container ${isMobileMenuOpen ? 'mobile-open' : ''}`} ref={mobileMenuRef}>
           <ul className="nav-list">
             <li><button onClick={() => scrollToSection('services')} className="nav-link">Services</button></li>
-            <li><button onClick={() => scrollToSection('projects')} className="nav-link">Projects</button></li>
+            <li><button onClick={() => scrollToSection('project-showcase-slider')} className="nav-link">Projects</button></li>
             <li><button onClick={() => scrollToSection('about')} className="nav-link">About</button></li>
             <li><button onClick={() => scrollToSection('contact')} className="nav-link">Contact</button></li>
           </ul>
