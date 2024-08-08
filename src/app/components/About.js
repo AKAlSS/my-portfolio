@@ -122,7 +122,7 @@ const HobbiesSection = ({ hobbies }) => {
 };
 
 const AboutSection = () => {
-  const aboutText = "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and finding things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this, I appreciate that. I would also like to let you know that I stole 15 seconds of your time. If you want it back, just shoot me a message.";
+  const aboutText = "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and finding things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this, I appreciate that.";
 
   const hobbies = [
     { icon: '🥋', hobby: 'BJJ, Kickboxing, MMA', description: "It's pretty cool I guess 🤷‍♂️😏" },
