@@ -1,6 +1,10 @@
-const isProd = process.env.NODE_ENV === 'production';
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  // Ensure this is false for custom domain deployment
+  trailingSlash: false,
+  // Remove assetPrefix for custom domain deployment
+}
 
-module.exports = {
-  assetPrefix: isProd ? '/my-portfolio/' : '',
-  trailingSlash: true,
-};
+module.exports = nextConfig
