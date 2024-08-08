@@ -42,7 +42,6 @@ const projects = [
       "Real-time updates in the Contact section"
     ],
     github: "",
-    liveDemo: "https://your-portfolio-url.com",
     videoDemo: "/path-to-build-process-video.mp4"
   },
   {
@@ -76,7 +75,7 @@ const projects = [
       "Persistent game state for continuous learning",
       "User interaction tracking for analysis and improvement"
     ],
-    github: "https://github.com/yourusername/ai-learning-hub",
+    github: "https://github.com/AKAlSS/AiLearningHub",
   },
   {
     id: 4,
@@ -112,21 +111,6 @@ const projects = [
   },
   {
     id: 6,
-    name: "Video-Concatenation",
-    description: "A tool designed to merge multiple video files seamlessly into a single video file.",
-    image: "/path-to-video-concatenation-image.jpg",
-    tags: ["Video Generation", "Code Generation", "Workflow Automation", "AI Integration", "Python", "OpenCV", "MoviePY", "ML"],
-    detailedDescription: "The Video Concatenation project automates the creation of themed video clips by integrating audio segments from podcasts with video clips extracted from anime episodes.",
-    methodology: "The workflow includes transcribing podcast audio, highlighting key points with AI assistance, extracting and classifying video scenes, and merging audio and visual elements into cohesive clips.",
-    achievements: [
-      "Automated workflow for themed video creation",
-      "Integration of audio transcription and video scene detection",
-      "AI-assisted content highlighting and classification"
-    ],
-    github: "https://github.com/AKAlSS/video-concatenation"
-  },
-  {
-    id: 7,
     name: "Customer Solutions Multi-Agent Service",
     description: "A multi-agent customer service system for e-commerce companies using the crewAI framework.",
     image: "/path-to-customer-service-image.jpg",
