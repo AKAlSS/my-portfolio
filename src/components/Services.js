@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 
@@ -104,8 +104,40 @@ const AnimatedTitle = ({ text }) => {
   );
 };
 
+const Particle = ({ style }) => (
+  <motion.div
+    className="particle"
+    style={style}
+    animate={{
+      x: [0, Math.random() * window.innerWidth],
+      y: [0, Math.random() * window.innerHeight],
+    }}
+    transition={{
+      duration: Math.random() * 10 + 10,
+      repeat: Infinity,
+      repeatType: "reverse",
+    }}
+  />
+);
+
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
+  const [particles, setParticles] = useState([]);
+
+  useEffect(() => {
+    const particlesCount = 50;
+    const newParticles = Array.from({ length: particlesCount }, (_, i) => ({
+      id: i,
+      style: {
+        left: `${Math.random() * 100}%`,
+        top: `${Math.random() * 100}%`,
+        width: `${Math.random() * 4 + 1}px`,
+        height: `${Math.random() * 4 + 1}px`,
+        opacity: Math.random() * 0.5 + 0.1,
+      }
+    }));
+    setParticles(newParticles);
+  }, []);
 
   const handleClick = (index) => {
     setExpandedIndex(prevIndex => prevIndex === index ? null : index);
@@ -113,6 +145,9 @@ export default function Services() {
 
   return (
     <section className="services" id="services">
+      {particles.map((particle) => (
+        <Particle key={particle.id} style={particle.style} />
+      ))}
       <AnimatedTitle text="SERVICES" />
       <div className="services-container">
         {services.map((service, index) => (
