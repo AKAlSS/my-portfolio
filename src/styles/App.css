@@ -118,20 +118,22 @@ body, html {
   }
 
   .nav-list-container {
-    position: absolute;
-    top: 100%;
+    position: fixed;
+    top: 60px;
     left: 0;
     right: 0;
     background: rgba(18, 18, 18, 0.95);
     padding: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
     z-index: 999;
   }
 
   .nav-list-container.mobile-open {
-    max-height: 300px;
+    max-height: calc(100vh - 60px);
+    opacity: 1;
   }
 
   .nav-list {
@@ -142,11 +144,19 @@ body, html {
   .nav-list li {
     width: 100%;
     text-align: center;
+    margin: 10px 0;
   }
 
   .nav-link {
-    display: block;
-    padding: 15px 0;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 18px;
+    transition: all 0.3s ease;
+  }
+
+  .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
   }
 
   .cv-button {
@@ -175,10 +185,6 @@ body, html {
   left: 0;
 }
 
-.spline-container.mobile {
-  pointer-events: none;
-}
-
 .spline-viewer {
   width: 100%;
   height: 100%;
@@ -198,6 +204,11 @@ body, html {
   font-size: 24px;
   color: #fff;
   z-index: 20;
+}
+
+/* Mobile Styles */
+.spline-container.mobile {
+  pointer-events: none;
 }
 
 /* Section styles */
@@ -241,6 +252,7 @@ section {
   margin-bottom: 3rem;
   text-align: center;
   width: 100%;
+  opacity: 1;
 }
 
 .services-container {
@@ -272,7 +284,7 @@ section {
 .service-title {
   font-size: 2rem;
   margin-bottom: 1rem;
-  opacity: 100;
+  opacity: 1;
   text-align: center;
   color: #ffffff;
 }
@@ -380,7 +392,7 @@ section {
 .project-title {
   font-size: 3rem;
   color: #fff;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
   opacity: 1;
 }
@@ -462,6 +474,18 @@ section {
   backdrop-filter: blur(5px);
 }
 
+/* Duplicate tags to create seamless loop */
+.scrolling-tags::after {
+  content: "";
+  display: flex;
+  white-space: nowrap;
+  padding-right: 50px;
+}
+
+.scrolling-tags > * {
+  flex-shrink: 0;
+}
+
 .project-links {
   display: flex;
   justify-content: center;
@@ -474,42 +498,26 @@ section {
   align-items: center;
   color: #ffffff;
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   transition: all 0.3s ease;
-  background-color: rgba(255,255,255,0.3);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-  border: none;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
   cursor: pointer;
+  margin: 0.3rem;
 }
 
 .project-link:hover {
-  background-color: rgba(255,255,255,0.4);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.github-link {
-  background-color: #24292e;
+.github-link, .live-demo-link, .video-demo-link {
+  background-color: rgba(255, 255, 255, 0.05);
 }
 
-.github-link:hover {
-  background-color: #2f363d;
-}
-
-.live-demo-link {
-  background-color: #0366d6;
-}
-
-.live-demo-link:hover {
-  background-color: #0576f0;
-}
-
-.video-demo-link {
-  background-color: #e50914;
-}
-
-.video-demo-link:hover {
-  background-color: #ffffff;
+.github-link:hover, .live-demo-link:hover, .video-demo-link:hover {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .nav-btn {
@@ -685,7 +693,7 @@ section {
 .hobbies-title {
   font-size: 2rem;
   margin-bottom: 3.3rem;
-  opacity: 100;
+  opacity: 1;
   text-align: center;
 }
 
@@ -730,7 +738,7 @@ section {
 .hobby-name {
   font-size: 0.9rem;
   text-align: center;
-  opacity: 100;
+  opacity: 1;
   margin-bottom: 0.5rem;
 }
 
@@ -887,6 +895,11 @@ section {
   .cv-button {
     display: inline-block;
     margin-top: 10px;
+  }
+
+  .project-link {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
   }
 }
 

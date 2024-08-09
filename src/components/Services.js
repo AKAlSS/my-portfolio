@@ -25,7 +25,6 @@ const services = [
       'Video Generation',
       'Audio Generation',
       'ChatGPT, Claude, Llama, Gemini, Mixstral',
-      'Local LLMs via Ollama',
       'Midjourney, Leonardo, DALL-E',
       'SD Webui, ComfyUI, Fooocus, SD, SDXL',
       'LoRA, Checkpoint, Luma, Pika, ElevenLabs'

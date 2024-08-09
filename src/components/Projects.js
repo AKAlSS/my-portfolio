@@ -176,6 +176,19 @@ const ProjectShowcaseSlider = () => {
     };
   }, []);
 
+  const renderTags = (tags) => {
+    const duplicatedTags = [...tags, ...tags]; // Duplicate tags for seamless scrolling
+    return (
+      <div className="project-tags">
+        <div className="scrolling-tags">
+          {duplicatedTags.map((tag, index) => (
+            <span key={`${index}-${tag}`} className="project-tag">{tag}</span>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   const currentProject = projects[currentIndex];
 
   return (
@@ -221,16 +234,7 @@ const ProjectShowcaseSlider = () => {
                   )}
                 </AnimatePresence>
               )}
-              <div className="project-tags">
-                <div className="scrolling-tags">
-                  {currentProject.tags.map((tag, index) => (
-                    <span key={index} className="project-tag">{tag}</span>
-                  ))}
-                  {currentProject.tags.map((tag, index) => (
-                    <span key={`repeat-${index}`} className="project-tag">{tag}</span>
-                  ))}
-                </div>
-              </div>
+              {renderTags(currentProject.tags)}
               <div className="project-links">
                 {currentProject.github && (
                   <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
