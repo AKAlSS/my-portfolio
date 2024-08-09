@@ -1,5 +1,3 @@
-'use client'
-
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
@@ -43,24 +41,16 @@ const services = [
   }
 ];
 
-const ServiceItem = ({ service, isExpanded, onToggle }) => {
+const ServiceCard = ({ title, details, isExpanded, onClick }) => {
   return (
     <motion.div
-      className={`service-item ${isExpanded ? 'expanded' : ''}`}
-      onClick={onToggle}
-      initial={false}
-      animate={{ backgroundColor: isExpanded ? '#1a1a1a' : '#000000' }}
-      transition={{ duration: 0.3 }}
+      className="service-card"
+      onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      layout
     >
-      <div className="service-header">
-        <h2>{service.title}</h2>
-        <motion.div
-          animate={{ rotate: isExpanded ? 180 : 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <FaChevronDown />
-        </motion.div>
-      </div>
+      <motion.h3 className="service-title">{title}</motion.h3>
       <AnimatePresence>
         {isExpanded && (
           <motion.ul
@@ -69,7 +59,7 @@ const ServiceItem = ({ service, isExpanded, onToggle }) => {
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
           >
-            {service.details.map((detail, index) => (
+            {details.map((detail, index) => (
               <motion.li
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
@@ -82,32 +72,57 @@ const ServiceItem = ({ service, isExpanded, onToggle }) => {
           </motion.ul>
         )}
       </AnimatePresence>
+      {!isExpanded && (
+        <motion.div className="card-arrow">
+          <FaChevronDown />
+        </motion.div>
+      )}
     </motion.div>
   );
 };
 
-const Services = () => {
+const AnimatedTitle = ({ text }) => {
+  return (
+    <h2 className="section-header">
+      {text.split('').map((letter, index) => (
+        <motion.span
+          key={index}
+          className="animated-letter"
+          whileHover={{ 
+            scale: 1.2, 
+            color: '#FFFFFF',
+            textShadow: '0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF',
+          }}
+          transition={{ duration: 0.1 }}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </h2>
+  );
+};
+
+export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const handleToggle = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+  const handleClick = (index) => {
+    setExpandedIndex(prevIndex => prevIndex === index ? null : index);
   };
 
   return (
     <section className="services" id="services">
-      <h1 className="section-title">Services</h1>
+      <AnimatedTitle text="SERVICES" />
       <div className="services-container">
         {services.map((service, index) => (
-          <ServiceItem
+          <ServiceCard
             key={index}
-            service={service}
+            title={service.title}
+            details={service.details}
             isExpanded={expandedIndex === index}
-            onToggle={() => handleToggle(index)}
+            onClick={() => handleClick(index)}
           />
         ))}
       </div>
     </section>
   );
-};
-
-export default Services;
+}
