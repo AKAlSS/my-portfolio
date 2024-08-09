@@ -9,6 +9,15 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
     const { current: spline } = splineRef;
 
     const handleMouseOver = e => {
@@ -41,7 +50,7 @@ export default function Hero() {
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      if (splineRef.current) {
+      if (splineRef.current && !isMobile) {
         const { clientX, clientY } = e;
         const event = new MouseEvent('mousemove', {
           clientX,
@@ -55,16 +64,7 @@ export default function Hero() {
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
     };
-  }, []);
-
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+  }, [isMobile]);
 
   return (
     <section className="hero" id="hero">
