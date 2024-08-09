@@ -17,69 +17,22 @@ export default function Hero() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  useEffect(() => {
-    const { current: spline } = splineRef;
-
-    const handleMouseOver = e => {
-      if (e.target.name === 'Button') {
-        document.body.style.cursor = 'pointer';
-      }
-    };
-
-    const handleMouseOut = e => {
-      if (e.target.name === 'Button') {
-        document.body.style.cursor = 'default';
-      }
-    };
-
-    const handleClick = () => {
-      console.log('Button clicked');
-    };
-
-    if (spline) {
-      spline.addEventListener('mouseover', handleMouseOver);
-      spline.addEventListener('mouseout', handleMouseOut);
-      spline.addEventListener('buttonClicked', handleClick);
-      return () => {
-        spline.removeEventListener('mouseover', handleMouseOver);
-        spline.removeEventListener('mouseout', handleMouseOut);
-        spline.removeEventListener('buttonClicked', handleClick);
-      };
-    }
-  }, []);
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (splineRef.current && !isMobile) {
-        const { clientX, clientY } = e;
-        const event = new MouseEvent('mousemove', {
-          clientX,
-          clientY,
-        });
-        splineRef.current.dispatchEvent(event);
-      }
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [isMobile]);
-
   return (
     <section className="hero" id="hero">
-      {isMobile ? (
-        <Spline
-          scene="https://prod.spline.design/r5pk6y7R59Afv5Ml/scene.splinecode"
-          className="spline-viewer mobile"
-        />
-      ) : (
-        <Spline
-          ref={splineRef}
-          scene="https://prod.spline.design/aMcJqKwiEiI8NQ0W/scene.splinecode"
-          className="spline-viewer desktop"
-        />
-      )}
+      <div className={`spline-container ${isMobile ? 'mobile' : ''}`}>
+        {isMobile ? (
+          <Spline
+            scene="https://prod.spline.design/r5pk6y7R59Afv5Ml/scene.splinecode"
+            className="spline-viewer mobile"
+          />
+        ) : (
+          <Spline
+            ref={splineRef}
+            scene="https://prod.spline.design/aMcJqKwiEiI8NQ0W/scene.splinecode"
+            className="spline-viewer desktop"
+          />
+        )}
+      </div>
       <Parallax translateY={[-10, 10]}>
         <div className="hero-content">
           {/* Add your hero content here if needed */}

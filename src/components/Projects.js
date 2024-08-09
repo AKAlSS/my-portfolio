@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
 import Image from 'next/image';
+import { useSwipeable } from 'react-swipeable';
 
 const AnimatedTitle = ({ text }) => {
   return (
@@ -112,7 +113,7 @@ const projects = [
     id: 6,
     name: "Customer Solutions Multi-Agent Service",
     description: "A multi-agent customer service system for e-commerce companies using the crewAI framework.",
-    image: "/40.jpg",
+    backgroundGif: "/43.gif",
     tags: ["crewAI", "Multi-Agent Systems", "Customer Service", "E-commerce"],
     detailedDescription: "This ongoing project is focused on building advanced multi-agent customer service systems specifically designed for e-commerce companies. The goal is to enhance customer interactions by leveraging AI to manage different service tasks efficiently.",
     methodology: "I’m using the crewAI framework to develop a network of AI agents, each specialized in handling various aspects of customer service within the e-commerce space. These agents work together to create a seamless customer experience.",
@@ -129,7 +130,17 @@ const ProjectShowcaseSlider = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const slideRef = useRef(null);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const nextProject = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
@@ -142,6 +153,13 @@ const ProjectShowcaseSlider = () => {
     setIsExpanded(false);
     setIsHovered(false);
   };
+
+  const handlers = useSwipeable({
+    onSwipedLeft: nextProject,
+    onSwipedRight: prevProject,
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
 
   const handleKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
@@ -163,7 +181,7 @@ const ProjectShowcaseSlider = () => {
   return (
     <section className="project-showcase-slider" id="project-showcase-slider">
       <AnimatedTitle text="PROJECTS" />
-      <motion.div className="slider-container" layout>
+      <motion.div className="slider-container" layout {...handlers}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
@@ -174,8 +192,8 @@ const ProjectShowcaseSlider = () => {
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5 }}
             onClick={() => setIsExpanded(!isExpanded)}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onMouseEnter={() => !isMobile && setIsHovered(true)}
+            onMouseLeave={() => !isMobile && setIsHovered(false)}
           >
             <div className="background-gif-container">
               <Image
@@ -188,152 +206,179 @@ const ProjectShowcaseSlider = () => {
             </div>
             <motion.div className="project-content">
               <h3 className="project-title">{currentProject.name}</h3>
-              <AnimatePresence>
-                {isHovered && (
-                  <motion.p
-                    className="project-description"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {currentProject.description}
-                  </motion.p>
-                )}
-              </AnimatePresence>
+              {!isMobile && (
+                <AnimatePresence>
+                  {isHovered && (
+                    <motion.p
+                      className="project-description"
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      {currentProject.description}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              )}
               <div className="project-tags">
-                {currentProject.tags.map((tag, index) => (
-                  <span key={index} className="project-tag">{tag}</span>
-                ))}
+                <div className="scrolling-tags">
+                  {currentProject.tags.map((tag, index) => (
+                    <span key={index} className="project-tag">{tag}</span>
+                  ))}
+                  {currentProject.tags.map((tag, index) => (
+                    <span key={`repeat-${index}`} className="project-tag">{tag}</span>
+                  ))}
+                </div>
               </div>
               <div className="project-links">
                 {currentProject.github && (
-                  <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link">
+                  <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
                     <FaGithub /> GitHub
                   </a>
                 )}
                 {currentProject.liveDemo && (
-                  <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link">
+                  <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link live-demo-link">
                     <FaExternalLinkAlt /> Live Demo
                   </a>
                 )}
                 {currentProject.videoDemo && (
-                  <button onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }} className="project-link">
+                  <button onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }} className="project-link video-demo-link">
                     <FaPlay /> Video Demo
                   </button>
                 )}
               </div>
             </motion.div>
-            <AnimatePresence>
-              {isExpanded && (
-                <motion.div
-                  className="project-details"
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 100 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <h4>Detailed Description</h4>
-                  <p>{currentProject.detailedDescription}</p>
-                  {currentProject.methodology && (
-                    <>
-                      <h4>Methodology</h4>
-                      <p>{currentProject.methodology}</p>
-                    </>
+            {isExpanded && (
+              <motion.div
+                className="project-details"
+                initial={{ opacity: 0, y: 100 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 100 }}
+                transition={{ duration: 0.3 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button className="close-details" onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }}>
+                  &times;
+                </button>
+                <h4>Detailed Description</h4>
+                <p>{currentProject.detailedDescription}</p>
+                {currentProject.methodology && (
+                  <>
+                    <h4>Methodology</h4>
+                    <p>{currentProject.methodology}</p>
+                  </>
+                )}
+                {currentProject.achievements && (
+                  <>
+                    <h4>Key Achievements</h4>
+                    <ul className="achievements-list">
+                      {currentProject.achievements.map((achievement, index) => (
+                        <li key={index}>{achievement}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <div className="project-links">
+                  {currentProject.github && (
+                    <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
+                      <FaGithub /> GitHub
+                    </a>
                   )}
-                  {currentProject.achievements && (
-                    <>
-                      <h4>Key Achievements</h4>
-                      <ul className="achievements-list">
-                        {currentProject.achievements.map((achievement, index) => (
-                          <li key={index}>{achievement}</li>
-                        ))}
-                      </ul>
-                    </>
+                  {currentProject.liveDemo && (
+                    <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link live-demo-link">
+                      <FaExternalLinkAlt /> Live Demo
+                    </a>
                   )}
-                  {currentProject.videoDemo && (
-                    <div className="video-demo">
-                      <h4>Video Demo</h4>
-                      <video controls width="100%">
-                        <source src={currentProject.videoDemo} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                </div>
+                {currentProject.videoDemo && (
+                  <div className="video-demo">
+                    <h4>Video Demo</h4>
+                    <video controls width="100%" onClick={(e) => e.stopPropagation()}>
+                      <source src={currentProject.videoDemo} type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                )}
+                {currentProject.screenshots && (
+                  <div className="project-screenshots">
+                    <h4>Screenshots</h4>
+                    <div className="screenshot-gallery">
+                      {currentProject.screenshots.map((screenshot, index) => (
+                        <Image 
+                          key={index}
+                          src={screenshot}
+                          alt={`Screenshot ${index + 1}`}
+                          width={200}
+                          height={150}
+                          objectFit="cover"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      ))}
                     </div>
-                  )}
-                  {currentProject.screenshots && (
-                    <div className="project-screenshots">
-                      <h4>Screenshots</h4>
-                      <div className="screenshot-gallery">
-                        {currentProject.screenshots.map((screenshot, index) => (
-                          <Image 
-                            key={index}
-                            src={screenshot}
-                            alt={`Screenshot ${index + 1}`}
-                            width={200}
-                            height={150}
-                            objectFit="cover"
-                          />
-                        ))}
-                      </div>
+                  </div>
+                )}
+                {currentProject.artSamples && (
+                  <div className="art-samples">
+                    <h4>Art Samples</h4>
+                    <div className="art-gallery">
+                      {currentProject.artSamples.map((sample, index) => (
+                        <Image 
+                          key={index}
+                          src={sample}
+                          alt={`Art Sample ${index + 1}`}
+                          width={200}
+                          height={200}
+                          objectFit="cover"
+                          onClick={(e) => e.stopPropagation()}
+                        />
+                      ))}
                     </div>
-                  )}
-                  {currentProject.artSamples && (
-                    <div className="art-samples">
-                      <h4>Art Samples</h4>
-                      <div className="art-gallery">
-                        {currentProject.artSamples.map((sample, index) => (
-                          <Image 
-                            key={index}
-                            src={sample}
-                            alt={`Art Sample ${index + 1}`}
-                            width={200}
-                            height={200}
-                            objectFit="cover"
-                          />
-                        ))}
-                      </div>
+                  </div>
+                )}
+                {currentProject.videoDemos && (
+                  <div className="video-demos">
+                    <h4>Video Demos</h4>
+                    <div className="video-gallery">
+                      {currentProject.videoDemos.map((video, index) => (
+                        <video key={index} controls width="300" onClick={(e) => e.stopPropagation()}>
+                          <source src={video} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </video>
+                      ))}
                     </div>
-                  )}
-                  {currentProject.videoDemos && (
-                    <div className="video-demos">
-                      <h4>Video Demos</h4>
-                      <div className="video-gallery">
-                        {currentProject.videoDemos.map((video, index) => (
-                          <video key={index} controls width="300">
-                            <source src={video} type="video/mp4" />
-                            Your browser does not support the video tag.
-                          </video>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {currentProject.status && (
-                    <div className="project-status">
-                      <h4>Status</h4>
-                      <p>{currentProject.status}</p>
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  </div>
+                )}
+{currentProject.status && (
+                  <div className="project-status">
+                    <h4>Status</h4>
+                    <p>{currentProject.status}</p>
+                  </div>
+                )}
+              </motion.div>
+            )}
           </motion.div>
         </AnimatePresence>
-        <motion.button 
-          className="nav-btn prev" 
-          onClick={prevProject}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaArrowLeft />
-        </motion.button>
-        <motion.button 
-          className="nav-btn next" 
-          onClick={nextProject}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaArrowRight />
-        </motion.button>
+        {!isMobile && (
+          <>
+            <motion.button 
+              className="nav-btn prev" 
+              onClick={prevProject}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaArrowLeft />
+            </motion.button>
+            <motion.button 
+              className="nav-btn next" 
+              onClick={nextProject}
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaArrowRight />
+            </motion.button>
+          </>
+        )}
       </motion.div>
       <div className="progress-bar">
         {projects.map((project, index) => (
