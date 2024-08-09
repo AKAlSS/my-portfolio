@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
+import { Suspense, lazy } from 'react'
 
 const Header = dynamic(() => import('@/components/Header'), { ssr: false })
 const Hero = dynamic(() => import('@/components/Hero'), { ssr: false })
-const Services = dynamic(() => import('@/components/Services'), { ssr: false })
-const Projects = dynamic(() => import('@/components/Projects'), { ssr: false })
-const About = dynamic(() => import('@/components/About'), { ssr: false })
-const Contact = dynamic(() => import('@/components/Contact'), { ssr: false })
+const Services = lazy(() => import('@/components/Services'))
+const Projects = lazy(() => import('@/components/Projects'))
+const About = lazy(() => import('@/components/About'))
+const Contact = lazy(() => import('@/components/Contact'))
 
 export default function Home() {
   return (
@@ -14,10 +14,18 @@ export default function Home() {
       <Suspense fallback={<div>Loading...</div>}>
         <Header />
         <Hero />
-        <Services />
-        <Projects />
-        <About />
-        <Contact />
+        <Suspense fallback={<div>Loading Services...</div>}>
+          <Services />
+        </Suspense>
+        <Suspense fallback={<div>Loading Projects...</div>}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<div>Loading About...</div>}>
+          <About />
+        </Suspense>
+        <Suspense fallback={<div>Loading Contact...</div>}>
+          <Contact />
+        </Suspense>
       </Suspense>
     </main>
   )
