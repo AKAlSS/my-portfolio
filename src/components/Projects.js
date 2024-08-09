@@ -112,7 +112,7 @@ const projects = [
     id: 6,
     name: "Customer Solutions Multi-Agent Service",
     description: "A multi-agent customer service system for e-commerce companies using the crewAI framework.",
-    image: "/40.jpg",
+    backgroundGif: "/41.gif",
     tags: ["crewAI", "Multi-Agent Systems", "Customer Service", "E-commerce"],
     detailedDescription: "This ongoing project is focused on building advanced multi-agent customer service systems specifically designed for e-commerce companies. The goal is to enhance customer interactions by leveraging AI to manage different service tasks efficiently.",
     methodology: "I’m using the crewAI framework to develop a network of AI agents, each specialized in handling various aspects of customer service within the e-commerce space. These agents work together to create a seamless customer experience.",
