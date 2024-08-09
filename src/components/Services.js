@@ -1,9 +1,6 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaChevronDown } from 'react-icons/fa';  // Add this line
-
+import { FaChevronDown } from 'react-icons/fa';
 
 const services = [
   {
@@ -44,240 +41,71 @@ const services = [
   }
 ];
 
-
-const ServiceCard = ({ title, details, isExpanded, onClick }) => {
+const ServiceItem = ({ service, isExpanded, onToggle }) => {
   return (
     <motion.div
-      className={`service-card ${isExpanded ? 'expanded' : ''}`}
-      onClick={onClick}
-      layout
-      transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
+      className={`service-item ${isExpanded ? 'expanded' : ''}`}
+      onClick={onToggle}
+      initial={false}
+      animate={{ backgroundColor: isExpanded ? '#1a1a1a' : '#000000' }}
+      transition={{ duration: 0.3 }}
     >
-      <motion.h3 className="service-title">{title}</motion.h3>
+      <div className="service-header">
+        <h2>{service.title}</h2>
+        <motion.div
+          animate={{ rotate: isExpanded ? 180 : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <FaChevronDown />
+        </motion.div>
+      </div>
       <AnimatePresence>
-        {isExpanded ? (
+        {isExpanded && (
           <motion.ul
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0, transition: { duration: 0.5, ease: "easeInOut" } }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
           >
-            {details.map((detail, index) => (
+            {service.details.map((detail, index) => (
               <motion.li
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20, transition: { duration: 0.5, ease: "easeInOut" } }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
                 {detail}
               </motion.li>
             ))}
           </motion.ul>
-        ) : (
-          <motion.div 
-            className="card-arrow"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
-            <FaChevronDown />
-          </motion.div>
         )}
       </AnimatePresence>
     </motion.div>
   );
 };
 
-const BackgroundAnimation = () => {
-  return (
-    <div className="background-animation">
-      {[...Array(40)].map((_, i) => (
-        <div key={i} className={`particle particle-${i % 4}`} />
-      ))}
-    </div>
-  );
-};
-
-const Particle = ({ style }) => (
-  <motion.div
-    className="particle"
-    style={style}
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 1 }}
-  />
-);
-
-const ParticleBackground = () => {
-  const [particles, setParticles] = useState([]);
-
-  useEffect(() => {
-    const particlesCount = 50;
-    const newParticles = Array.from({ length: particlesCount }, (_, i) => ({
-      id: i,
-      style: {
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-        width: `${Math.random() * 4 + 1}px`,
-        height: `${Math.random() * 4 + 1}px`,
-        opacity: Math.random() * 0.5 + 0.1,
-        animationDuration: `${Math.random() * 40 + 20}s`,
-        animationDelay: `${Math.random() * 5}s`
-      }
-    }));
-    setParticles(newParticles);
-  }, []);
-
-  return (
-    <>
-      {particles.map((particle) => (
-        <Particle key={particle.id} style={particle.style} />
-      ))}
-    </>
-  );
-};
-
-
-const AnimatedTitle = ({ text }) => {
-  return (
-    <h2 className="section-header">
-      {text.split('').map((letter, index) => (
-        <motion.span
-          key={index}
-          className="animated-letter"
-          whileHover={{ 
-            scale: 1.2, 
-            color: '#FFFFFF',
-            textShadow: '0 0 10px #FFFFFF, 0 0 20px #FFFFFF, 0 0 30px #FFFFFF',
-            transition: { duration: 0.1 }
-          }}
-        >
-          {letter}
-        </motion.span>
-      ))}
-    </h2>
-  );
-};
-
-const movementPatterns = [
-  { start: { x: 0, y: 'random' }, end: { x: '100%', y: 'random' } },    // left to right
-  { start: { x: '100%', y: 'random' }, end: { x: 0, y: 'random' } },    // right to left
-  { start: { x: 'random', y: '100%' }, end: { x: 'random', y: 0 } },    // bottom to top
-  { start: { x: 'random', y: 0 }, end: { x: 'random', y: '100%' } },    // top to bottom
-  { start: { x: 0, y: '100%' }, end: { x: '100%', y: 0 } },             // bottom left to top right
-  { start: { x: '100%', y: '100%' }, end: { x: 0, y: 0 } },             // bottom right to top left
-  { start: { x: 0, y: 0 }, end: { x: '100%', y: '100%' } },             // top left to bottom right
-  { start: { x: '100%', y: 0 }, end: { x: 0, y: '100%' } }              // top right to bottom left
-];
-
-const ShootingOrb = ({ pattern }) => {
-  const duration = Math.random() * 2 + 3; // 3-5 seconds
-  const size = Math.random() * 2 + 1; // 1-3px
-  const opacity = Math.random() * 0.5 + 0.5; // 0.5-1 opacity
-
-  const start = {
-    x: pattern.start.x === 'random' ? `${Math.random() * 100}%` : pattern.start.x,
-    y: pattern.start.y === 'random' ? `${Math.random() * 100}%` : pattern.start.y
-  };
-
-  const end = {
-    x: pattern.end.x === 'random' ? `${Math.random() * 100}%` : pattern.end.x,
-    y: pattern.end.y === 'random' ? `${Math.random() * 100}%` : pattern.end.y
-  };
-
-  return (
-    <motion.div 
-      className="shooting-orb"
-      initial={start}
-      animate={end}
-      transition={{ duration, ease: "linear" }}
-      style={{
-        width: size,
-        height: size,
-        opacity,
-        background: '#fff',
-        borderRadius: '50%',
-        position: 'absolute',
-        zIndex: 1,
-      }}
-    >
-      <motion.div 
-        className="orb-streak"
-        style={{
-          position: 'absolute',
-          width: '50px',
-          height: '2px',
-          background: 'linear-gradient(to left, rgba(255,255,255,0.3), transparent)',
-          transformOrigin: 'left center',
-        }}
-        initial={{ rotate: 0 }}
-        animate={{ rotate: Math.atan2(end.y - start.y, end.x - start.x) * (180 / Math.PI) }}
-      />
-    </motion.div>
-  );
-};
-
-const SpaceBackground = () => {
-  const [orbs, setOrbs] = useState([]);
-  const [lastPattern, setLastPattern] = useState(null);
-
-  useEffect(() => {
-    const createOrb = () => {
-      if (orbs.length >= 2) return; // Limit to 2 orbs at a time
-
-      let newPattern;
-      do {
-        newPattern = movementPatterns[Math.floor(Math.random() * movementPatterns.length)];
-      } while (newPattern === lastPattern);
-
-      setLastPattern(newPattern);
-      const newOrb = { id: Math.random(), pattern: newPattern };
-      setOrbs(prevOrbs => [...prevOrbs, newOrb]);
-
-      setTimeout(() => {
-        setOrbs(prevOrbs => prevOrbs.filter(orb => orb.id !== newOrb.id));
-      }, 5000); // Remove orb after 15 seconds
-    };
-
-    const interval = setInterval(createOrb, 2000); // Try to create new orb every 2 seconds
-
-    return () => clearInterval(interval);
-  }, [orbs, lastPattern]);
-
-  return (
-    <div className="space-background">
-      {orbs.map(orb => <ShootingOrb key={orb.id} pattern={orb.pattern} />)}
-    </div>
-  );
-};
-
-export default function Services() {
+const Services = () => {
   const [expandedIndex, setExpandedIndex] = useState(null);
 
-  const handleClick = (index) => {
-    setExpandedIndex(prevIndex => prevIndex === index ? null : index);
+  const handleToggle = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   return (
     <section className="services" id="services">
-      <SpaceBackground />
-      <ParticleBackground />
-      <BackgroundAnimation />
-      <AnimatedTitle text="SERVICES" />
+      <h1 className="section-title">Services</h1>
       <div className="services-container">
         {services.map((service, index) => (
-          <ServiceCard
+          <ServiceItem
             key={index}
-            title={service.title}
-            details={service.details}
+            service={service}
             isExpanded={expandedIndex === index}
-            onClick={() => handleClick(index)}
-            custom={index}
+            onToggle={() => handleToggle(index)}
           />
         ))}
       </div>
     </section>
   );
-}
+};
+
+export default Services;
