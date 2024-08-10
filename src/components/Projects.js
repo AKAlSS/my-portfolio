@@ -79,7 +79,7 @@ const projects = [
   },
   {
     id: 4,
-    name: "Advanced AI Generated Art and Community Engagement",
+    name: "Advanced AI Generated Art & Community Engagement",
     description: "A project blending AI innovation with different art styles to create unique, engaging art.",
     backgroundGif: "/TimelessCultureVid.gif",
     tags: ["AI Image Generation", "Midjourney", "ChatGPT", "Text-To-Image"],
