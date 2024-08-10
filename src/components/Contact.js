@@ -25,6 +25,10 @@ export default function Contact() {
           <a href="https://github.com/AKAlSS" target="_blank" rel="noopener noreferrer">github.com/AKAlSS</a>
         </div>
         <div className="footer-item">
+          <FaFigma className="footer-icon" />
+          <a href="https://www.figma.com/proto/7q9ajRGqtvywzJRGQwEPZj/Projects-Showcase?node-id=5-1102&starting-point-node-id=5%3A1102&hide-ui=1&t=QlvzIBPeKCo3QnRe-8" target="_blank" rel="noopener noreferrer">figma.com/ahmadkaiss</a>
+        </div>
+        <div className="footer-item">
           <FaClock className="footer-icon" />
           <span>{time}</span>
         </div>
@@ -32,7 +36,7 @@ export default function Contact() {
           <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
         </div>
       </div>
-      <div className="copyright">© 2023 Ahmad Kaiss. All rights reserved.</div>
+      <div className="copyright">© 2024 Ahmad Kaiss. All rights reserved.</div>
     </footer>
   );
 }
