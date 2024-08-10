@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaEnvelope, FaGithub, FaClock } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaFigma, FaClock } from 'react-icons/fa';
 
 export default function Contact() {
   const [time, setTime] = useState('');
