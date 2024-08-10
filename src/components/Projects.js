@@ -194,7 +194,7 @@ const ProjectShowcaseSlider = () => {
   return (
     <section className="project-showcase-slider" id="project-showcase-slider">
       <AnimatedTitle text="PROJECTS" />
-      <motion.div className="slider-container" layout {...handlers}>
+      <motion.div className={`slider-container ${isMobile ? 'mobile' : ''}`} layout {...handlers}>
         <AnimatePresence mode="wait">
           <motion.div
             key={currentIndex}
