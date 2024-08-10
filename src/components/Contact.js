@@ -33,7 +33,7 @@ export default function Contact() {
           <span>{time}</span>
         </div>
         <div className="footer-item">
-          <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
+          <a href="/Ahmad_Kaiss_Resume.pdf" download className="cv-button">CV</a>
         </div>
       </div>
       <div className="copyright">© 2024 Ahmad Kaiss. All rights reserved.</div>

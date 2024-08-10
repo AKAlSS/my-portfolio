@@ -61,7 +61,7 @@ export default function Header() {
             <li><button onClick={() => scrollToSection('contact')} className="nav-link">Contact</button></li>
           </ul>
         </div>
-        <a href="/path-to-your-cv.pdf" download className="cv-button">CV</a>
+        <a href="/Ahmad_Kaiss_Resume.pdf" download className="cv-button">CV</a>
       </nav>
     </header>
   );
