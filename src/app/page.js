@@ -1,51 +1,39 @@
-"use client";  // This line makes the entire file a client component
+"use client";
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { Suspense, lazy } from 'react';
-import Preloader from '@/components/Preloader';;
+import { AnimatePresence } from 'framer-motion';
+import Preloader from '@/components/Preloader';
 
 const Header = dynamic(() => import('@/components/Header'), { ssr: false });
 const Hero = dynamic(() => import('@/components/Hero'), { ssr: false });
-const Services = lazy(() => import('@/components/Services'));
-const Projects = lazy(() => import('@/components/Projects'));
-const About = lazy(() => import('@/components/About'));
-const Contact = lazy(() => import('@/components/Contact'));
+const Services = dynamic(() => import('@/components/Services'));
+const Projects = dynamic(() => import('@/components/Projects'));
+const About = dynamic(() => import('@/components/About'));
+const Contact = dynamic(() => import('@/components/Contact'));
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Simulate a loading time (you can adjust the time or make it dynamic)
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 3000); // Matches the timing of the Preloader's phase
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (loading) {
-    return <Preloader />;
-  }
+  const handleLoadingComplete = () => {
+    setLoading(false);
+  };
 
   return (
     <main>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Header />
-        <Hero />
-        <Suspense fallback={<div>Loading Services...</div>}>
+      <AnimatePresence mode="wait">
+        {loading && <Preloader key="preloader" onLoadingComplete={handleLoadingComplete} />}
+      </AnimatePresence>
+      {!loading && (
+        <>
+          <Header />
+          <Hero />
           <Services />
-        </Suspense>
-        <Suspense fallback={<div>Loading Projects...</div>}>
           <Projects />
-        </Suspense>
-        <Suspense fallback={<div>Loading About...</div>}>
           <About />
-        </Suspense>
-        <Suspense fallback={<div>Loading Contact...</div>}>
           <Contact />
-        </Suspense>
-      </Suspense>
+        </>
+      )}
     </main>
   );
 }
