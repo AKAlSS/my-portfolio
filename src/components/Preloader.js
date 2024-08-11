@@ -1,10 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Preloader = () => {
-    const [gridTexts, setGridTexts] = useState([]);
-    const [loadingComplete, setLoadingComplete] = useState(false);
+    const [phase, setPhase] = useState(1);
+    const [gridItems, setGridItems] = useState([]);
 
     useEffect(() => {
         const initialTexts = [
@@ -15,35 +16,52 @@ const Preloader = () => {
             "ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"
         ];
 
-        // Shuffle and set the grid texts randomly
-        setGridTexts(shuffleArray(initialTexts));
+        setGridItems(shuffleArray(initialTexts.map(text => ({ text, visible: true }))));
 
-        // Set a timeout to transition to the "WELCOME" phase
-        const welcomeTimeout = setTimeout(() => {
-            setLoadingComplete(true);
-            setGridTexts(Array(30).fill("WELCOME"));
-        }, 3000); // Adjust timing as needed
+        const phase2Timeout = setTimeout(() => {
+            setPhase(2);
+        }, 3000);
 
-        return () => clearTimeout(welcomeTimeout);
+        const completeTimeout = setTimeout(() => {
+            setGridItems(prevItems => prevItems.map(item => ({ ...item, visible: false })));
+        }, 6000);
+
+        return () => {
+            clearTimeout(phase2Timeout);
+            clearTimeout(completeTimeout);
+        };
     }, []);
 
-    // Shuffle function for random appearance
     const shuffleArray = (array) => {
-        let shuffledArray = array
+        return array
             .map(value => ({ value, sort: Math.random() }))
             .sort((a, b) => a.sort - b.sort)
             .map(({ value }) => value);
-        return shuffledArray;
     };
 
     return (
         <div className="preloader">
             <div className="grid">
-                {gridTexts.map((text, index) => (
-                    <div key={index} className={`gridItem ${loadingComplete ? 'fadeOut' : ''}`}>
-                        {text}
-                    </div>
-                ))}
+                <AnimatePresence>
+                    {gridItems.map((item, index) => (
+                        <motion.div
+                            key={index}
+                            className="gridItem"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: item.visible ? 1 : 0 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.5, delay: Math.random() * 0.5 }}
+                        >
+                            <motion.span
+                                initial={{ opacity: 1 }}
+                                animate={{ opacity: [1, 0, 1], filter: ["blur(0px)", "blur(10px)", "blur(0px)"] }}
+                                transition={{ duration: 0.3, repeat: phase === 2 ? 2 : 0 }}
+                            >
+                                {phase === 1 ? item.text : "WELCOME"}
+                            </motion.span>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
             </div>
         </div>
     );
