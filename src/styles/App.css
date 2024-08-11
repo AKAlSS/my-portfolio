@@ -1000,7 +1000,6 @@ h1.show, h2.show, h3.show {
 
 
 
-/* Preloader Styles */
 .preloader {
   position: fixed;
   top: 0;
@@ -1033,6 +1032,12 @@ h1.show, h2.show, h3.show {
   font-family: Arial, sans-serif;
   text-align: center;
   overflow: hidden;
+  border: 1px solid transparent;
+  transition: border-color 0.5s ease;
+}
+
+.gridItem.visible {
+  border-color: white;
 }
 
 .gridItem span {
