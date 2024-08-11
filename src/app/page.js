@@ -14,15 +14,29 @@ const Contact = dynamic(() => import('@/components/Contact'));
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
+  const [heroLoaded, setHeroLoaded] = useState(false);
+
+  useEffect(() => {
+    // Pre-load the Hero component
+    Hero().then(() => setHeroLoaded(true));
+  }, []);
 
   const handleLoadingComplete = () => {
-    setLoading(false);
+    if (heroLoaded) {
+      setLoading(false);
+    }
   };
 
   return (
     <main>
       <AnimatePresence mode="wait">
-        {loading && <Preloader key="preloader" onLoadingComplete={handleLoadingComplete} />}
+        {loading && (
+          <Preloader
+            key="preloader"
+            onLoadingComplete={handleLoadingComplete}
+            isReady={heroLoaded}
+          />
+        )}
       </AnimatePresence>
       {!loading && (
         <>
