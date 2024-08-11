@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Preloader = ({ onLoadingComplete }) => {
+const Preloader = ({ onLoadingComplete, isReady }) => {
     const [phase, setPhase] = useState(1);
     const [gridItems, setGridItems] = useState([]);
 
@@ -36,19 +36,22 @@ const Preloader = ({ onLoadingComplete }) => {
             })
         );
 
-        // When all items are visible, move to phase 2
+        // When all items are visible and content is ready, move to phase 2
         Promise.all(animationPromises).then(() => {
-            setTimeout(() => {
-                setPhase(2);
-            }, 1000);
+            const checkReadyAndTransition = () => {
+                if (isReady) {
+                    setTimeout(() => {
+                        setPhase(2);
+                        setTimeout(onLoadingComplete, 2000); // Allow time for "WELCOME" animation
+                    }, 1000);
+                } else {
+                    setTimeout(checkReadyAndTransition, 100); // Check again in 100ms
+                }
+            };
+            checkReadyAndTransition();
         });
 
-        // Simulate page load completion
-        setTimeout(() => {
-            onLoadingComplete();
-        }, 5000); // Adjust this time based on your actual page load time
-
-    }, [onLoadingComplete]);
+    }, [isReady, onLoadingComplete]);
 
     return (
         <motion.div 
