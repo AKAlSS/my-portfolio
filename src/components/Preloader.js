@@ -3,58 +3,80 @@
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Preloader = () => {
+const Preloader = ({ onLoadingComplete }) => {
     const [phase, setPhase] = useState(1);
     const [gridItems, setGridItems] = useState([]);
 
     useEffect(() => {
-        const initialTexts = [
-            "ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE",
-            "AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI",
-            "ARTIFICIAL INTELLIGENCE", "ADVANCEMENT", "AHMAD KAISS", "AHMAD KAISS", "ADVANCEMENT", "ARTIFICIAL INTELLIGENCE",
-            "AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI",
-            "ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"
+        const gridStructure = [
+            ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"],
+            ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
+            ["ARTIFICIAL INTELLIGENCE", "ADVANCEMENT", "AHMAD KAISS", "AHMAD KAISS", "ADVANCEMENT", "ARTIFICIAL INTELLIGENCE"],
+            ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
+            ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"]
         ];
 
-        setGridItems(shuffleArray(initialTexts.map(text => ({ text, visible: true }))));
+        const flattenedItems = gridStructure.flat().map((text, index) => ({
+            text,
+            visible: false,
+            index
+        }));
 
-        const phase2Timeout = setTimeout(() => {
-            setPhase(2);
-        }, 3000);
+        setGridItems(flattenedItems);
 
-        const completeTimeout = setTimeout(() => {
-            setGridItems(prevItems => prevItems.map(item => ({ ...item, visible: false })));
-        }, 6000);
+        // Animate items in randomly
+        const animationPromises = flattenedItems.map((item, index) => 
+            new Promise(resolve => {
+                setTimeout(() => {
+                    setGridItems(prev => prev.map((prevItem, i) => 
+                        i === index ? { ...prevItem, visible: true } : prevItem
+                    ));
+                    resolve();
+                }, Math.random() * 2000);
+            })
+        );
 
-        return () => {
-            clearTimeout(phase2Timeout);
-            clearTimeout(completeTimeout);
-        };
-    }, []);
+        // When all items are visible, move to phase 2
+        Promise.all(animationPromises).then(() => {
+            setTimeout(() => {
+                setPhase(2);
+            }, 1000);
+        });
 
-    const shuffleArray = (array) => {
-        return array
-            .map(value => ({ value, sort: Math.random() }))
-            .sort((a, b) => a.sort - b.sort)
-            .map(({ value }) => value);
-    };
+        // Simulate page load completion
+        setTimeout(() => {
+            onLoadingComplete();
+        }, 5000); // Adjust this time based on your actual page load time
+
+    }, [onLoadingComplete]);
 
     return (
-        <div className="preloader">
+        <motion.div 
+            className="preloader"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1 }}
+        >
             <div className="grid">
                 <AnimatePresence>
-                    {gridItems.map((item, index) => (
+                    {gridItems.map((item) => (
                         <motion.div
-                            key={index}
-                            className="gridItem"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: item.visible ? 1 : 0 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.5, delay: Math.random() * 0.5 }}
+                            key={item.index}
+                            className={`gridItem ${item.visible ? 'visible' : ''}`}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ 
+                                opacity: item.visible ? 1 : 0, 
+                                scale: item.visible ? 1 : 0.8,
+                                borderColor: phase === 1 ? "white" : "transparent"
+                            }}
+                            exit={{ opacity: 0, scale: 0.8 }}
+                            transition={{ duration: 0.5 }}
                         >
                             <motion.span
                                 initial={{ opacity: 1 }}
-                                animate={{ opacity: [1, 0, 1], filter: ["blur(0px)", "blur(10px)", "blur(0px)"] }}
+                                animate={{ 
+                                    opacity: phase === 2 ? [1, 0, 1] : 1, 
+                                    filter: phase === 2 ? ["blur(0px)", "blur(10px)", "blur(0px)"] : "blur(0px)"
+                                }}
                                 transition={{ duration: 0.3, repeat: phase === 2 ? 2 : 0 }}
                             >
                                 {phase === 1 ? item.text : "WELCOME"}
@@ -63,7 +85,7 @@ const Preloader = () => {
                     ))}
                 </AnimatePresence>
             </div>
-        </div>
+        </motion.div>
     );
 };
 
