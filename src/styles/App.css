@@ -999,7 +999,6 @@ h1.show, h2.show, h3.show {
 }
 
 
-
 .preloader {
   position: fixed;
   top: 0;
@@ -1028,7 +1027,8 @@ h1.show, h2.show, h3.show {
   align-items: center;
   background-color: black;
   color: white;
-  font-size: 1rem;
+  font-size: 1.5rem; /* Increased from 1rem */
+  font-weight: 600; /* Added font weight */
   font-family: Arial, sans-serif;
   text-align: center;
   overflow: hidden;
@@ -1051,6 +1051,6 @@ h1.show, h2.show, h3.show {
   }
 
   .gridItem {
-    font-size: 0.8rem;
+    font-size: 1.2rem; /* Increased from 0.8rem */
   }
 }
