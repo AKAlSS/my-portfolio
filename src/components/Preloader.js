@@ -6,9 +6,29 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Preloader = ({ onLoadingComplete }) => {
     const [phase, setPhase] = useState(1);
     const [gridItems, setGridItems] = useState([]);
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const gridStructure = [
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+
+        const mobileGridStructure = [
+            ["ARTIFICIAL", "AHMAD", "ARTIFICIAL"],
+            ["INTELLIGENCE", "KAISS", "INTELLIGENCE"],
+            ["AI", "AHMAD", "AI"],
+            ["ARTIFICIAL", "KAISS", "ARTIFICIAL"],
+            ["INTELLIGENCE", "AHMAD", "INTELLIGENCE"],
+            ["AI", "KAISS", "AI"],
+            ["ARTIFICIAL", "AHMAD", "ARTIFICIAL"],
+            ["INTELLIGENCE", "KAISS", "INTELLIGENCE"],
+            ["AI", "AHMAD", "AI"],
+            ["ARTIFICIAL", "KAISS", "ARTIFICIAL"]
+        ];
+
+        const desktopGridStructure = [
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"],
             ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
             ["ARTIFICIAL INTELLIGENCE", "ADVANCEMENT", "AHMAD KAISS", "AHMAD KAISS", "ADVANCEMENT", "ARTIFICIAL INTELLIGENCE"],
@@ -16,6 +36,7 @@ const Preloader = ({ onLoadingComplete }) => {
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"]
         ];
 
+        const gridStructure = isMobile ? mobileGridStructure : desktopGridStructure;
         const flattenedItems = gridStructure.flat().map((text, index) => ({
             text,
             visible: false,
@@ -48,6 +69,7 @@ const Preloader = ({ onLoadingComplete }) => {
             onLoadingComplete();
         }, 5000); // Adjust this time based on your actual page load time
 
+        return () => window.removeEventListener('resize', checkMobile);
     }, [onLoadingComplete]);
 
     return (
@@ -56,7 +78,7 @@ const Preloader = ({ onLoadingComplete }) => {
             exit={{ opacity: 0 }}
             transition={{ duration: 1 }}
         >
-            <div className="grid">
+            <div className={`grid ${isMobile ? 'mobile' : ''}`}>
                 <AnimatePresence>
                     {gridItems.map((item) => (
                         <motion.div
