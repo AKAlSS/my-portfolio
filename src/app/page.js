@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Suspense, lazy } from 'react';
-import Preloader from './components/Preloader';
+import Preloader from '@/components/Preloader';;
 
 const Header = dynamic(() => import('@/components/Header'), { ssr: false });
 const Hero = dynamic(() => import('@/components/Hero'), { ssr: false });
