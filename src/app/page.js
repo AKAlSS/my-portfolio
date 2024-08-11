@@ -1,3 +1,5 @@
+"use client";  // This line makes the entire file a client component
+
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { Suspense, lazy } from 'react';
