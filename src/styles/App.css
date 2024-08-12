@@ -713,7 +713,7 @@ section {
 /* About Section Styles */
 .about-section {
   color: #ffffff;
-  padding: 4rem 2rem;
+  padding: 4rem 1rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -733,26 +733,41 @@ section {
 .scroll-opacity-text {
   line-height: 1.8;
   font-size: 1rem;
-  margin-bottom: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  transition: max-height 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out;
+}
+
+.scroll-opacity-text.mobile {
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+}
+
+.scroll-opacity-text.mobile.expanded {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+
+.read-more-button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .read-more-btn {
-  background: none;
-  border: none;
+  background-color: #333333;
   color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
   font-size: 0.9rem;
-  padding: 5px 10px;
-  margin-top: 10px;
-  text-decoration: underline;
-  transition: opacity 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
-
 .read-more-btn:hover {
-  opacity: 0.8;
+  background-color: #4a4a4a;
 }
 
 .hobbies-container {
