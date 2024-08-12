@@ -846,6 +846,34 @@ section {
   color: #888;
 }
 
+/* Mobile styles */
+@media (max-width: 768px) {
+  .about-section {
+    padding: 3rem 1rem;
+  }
+
+  .scroll-opacity-text {
+    font-size: 0.9rem;
+  }
+
+  .hobbies-title {
+    font-size: 1.5rem;
+  }
+
+  .hobbies-carousel {
+    padding: 0 1rem;
+  }
+
+  .hobby-icon-wrapper {
+    width: 100%;
+    max-width: none;
+  }
+
+  .hobby-description {
+    font-size: 0.8rem;
+  }
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
   .section-header {
