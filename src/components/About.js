@@ -32,6 +32,8 @@ const AnimatedTitle = ({ text }) => {
 
 const ScrollOpacityText = ({ text, isExpanded, toggleExpand }) => {
   const [isMobile, setIsMobile] = useState(false);
+  const [height, setHeight] = useState("auto");
+  const textRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth <= 768);
@@ -40,35 +42,33 @@ const ScrollOpacityText = ({ text, isExpanded, toggleExpand }) => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  useEffect(() => {
+    if (textRef.current) {
+      const scrollHeight = textRef.current.scrollHeight;
+      setHeight(isExpanded ? `${scrollHeight}px` : "150px");
+    }
+  }, [isExpanded, text]);
+
   return (
-    <motion.div 
-      className="scroll-opacity-text-container"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 1.5 }}
-      viewport={{ once: true, amount: 0.8 }}
-    >
-      <motion.div 
+    <div className="scroll-opacity-text-container">
+      <div 
+        ref={textRef}
         className={`scroll-opacity-text ${isMobile ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''}`}
-        initial={false}
-        animate={{ height: isExpanded ? 'auto' : '150px' }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        style={{ height: isMobile ? height : "auto" }}
       >
         {text}
-      </motion.div>
+      </div>
       {isMobile && (
         <div className="read-more-button-container">
-          <motion.button 
+          <button 
             className="read-more-btn"
             onClick={toggleExpand}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
           >
             {isExpanded ? 'Read Less' : 'Read More'}
-          </motion.button>
+          </button>
         </div>
       )}
-    </motion.div>
+    </div>
   );
 };
 
