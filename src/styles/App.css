@@ -725,14 +725,34 @@ section {
 
 .about-content {
   max-width: 800px;
-  margin: 0 auto 6rem;
+  width: 100%;
+  margin: 0 auto 3rem;
   text-align: left;
 }
 
 .scroll-opacity-text {
   line-height: 1.8;
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.read-more-btn {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  margin-top: 10px;
+  text-decoration: underline;
+  transition: opacity 0.3s ease;
+}
+
+.read-more-btn:hover {
+  opacity: 0.8;
 }
 
 .hobbies-container {
@@ -798,6 +818,10 @@ section {
   color: rgba(255, 255, 255, 0.8);
   max-width: 200px;
   overflow: hidden;
+}
+
+.scroll-opacity-text-container {
+  position: relative;
 }
 
 /* Footer Styles */
