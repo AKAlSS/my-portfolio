@@ -710,7 +710,6 @@ section {
   }
 }
 
-/* About Section Styles */
 .about-section {
   color: #ffffff;
   padding: 4rem 1rem;
@@ -726,8 +725,12 @@ section {
 .about-content {
   max-width: 800px;
   width: 100%;
-  margin: 0 auto 9rem;
+  margin: 0 auto 11rem; /* Set default margin for desktop */
   text-align: left;
+}
+
+.scroll-opacity-text-container {
+  position: relative;
 }
 
 .scroll-opacity-text {
@@ -766,13 +769,15 @@ section {
   font-size: 0.9rem;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
+
 .read-more-btn:hover {
   background-color: #4a4a4a;
 }
 
-.hobbies-container {
-  width: 100%;
-  max-width: 800px;
+.hobbies-title {
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .hobbies-title {
@@ -781,6 +786,13 @@ section {
   opacity: 1;
   text-align: center;
 }
+
+.hobbies-container {
+  width: 100%;
+  max-width: 800px;
+}
+
+
 
 .hobbies-grid {
   display: flex;
@@ -889,6 +901,10 @@ section {
 @media (max-width: 768px) {
   .about-section {
     padding: 3rem 1rem;
+  }
+
+  .about-content {
+    margin-bottom: 3rem; /* Reduce spacing for mobile */
   }
 
   .scroll-opacity-text {
