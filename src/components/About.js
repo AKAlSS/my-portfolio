@@ -123,7 +123,7 @@ const HobbiesSection = ({ hobbies }) => {
 };
 
 const AboutSection = () => {
-  const aboutText = "I have to always keep myself busy, could be some coping mechanism but we'll give myself the benefit of doubt. I like getting my hands dirty and finding things out the hard way. It's just my way of challenging myself and trusting my beliefs while adopting the student mindset... I could always be wrong (very rare). If you did take the time to read this, I appreciate that.";
+  const aboutText = "I'm Ahmad, and my journey into tech started in a frozen foods startup, where I transitioned from the production line to a part-time UI/UX designer by leveraging my design interest and psychology background. My passion for creating innovative user experiences led to a rapid progression to UX Manager and eventually Tech Project Lead, where I successfully led major projects while adapting to new challenges. A recent shift in my career sparked my interest in artificial intelligence. I began exploring AI by leading projects that utilized multiple AI tools and LLMs to build dynamic websites and optimize performance. One highlight was developing a website entirely through AI, from code to content, showcasing the power of these tools. Outside of work, I’m always learning and experimenting with side projects, whether it's diving into the latest AI advancements or launching new ventures like a final-mile logistics company. I thrive on taking risks and embracing challenges, and I’m eager to continue my pursuit with AI as I move forward in my career.";
 
   const hobbies = [
     { icon: '🥋', hobby: 'BJJ, Kickboxing, MMA', description: "It's pretty cool I guess 🤷‍♂️😏" },
