@@ -30,17 +30,40 @@ const AnimatedTitle = ({ text }) => {
   );
 };
 
-const ScrollOpacityText = ({ text }) => {
+const ScrollOpacityText = ({ text, isExpanded, toggleExpand }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const truncatedText = text.slice(0, 150) + '...';
+
   return (
-    <motion.p 
-      className="scroll-opacity-text"
+    <motion.div 
+      className="scroll-opacity-text-container"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       transition={{ duration: 1.5 }}
       viewport={{ once: true, amount: 0.8 }}
     >
-      {text}
-    </motion.p>
+      <p className="scroll-opacity-text">
+        {isMobile && !isExpanded ? truncatedText : text}
+      </p>
+      {isMobile && (
+        <motion.button 
+          className="read-more-btn"
+          onClick={toggleExpand}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {isExpanded ? 'Read Less' : 'Read More'}
+        </motion.button>
+      )}
+    </motion.div>
   );
 };
 
@@ -123,7 +146,10 @@ const HobbiesSection = ({ hobbies }) => {
 };
 
 const AboutSection = () => {
-  const aboutText = "My tech journey began in a frozen foods startup, where I transitioned from the production line to UI/UX design, leveraging my design interest and psychology background. This passion propelled me to UX Manager and then Tech Project Lead, where I led major initiatives and adapted to new challenges. My career took an exciting turn as I dove into artificial intelligence. I’ve led projects that integrate multiple AI tools and large language models (LLMs) to build dynamic websites and optimize performance. A standout achievement was developing an entire website through AI, from code to content, showcasing the potential of these technologies. Outside of work, I’m deeply invested in exploring the latest AI advancements, constantly learning and experimenting with new ideas. I’m excited to continue pushing the boundaries of what’s possible with AI as I advance in my career.";
+  const [isExpanded, setIsExpanded] = useState(false);
+  const toggleExpand = () => setIsExpanded(!isExpanded);
+
+  const aboutText = "My tech journey began in a frozen foods startup, where I transitioned from the production line to UI/UX design, leveraging my design interest and psychology background. This passion propelled me to UX Manager and then Tech Project Lead, where I led major initiatives and adapted to new challenges. My career took an exciting turn as I dove into artificial intelligence. I've led projects that integrate multiple AI tools and large language models (LLMs) to build dynamic websites and optimize performance. A standout achievement was developing an entire website through AI, from code to content, showcasing the potential of these technologies. Outside of work, I'm deeply invested in exploring the latest AI advancements, constantly learning and experimenting with new ideas. I'm excited to continue pushing the boundaries of what's possible with AI as I advance in my career.";
 
   const hobbies = [
     { icon: '🥋', hobby: 'BJJ, Kickboxing, MMA', description: "It's pretty cool I guess 🤷‍♂️😏" },
@@ -137,7 +163,11 @@ const AboutSection = () => {
     <section className="about-section" id="about">
       <AnimatedTitle text="ABOUT ME" />
       <div className="about-content">
-        <ScrollOpacityText text={aboutText} />
+        <ScrollOpacityText 
+          text={aboutText} 
+          isExpanded={isExpanded}
+          toggleExpand={toggleExpand}
+        />
       </div>
       <h3 className="hobbies-title">My Hobbies</h3>
       <HobbiesSection hobbies={hobbies} />
