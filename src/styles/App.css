@@ -734,27 +734,23 @@ section {
 }
 
 .scroll-opacity-text {
-  position: relative;
   line-height: 1.8;
   font-size: 1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   transition: height 0.5s ease-in-out;
-  overflow: hidden;
 }
 
 .scroll-opacity-text.mobile {
-  mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
 
 .scroll-opacity-text.mobile.expanded {
   mask-image: none;
   -webkit-mask-image: none;
-}
-
-.text-content {
-  padding-bottom: 20px; /* Add some padding at the bottom for better fade effect */
 }
 
 .read-more-button-container {
@@ -776,12 +772,6 @@ section {
 
 .read-more-btn:hover {
   background-color: #4a4a4a;
-}
-
-@media (max-width: 768px) {
-  .scroll-opacity-text {
-    font-size: 0.9rem;
-  }
 }
 
 .hobbies-title {

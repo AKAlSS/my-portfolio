@@ -52,19 +52,12 @@ const ScrollOpacityText = ({ text, isExpanded, toggleExpand }) => {
         className={`scroll-opacity-text ${isMobile ? 'mobile' : ''} ${isExpanded ? 'expanded' : ''}`}
         initial={false}
         animate={{ height: isExpanded ? 'auto' : '150px' }}
-        transition={{ 
-          height: { duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] },
-        }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <div className="text-content">{text}</div>
+        {text}
       </motion.div>
       {isMobile && (
-        <motion.div 
-          className="read-more-button-container"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3, duration: 0.3 }}
-        >
+        <div className="read-more-button-container">
           <motion.button 
             className="read-more-btn"
             onClick={toggleExpand}
@@ -73,7 +66,7 @@ const ScrollOpacityText = ({ text, isExpanded, toggleExpand }) => {
           >
             {isExpanded ? 'Read Less' : 'Read More'}
           </motion.button>
-        </motion.div>
+        </div>
       )}
     </motion.div>
   );
