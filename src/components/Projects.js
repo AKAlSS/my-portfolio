@@ -158,17 +158,17 @@ const ProjectShowcaseSlider = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const nextProject = () => {
+  const nextProject = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
     setIsExpanded(false);
     setIsHovered(false);
-  };
+  }, []);
 
-  const prevProject = () => {
+  const prevProject = useCallback(() => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
     setIsExpanded(false);
     setIsHovered(false);
-  };
+  }, []);
 
   const handlers = useSwipeable({
     onSwipedLeft: nextProject,
@@ -177,20 +177,20 @@ const ProjectShowcaseSlider = () => {
     trackMouse: true
   });
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = useCallback((event) => {
     if (event.key === 'ArrowLeft') {
       prevProject();
     } else if (event.key === 'ArrowRight') {
       nextProject();
     }
-  };
+  }, [prevProject, nextProject]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   const renderTags = (tags) => {
     const duplicatedTags = [...tags, ...tags]; // Duplicate tags for seamless scrolling
