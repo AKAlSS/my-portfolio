@@ -2,8 +2,7 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay } from 'react-icons/fa';
-import Image from 'next/image';
+import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay, FaFigma } from 'react-icons/fa';import Image from 'next/image';
 import { useSwipeable } from 'react-swipeable';
 
 const AnimatedTitle = ({ text }) => {
