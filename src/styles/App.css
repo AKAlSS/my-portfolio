@@ -476,11 +476,11 @@ section {
 
 .project-link.figma-link {
   background-color: rgba(255, 255, 255, 0.2);
-  color: #5f5f5f;
+  color: #ffffff;
 }
 
 .project-link.figma-link:hover {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: rgba(255, 255, 255, 0.26);
 }
 
 /* Duplicate tags to create seamless loop */
