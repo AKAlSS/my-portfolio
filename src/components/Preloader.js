@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Preloader = ({ onLoadingComplete }) => {
@@ -8,10 +8,11 @@ const Preloader = ({ onLoadingComplete }) => {
     const [gridItems, setGridItems] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
 
+    const checkMobile = useCallback(() => {
+        setIsMobile(window.innerWidth <= 768);
+    }, []);
+
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
         checkMobile();
         window.addEventListener('resize', checkMobile);
 
@@ -35,6 +36,7 @@ const Preloader = ({ onLoadingComplete }) => {
             ["UX DESIGN", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "UX DESIGN"],
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"]
         ];
+
 
         const gridStructure = isMobile ? mobileGridStructure : desktopGridStructure;
         const flattenedItems = gridStructure.flat().map((text, index) => ({
@@ -70,7 +72,7 @@ const Preloader = ({ onLoadingComplete }) => {
         }, 5000); // Adjust this time based on your actual page load time
 
         return () => window.removeEventListener('resize', checkMobile);
-    }, [onLoadingComplete]);
+    }, [isMobile, onLoadingComplete, checkMobile]);
 
     return (
         <motion.div 
