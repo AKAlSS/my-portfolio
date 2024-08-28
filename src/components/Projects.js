@@ -1,8 +1,9 @@
 'use client'
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay, FaFigma } from 'react-icons/fa';import Image from 'next/image';
+import { FaArrowLeft, FaArrowRight, FaGithub, FaExternalLinkAlt, FaPlay, FaFigma } from 'react-icons/fa';
+import Image from 'next/image';
 import { useSwipeable } from 'react-swipeable';
 
 const AnimatedTitle = ({ text }) => {
@@ -41,7 +42,8 @@ const projects = [
       "Nurtured an A/B testing culture which earned over $1M in projected revenue",
       "Implemented design system that improved team efficiency by 40%",
       "Conducted user research that informed product strategy, leading to 25% increase in customer satisfaction"
-    ]
+    ],
+    figmaLink: "https://www.figma.com/proto/7q9ajRGqtvywzJRGQwEPZj/Projects-Showcase?node-id=5-1102&starting-point-node-id=5%3A1102"
   },
   {
     id: 2,
@@ -57,7 +59,6 @@ const projects = [
       "AI-driven performance optimization: Used AI to optimize the website’s performance, particularly improving load times on mobile devices.",
       "AI-assisted SEO optimization: Implemented AI-driven SEO strategies to improve the website's visibility and performance in search engines."
     ],
-    github: "",
   },
   {
     id: 3,
@@ -251,6 +252,11 @@ const ProjectShowcaseSlider = () => {
               )}
               {renderTags(currentProject.tags)}
               <div className="project-links">
+                {currentProject.figmaLink && (
+                  <a href={currentProject.figmaLink} target="_blank" rel="noopener noreferrer" className="project-link figma-link">
+                    <FaFigma /> View Design
+                  </a>
+                )}
                 {currentProject.github && (
                   <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
                     <FaGithub /> GitHub
