@@ -157,17 +157,17 @@ const ProjectShowcaseSlider = () => {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const nextProject = useCallback(() => {
+  const nextProject = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % projects.length);
     setIsExpanded(false);
     setIsHovered(false);
-  }, []);
+  };
 
-  const prevProject = useCallback(() => {
+  const prevProject = () => {
     setCurrentIndex((prevIndex) => (prevIndex - 1 + projects.length) % projects.length);
     setIsExpanded(false);
     setIsHovered(false);
-  }, []);
+  };
 
   const handlers = useSwipeable({
     onSwipedLeft: nextProject,
@@ -176,20 +176,20 @@ const ProjectShowcaseSlider = () => {
     trackMouse: true
   });
 
-  const handleKeyDown = useCallback((event) => {
+  const handleKeyDown = (event) => {
     if (event.key === 'ArrowLeft') {
       prevProject();
     } else if (event.key === 'ArrowRight') {
       nextProject();
     }
-  }, [prevProject, nextProject]);
+  };
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [handleKeyDown]);
+  }, []);
 
   const renderTags = (tags) => {
     const duplicatedTags = [...tags, ...tags]; // Duplicate tags for seamless scrolling
@@ -200,19 +200,6 @@ const ProjectShowcaseSlider = () => {
             <span key={`${index}-${tag}`} className="project-tag">{tag}</span>
           ))}
         </div>
-      </div>
-    );
-  };
-
-  const renderFigmaEmbed = (embedUrl) => {
-    return (
-      <div className="figma-embed">
-        <iframe 
-          width="100%" 
-          height="450" 
-          src={embedUrl} 
-          allowFullScreen
-        />
       </div>
     );
   };
@@ -264,11 +251,6 @@ const ProjectShowcaseSlider = () => {
               )}
               {renderTags(currentProject.tags)}
               <div className="project-links">
-                {currentProject.figmaEmbed && (
-                  <button onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }} className="project-link figma-link">
-                    <FaFigma /> View Design
-                  </button>
-                )}
                 {currentProject.github && (
                   <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
                     <FaGithub /> GitHub
@@ -285,7 +267,7 @@ const ProjectShowcaseSlider = () => {
                   </button>
                 )}
               </div>
-              </motion.div>
+            </motion.div>
             {isExpanded && (
               <motion.div
                 className="project-details"
@@ -315,12 +297,6 @@ const ProjectShowcaseSlider = () => {
                       ))}
                     </ul>
                   </>
-                )}
-                {currentProject.figmaEmbed && (
-                  <div className="figma-portfolio">
-                    <h4>Design Portfolio</h4>
-                    {renderFigmaEmbed(currentProject.figmaEmbed)}
-                  </div>
                 )}
                 <div className="project-links">
                   {currentProject.github && (

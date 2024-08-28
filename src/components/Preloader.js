@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Preloader = ({ onLoadingComplete }) => {
@@ -8,35 +8,33 @@ const Preloader = ({ onLoadingComplete }) => {
     const [gridItems, setGridItems] = useState([]);
     const [isMobile, setIsMobile] = useState(false);
 
-    const checkMobile = useCallback(() => {
-        setIsMobile(window.innerWidth <= 768);
-    }, []);
-
     useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
         checkMobile();
         window.addEventListener('resize', checkMobile);
 
         const mobileGridStructure = [
             ["ARTIFICIAL", "AHMAD", "ARTIFICIAL"],
             ["INTELLIGENCE", "KAISS", "INTELLIGENCE"],
-            ["UX DESIGN", "AHMAD", "UX DESIGN"],
+            ["AI", "AHMAD", "AI"],
             ["ARTIFICIAL", "KAISS", "ARTIFICIAL"],
             ["INTELLIGENCE", "AHMAD", "INTELLIGENCE"],
-            ["UX DESIGN", "KAISS", "UX DESIGN"],
+            ["AI", "KAISS", "AI"],
             ["ARTIFICIAL", "AHMAD", "ARTIFICIAL"],
             ["INTELLIGENCE", "KAISS", "INTELLIGENCE"],
-            ["UX DESIGN", "AHMAD", "UX DESIGN"],
+            ["AI", "AHMAD", "AI"],
             ["ARTIFICIAL", "KAISS", "ARTIFICIAL"]
         ];
 
         const desktopGridStructure = [
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"],
-            ["UX DESIGN", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "UX DESIGN"],
+            ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
             ["ARTIFICIAL INTELLIGENCE", "ADVANCEMENT", "AHMAD KAISS", "AHMAD KAISS", "ADVANCEMENT", "ARTIFICIAL INTELLIGENCE"],
-            ["UX DESIGN", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "UX DESIGN"],
+            ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"]
         ];
-
 
         const gridStructure = isMobile ? mobileGridStructure : desktopGridStructure;
         const flattenedItems = gridStructure.flat().map((text, index) => ({
@@ -72,7 +70,7 @@ const Preloader = ({ onLoadingComplete }) => {
         }, 5000); // Adjust this time based on your actual page load time
 
         return () => window.removeEventListener('resize', checkMobile);
-    }, [isMobile, onLoadingComplete, checkMobile]);
+    }, [onLoadingComplete]);
 
     return (
         <motion.div 
