@@ -17,20 +17,31 @@ export default function Home() {
   const [contentVisible, setContentVisible] = useState(false);
 
   const handleLoadingComplete = () => {
+    console.log('Preloader complete');
     setLoading(false);
-    // Add a slight delay before showing the content
-    setTimeout(() => setContentVisible(true), 100);
+    setTimeout(() => {
+      console.log('Setting content visible');
+      setContentVisible(true);
+    }, 100);
   };
 
   useEffect(() => {
-    // Ensure content becomes visible even if preloader fails
+    console.log('Home component mounted');
     const timeout = setTimeout(() => {
+      console.log('Failsafe timeout triggered');
       setLoading(false);
       setContentVisible(true);
-    }, 8000); // Adjust this timeout as needed
+    }, 8000);
 
-    return () => clearTimeout(timeout);
+    return () => {
+      clearTimeout(timeout);
+      console.log('Home component unmounted');
+    };
   }, []);
+
+  useEffect(() => {
+    console.log('Content visible:', contentVisible);
+  }, [contentVisible]);
 
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#1e1e1e' }}>
