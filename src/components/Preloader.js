@@ -18,21 +18,21 @@ const Preloader = ({ onLoadingComplete }) => {
         const mobileGridStructure = [
             ["ARTIFICIAL", "AHMAD", "ARTIFICIAL"],
             ["INTELLIGENCE", "KAISS", "INTELLIGENCE"],
-            ["AI", "AHMAD", "AI"],
+            ["UX DESIGN", "AHMAD", "UX DESIGN"],
             ["ARTIFICIAL", "KAISS", "ARTIFICIAL"],
             ["INTELLIGENCE", "AHMAD", "INTELLIGENCE"],
-            ["AI", "KAISS", "AI"],
+            ["UX DESIGN", "KAISS", "UX DESIGN"],
             ["ARTIFICIAL", "AHMAD", "ARTIFICIAL"],
             ["INTELLIGENCE", "KAISS", "INTELLIGENCE"],
-            ["AI", "AHMAD", "AI"],
+            ["UX DESIGN", "AHMAD", "UX DESIGN"],
             ["ARTIFICIAL", "KAISS", "ARTIFICIAL"]
         ];
 
         const desktopGridStructure = [
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"],
-            ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
+            ["UX/UI DESIGN", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "UX/UI DESIGN"],
             ["ARTIFICIAL INTELLIGENCE", "ADVANCEMENT", "AHMAD KAISS", "AHMAD KAISS", "ADVANCEMENT", "ARTIFICIAL INTELLIGENCE"],
-            ["AI", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "AI"],
+            ["UX/UI DESIGN", "GROWTH", "AHMAD KAISS", "AHMAD KAISS", "GROWTH", "UX/UI DESIGN"],
             ["ARTIFICIAL INTELLIGENCE", "INNOVATION", "AHMAD KAISS", "AHMAD KAISS", "INNOVATION", "ARTIFICIAL INTELLIGENCE"]
         ];
 

@@ -192,7 +192,7 @@ const ProjectShowcaseSlider = () => {
   }, []);
 
   const renderTags = (tags) => {
-    const duplicatedTags = [...tags, ...tags]; // Duplicate tags for seamless scrolling
+    const duplicatedTags = [...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags, ...tags]; // Duplicate tags for seamless scrolling
     return (
       <div className="project-tags">
         <div className="scrolling-tags">
