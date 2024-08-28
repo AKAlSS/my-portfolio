@@ -6,24 +6,24 @@ import { FaChevronDown } from 'react-icons/fa';
 
 const services = [
   {
-    title: 'AI Development',
+    title: 'UX Management & Web Development',
     details: [
-      'Multi-Agent Systems',
-      'Workflow Automation',
-      'AI-Agent Development',
-      'Human-Agent Interaction',
-      'Model Fine-tuning',
-      'PyTorch & TensorFlow',
-      'Python, R, crewAI, MetaGPT, AutoGPT, chatDEV'
+      'UX/UI Design',
+      'Conversion Rate Optimization',
+      'Customer Experience Mapping',
+      'Sitemaps, User Flow, Low & Hi-Fi Wireframes',
+      'Figma, Hotjar, Google Analytics',
+      'WooCommerce, Shopify, ',
+      'Next.js, React, JavaScript, HTML5/CSS, Three.js'
     ]
   },
   {
     title: 'AI Generation',
     details: [
       'Image Generation',
-      'Code Generation',
       'Video Generation',
       'Audio Generation',
+      'Code Generation',
       'ChatGPT, Claude, Llama, Gemini, Mixstral',
       'Midjourney, Leonardo, DALL-E',
       'SD Webui, ComfyUI, Fooocus, SD, SDXL',
@@ -31,13 +31,16 @@ const services = [
     ]
   },
   {
-    title: 'Web Development',
+    title: 'AI Development',
     details: [
-      'Customer Experience Mapping',
-      'UI/UX Design',
-      'Conversion Optimization',
-      'Figma, Next.js, React',
-      'JavaScript, HTML5/CSS, Three.js'
+      'Multi-Agent Systems',
+      'AI-Agent Development',
+      'Human-Agent Interaction',
+      'ChatBot',
+      'Workflow Automation',
+      'Model Fine-tuning',
+      'PyTorch & TensorFlow',
+      'Python, crewAI, LangChain, LangGraph,'
     ]
   }
 ];

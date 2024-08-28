@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { AnimatePresence } from 'framer-motion';
 import Preloader from '@/components/Preloader';
+import { Analytics } from "@vercel/analytics/react"
 
 const Header = dynamic(() => import('@/components/Header'), { ssr: false });
 const Hero = dynamic(() => import('@/components/Hero'), { ssr: false });
