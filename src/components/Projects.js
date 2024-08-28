@@ -30,6 +30,22 @@ const AnimatedTitle = ({ text }) => {
 const projects = [
   {
     id: 1,
+    name: "UX/UI Design Portfolio",
+    description: "A comprehensive showcase of my UX/UI design projects and process.",
+    backgroundGif: "/designproto.gif",
+    tags: ["UX Design", "UI Design", "User Research", "Prototyping", "Figma", "Hotjar", "Google Analytics"],
+    detailedDescription: "This portfolio showcases my journey and expertise in UX/UI design, featuring projects from my professional work. It demonstrates my approach to user-centered design, from initial research and wireframing to high-fidelity prototypes and user testing.",
+    figmaEmbed: "https://www.figma.com/embed?embed_host=share&url=https://www.figma.com/proto/7q9ajRGqtvywzJRGQwEPZj/Projects-Showcase?node-id=12-4682&starting-point-node-id=5%3A1102&hide-ui=1&t=QlvzIBPeKCo3QnRe-8",
+    methodology: "Each project in this portfolio follows a comprehensive UX process: user research, persona creation, journey mapping, wireframing, prototyping, and iterative design based on user feedback.",
+    achievements: [
+      "Led UX redesign projects resulting in 30% increase in user engagement",
+      "Nurtured an A/B testing culture which earned over $1M in projected revenue",
+      "Implemented design system that improved team efficiency by 40%",
+      "Conducted user research that informed product strategy, leading to 25% increase in customer satisfaction"
+    ]
+  },
+  {
+    id: 2,
     name: "Personal Portfolio Website",
     description: "An innovative personal portfolio website developed entirely through AI interactions.",
     backgroundGif: "/PersonalPorfolio.gif",
@@ -45,7 +61,7 @@ const projects = [
     github: "",
   },
   {
-    id: 2,
+    id: 3,
     name: "Content Story V1: Automated Multimedia Storytelling",
     description: "An automated system for converting written articles into engaging video narratives.",
     backgroundGif: "/ContentStoryV1.gif",
@@ -62,7 +78,7 @@ const projects = [
     videoDemo: "/ContentStoryVideoDemo.mp4"
   },
   {
-    id: 3,
+    id: 4,
     name: "AI Learning Hub",
     description: "An interactive game created using ChatDev to teach AI concepts through gamification.",
     backgroundGif: "/AiLearningHub.gif",
@@ -78,7 +94,7 @@ const projects = [
     github: "https://github.com/AKAlSS/AiLearningHub",
   },
   {
-    id: 4,
+    id: 5,
     name: "Advanced AI Generated Art & Community Engagement",
     description: "A project blending AI innovation with different art styles to create unique, engaging art.",
     backgroundGif: "/TimelessCultureVid.gif",
@@ -94,7 +110,7 @@ const projects = [
     artSamples: ["/4.png", "/1.png", "/3.png", "/2.png", "/6.png", "/5.png", "/7.png", "/11.png", "/19.png", "/26.png", "/8.png", "/24.png", "/28.png", "/27.png", "/14.png", "/9.png", "/13.png", "/25.png", "/16.png", "/15.png"]
   },
   {
-    id: 5,
+    id: 6,
     name: "Creative Dreamlike AI Generated Videos",
     description: "A project transforming dreamlike and weirdcore concepts into visually stunning video artworks.",
     backgroundGif: "/DreamlikeVid.gif",
@@ -110,7 +126,7 @@ const projects = [
     videoDemos: ["/Sarkaden1.mp4", "/Sarkaden2.mp4", "/Sarkaden4.mp4"]
   },
   {
-    id: 6,
+    id: 7,
     name: "Customer Solutions Multi-Agent Service",
     description: "A multi-agent customer service system for e-commerce companies using the crewAI framework.",
     backgroundGif: "/43.gif",
@@ -189,6 +205,19 @@ const ProjectShowcaseSlider = () => {
     );
   };
 
+  const renderFigmaEmbed = (embedUrl) => {
+    return (
+      <div className="figma-embed">
+        <iframe 
+          width="100%" 
+          height="450" 
+          src={embedUrl} 
+          allowFullScreen
+        />
+      </div>
+    );
+  };
+
   const currentProject = projects[currentIndex];
 
   return (
@@ -236,6 +265,11 @@ const ProjectShowcaseSlider = () => {
               )}
               {renderTags(currentProject.tags)}
               <div className="project-links">
+                {currentProject.figmaEmbed && (
+                  <button onClick={(e) => { e.stopPropagation(); setIsExpanded(true); }} className="project-link figma-link">
+                    <FaFigma /> View Design
+                  </button>
+                )}
                 {currentProject.github && (
                   <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
                     <FaGithub /> GitHub
@@ -252,7 +286,7 @@ const ProjectShowcaseSlider = () => {
                   </button>
                 )}
               </div>
-            </motion.div>
+              </motion.div>
             {isExpanded && (
               <motion.div
                 className="project-details"
@@ -282,6 +316,12 @@ const ProjectShowcaseSlider = () => {
                       ))}
                     </ul>
                   </>
+                )}
+                {currentProject.figmaEmbed && (
+                  <div className="figma-portfolio">
+                    <h4>Design Portfolio</h4>
+                    {renderFigmaEmbed(currentProject.figmaEmbed)}
+                  </div>
                 )}
                 <div className="project-links">
                   {currentProject.github && (

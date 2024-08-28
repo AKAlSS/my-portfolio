@@ -474,6 +474,25 @@ section {
   backdrop-filter: blur(5px);
 }
 
+.figma-embed {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+.figma-embed iframe {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.project-link.figma-link {
+  background-color: #1abcfe;
+  color: #ffffff;
+}
+
+.project-link.figma-link:hover {
+  background-color: #0fa3e2;
+}
+
 /* Duplicate tags to create seamless loop */
 .scrolling-tags::after {
   content: "";

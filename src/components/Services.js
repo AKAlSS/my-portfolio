@@ -12,9 +12,9 @@ const services = [
       'Conversion Rate Optimization',
       'Customer Experience Mapping',
       'Sitemaps, User Flow, Low & Hi-Fi Wireframes',
-      'Figma, Hotjar, Google Analytics',
-      'WooCommerce, Shopify, ',
-      'Next.js, React, JavaScript, HTML5/CSS, Three.js'
+      'Figma, Figjam, Hotjar, Google Analytics',
+      'Next.js, React, JavaScript, HTML5/CSS, Three.js',
+      'WooCommerce, Shopify, Webflow'
     ]
   },
   {
@@ -36,11 +36,11 @@ const services = [
       'Multi-Agent Systems',
       'AI-Agent Development',
       'Human-Agent Interaction',
-      'ChatBot',
+      'ChatBots',
       'Workflow Automation',
       'Model Fine-tuning',
       'PyTorch & TensorFlow',
-      'Python, crewAI, LangChain, LangGraph,'
+      'Python, crewAI, LangChain, LangGraph'
     ]
   }
 ];
