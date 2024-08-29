@@ -14,7 +14,7 @@ const Newsletter = () => {
 
   return (
     <section className="newsletter">
-      <h2>Subscribe to Our Newsletter</h2>
+      <h2>Subscribe to My Newsletter</h2>
       {subscribed ? (
         <p>Thank you for subscribing!</p>
       ) : (

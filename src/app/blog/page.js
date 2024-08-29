@@ -11,18 +11,79 @@ export default function BlogPage() {
   const [blogPosts, setBlogPosts] = useState([]);
 
   useEffect(() => {
-    // Fetch blog posts from an API or load from a local file
-    // This is a placeholder. Replace with actual data fetching logic
-    const fetchBlogPosts = async () => {
-      const posts = [
-        { id: 1, title: 'Getting Started with AI Development', content: 'Lorem ipsum...', date: '2024-03-01' },
-        { id: 2, title: 'The Future of Web Design', content: 'Lorem ipsum...', date: '2024-03-05' },
-        { id: 3, title: 'Optimizing User Experience in AI Applications', content: 'Lorem ipsum...', date: '2024-03-10' },
+    const blogPosts = [
+        {
+          id: 1,
+          title: "The Future of AI in Web Development: Trends and Predictions",
+          content: `Artificial Intelligence is revolutionizing the web development landscape, offering unprecedented opportunities for creating smarter, more intuitive websites. As we look towards the future, several key trends are emerging that will shape how we build and interact with web applications.
+      
+          1. AI-Powered Design Systems: Expect to see more sophisticated AI tools that can generate entire design systems based on brand guidelines and user preferences. These systems will adapt in real-time to user behavior, ensuring optimal user experiences.
+      
+          2. Natural Language Processing (NLP) Integration: Websites will increasingly incorporate NLP to understand and respond to user queries more naturally. This will lead to more conversational interfaces and improved search functionalities.
+      
+          3. Predictive User Experiences: AI algorithms will analyze user behavior to predict needs and preferences, allowing websites to offer personalized content and features before users even request them.
+      
+          4. Automated Code Generation: As AI becomes more proficient in understanding development patterns, we'll see a rise in tools that can generate high-quality, optimized code, significantly speeding up the development process.
+      
+          5. Enhanced Accessibility: AI will play a crucial role in making websites more accessible, automatically adjusting content and interfaces for users with different abilities.
+      
+          As these trends evolve, web developers will need to adapt their skills, focusing more on AI integration and data analysis. The future of web development is exciting, with AI opening up new possibilities for creating more intelligent, responsive, and user-centric web experiences.`,
+          date: '2024-09-09'
+        },
+        {
+          id: 2,
+          title: "Mastering the Art of UX Design: Key Principles for 2024 and Beyond",
+          content: `As we navigate through 2024, the principles of User Experience (UX) design continue to evolve, shaped by technological advancements and changing user expectations. Here are the key principles that every UX designer should master to create compelling digital experiences:
+      
+          1. Inclusive Design: Design for diversity and accessibility from the start. This means considering users with different abilities, cultural backgrounds, and tech-savviness levels.
+      
+          2. Micro-interactions: Pay attention to the small details. Subtle animations and feedback can significantly enhance user engagement and satisfaction.
+      
+          3. Voice User Interface (VUI): With the rise of voice-activated devices, incorporating VUI into your designs is becoming increasingly important.
+      
+          4. Data-Driven Design: Utilize analytics and user data to inform your design decisions. A/B testing and user feedback should be integral to your design process.
+      
+          5. Augmented Reality (AR) Integration: As AR becomes more mainstream, consider how it can enhance the user experience in your digital products.
+      
+          6. Emotional Design: Focus on creating designs that evoke positive emotions. This involves understanding color psychology, typography, and user motivations.
+      
+          7. Ethical Design: With growing concerns about data privacy and digital well-being, it's crucial to design interfaces that respect user privacy and promote healthy digital habits.
+      
+          8. Personalization: Use AI and machine learning to create personalized experiences that adapt to individual user preferences and behaviors.
+      
+          By mastering these principles, UX designers can create more engaging, accessible, and effective digital experiences. Remember, the best UX is often invisible – it's about creating interfaces that feel natural and intuitive to the user.`,
+          date: '2024-09-02'
+        },
+        {
+          id: 3,
+          title: "Leveraging AI for Enhanced E-commerce Experiences",
+          content: `Artificial Intelligence is transforming the e-commerce landscape, offering retailers new ways to engage customers and optimize operations. Here's how AI is revolutionizing online shopping experiences:
+      
+          1. Personalized Product Recommendations: AI algorithms analyze user behavior, purchase history, and preferences to suggest products that are most likely to appeal to individual shoppers.
+      
+          2. Visual Search Capabilities: AI-powered image recognition allows customers to search for products using pictures instead of text, making it easier to find exactly what they're looking for.
+      
+          3. Chatbots and Virtual Assistants: AI-driven chatbots provide 24/7 customer support, answering queries, helping with purchases, and even offering personalized shopping advice.
+      
+          4. Dynamic Pricing: AI analyzes market trends, competitor pricing, and demand patterns to adjust prices in real-time, maximizing sales and profitability.
+      
+          5. Inventory Management: Predictive AI models help retailers optimize their inventory levels, reducing overstock and stockouts.
+      
+          6. Fraud Detection: AI algorithms can detect unusual patterns and potential fraudulent activities, enhancing security for both retailers and customers.
+      
+          7. Augmented Reality (AR) Try-Ons: AI and AR technologies allow customers to virtually try on clothes, accessories, or visualize furniture in their homes before making a purchase.
+      
+          8. Voice Commerce: AI-powered voice assistants are making it possible for customers to shop using voice commands, adding convenience to the shopping experience.
+      
+          9. Predictive Analytics: AI helps forecast trends and customer behavior, allowing retailers to stay ahead of market demands.
+      
+          10. Personalized Email Marketing: AI can craft and send highly targeted email campaigns based on individual customer preferences and behaviors.
+      
+          By leveraging these AI-driven strategies, e-commerce businesses can provide more personalized, efficient, and engaging shopping experiences. As AI technology continues to advance, we can expect even more innovative applications that will further transform the online retail landscape.`,
+          date: '2024-08-26'
+        }
       ];
-      setBlogPosts(posts);
-    };
-
-    fetchBlogPosts();
+    setBlogPosts(blogPosts);
   }, []);
 
   const pageVariants = {
