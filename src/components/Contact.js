@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { FaEnvelope, FaGithub, FaFigma, FaClock } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaFigma, FaClock, FaRss } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function Contact() {
   const [time, setTime] = useState('');
@@ -31,6 +32,10 @@ export default function Contact() {
         <div className="footer-item">
           <FaClock className="footer-icon" />
           <span>{time}</span>
+        </div>
+        <div className="footer-item">
+          <FaRss className="footer-icon" />
+          <Link href="/blog">Blog & Newsletter</Link>
         </div>
         <div className="footer-item">
           <a href="/Ahmad_Kaiss_Resume.pdf" download className="cv-button">CV</a>

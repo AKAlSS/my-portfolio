@@ -1164,3 +1164,108 @@ h1.show, h2.show, h3.show {
     font-size: 2.5vw;
   }
 }
+
+/* Blog Page Styles */
+.blog-page {
+  background-color: #1e1e1e;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.blog-content {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 80px 20px;
+}
+
+.blog-title {
+  font-size: 3rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.blog-posts {
+  margin-bottom: 4rem;
+}
+
+.blog-post {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.post-title {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.post-date {
+  font-size: 0.9rem;
+  color: #aaa;
+  margin-bottom: 1rem;
+}
+
+.post-content {
+  line-height: 1.6;
+}
+
+.newsletter {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 2rem;
+  text-align: center;
+}
+
+.newsletter h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.newsletter form {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.newsletter input[type="email"] {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  width: 60%;
+  max-width: 300px;
+}
+
+.newsletter button {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  background-color: #FFFFFF;
+  color: #121212;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter button:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .blog-title {
+    font-size: 2rem;
+  }
+
+  .post-title {
+    font-size: 1.5rem;
+  }
+
+  .newsletter form {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .newsletter input[type="email"] {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
