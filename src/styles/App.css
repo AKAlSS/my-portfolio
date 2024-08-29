@@ -862,6 +862,7 @@ section {
 
 /* Footer Styles */
 .footer {
+  flex-shrink: 0;
   background: #121212;
   color: #fff;
   padding: 2rem 0;
@@ -1170,12 +1171,15 @@ h1.show, h2.show, h3.show {
   background-color: #1e1e1e;
   color: #fff;
   min-height: 100vh;
-  padding: 80px 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-content {
   max-width: 800px;
   margin: 0 auto;
+  padding: 80px 20px;
+  flex: 1 0 auto;
 }
 
 .blog-title {
