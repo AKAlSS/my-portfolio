@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Header from '@/components/Header';
 import BlogPost from '@/components/BlogPost';
 import Newsletter from '@/components/Newsletter';
@@ -24,8 +25,27 @@ export default function BlogPage() {
     fetchBlogPosts();
   }, []);
 
+  const pageVariants = {
+    initial: { opacity: 0, y: 20 },
+    in: { opacity: 1, y: 0 },
+    out: { opacity: 0, y: -20 }
+  };
+
+  const pageTransition = {
+    type: 'tween',
+    ease: 'anticipate',
+    duration: 0.5
+  };
+
   return (
-    <div className="blog-page">
+    <motion.div
+      className="blog-page"
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+    >
       <Header />
       <main className="blog-content">
         <h1 className="blog-title">Blog & Newsletter</h1>
@@ -37,6 +57,6 @@ export default function BlogPage() {
         <Newsletter />
       </main>
       <Contact />
-    </div>
+    </motion.div>
   );
 }
