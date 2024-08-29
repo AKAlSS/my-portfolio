@@ -40,7 +40,7 @@ export default function BlogPage() {
             • Collaboration with AI systems in the development process
         
             The future of web development is exciting, with AI opening up new possibilities for creating more intelligent, responsive, and user-centric web experiences. Developers who embrace these changes will be well-positioned to lead in this new era of web development.`,
-            date: '2024-09-09'
+            date: '2024-08-28'
           },
           {
             id: 2,
@@ -75,7 +75,7 @@ export default function BlogPage() {
             • Collaborate closely with developers to ensure seamless implementation
         
             By mastering these principles, UX designers can create more engaging, accessible, and effective digital experiences. Remember, the best UX is often invisible – it's about creating interfaces that feel natural and intuitive to the user.`,
-            date: '2024-09-02'
+            date: '2024-08-27'
           },
           {
             id: 3,
