@@ -40,7 +40,7 @@ export default function BlogPage() {
             • Collaboration with AI systems in the development process
         
             The future of web development is exciting, with AI opening up new possibilities for creating more intelligent, responsive, and user-centric web experiences. Developers who embrace these changes will be well-positioned to lead in this new era of web development.`,
-            date: '2024-08-28'
+            date: '2024-08-29'
           },
           {
             id: 2,
@@ -75,7 +75,7 @@ export default function BlogPage() {
             • Collaborate closely with developers to ensure seamless implementation
         
             By mastering these principles, UX designers can create more engaging, accessible, and effective digital experiences. Remember, the best UX is often invisible – it's about creating interfaces that feel natural and intuitive to the user.`,
-            date: '2024-08-27'
+            date: '2024-08-28'
           },
           {
             id: 3,
@@ -105,7 +105,7 @@ export default function BlogPage() {
             # The Future of AI in E-commerce
         
             As AI technology continues to advance, we can expect even more innovative applications that will further transform the online retail landscape. Retailers who embrace these AI-driven strategies can provide more personalized, efficient, and engaging shopping experiences, ultimately leading to increased customer satisfaction and loyalty.`,
-            date: '2024-08-26'
+            date: '2024-08-27'
           },
           {
             id: 4,
@@ -137,7 +137,7 @@ export default function BlogPage() {
             3. Ensure AI-driven personalization doesn't compromise user privacy or create a 'filter bubble' effect.
         
             By thoughtfully integrating AI into your UX design process, you can create more intuitive, engaging, and conversion-focused digital experiences. Remember, the goal is to use AI to enhance the user experience, not replace the human element in design thinking.`,
-            date: '2024-08-28'
+            date: '2024-08-26'
           },
           {
             id: 5,
@@ -175,7 +175,7 @@ export default function BlogPage() {
             • Prioritize Ethical Considerations: Be mindful of potential biases in AI-generated designs and work to mitigate them.
         
             As AI continues to evolve, UX managers who can effectively harness its potential while maintaining a focus on human-centered design principles will be well-positioned to lead in this new era of design innovation.`,
-            date: '2024-08-29'
+            date: '2024-08-25'
           },
           {
             id: 6,
@@ -214,7 +214,7 @@ export default function BlogPage() {
             4. User-Centric Validation: Always validate AI-driven UX decisions through user testing and feedback.
         
             By thoughtfully integrating AI into the UX design process, product developers can create more intelligent, adaptive, and user-friendly products. This synergy between AI and UX not only enhances the end-user experience but also opens up new possibilities for innovation in product development.`,
-            date: '2024-08-30'
+            date: '2024-08-24'
           }
         ];
       setBlogPosts(posts);
