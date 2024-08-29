@@ -1233,6 +1233,7 @@ h1.show, h2.show, h3.show {
 .post-content h3 {
   font-size: 1.4rem;
   color: #f0f0f0;
+  opacity: 100;
   margin-top: 1.5rem;
   margin-bottom: 1rem;
 }
@@ -1255,6 +1256,7 @@ h1.show, h2.show, h3.show {
 
 .newsletter h2 {
   font-size: 2rem;
+  opacity: 100;
   margin-bottom: 1.5rem;
   color: #f0f0f0;
 }
