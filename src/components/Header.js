@@ -39,8 +39,8 @@ export default function Header() {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
-  const scrollToSection = (id) => {
-    setIsMobileMenuOpen(false);
+  const handleNavigation = (e, id) => {
+    e.preventDefault();
     if (pathname !== '/') {
       router.push('/');
       setTimeout(() => {
@@ -55,6 +55,7 @@ export default function Header() {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
+    setIsMobileMenuOpen(false);
   };
 
   return (
@@ -68,11 +69,11 @@ export default function Header() {
         </div>
         <div className={`nav-list-container ${isMobileMenuOpen ? 'mobile-open' : ''}`} ref={mobileMenuRef}>
           <ul className="nav-list">
-            <li><button onClick={() => scrollToSection('services')} className="nav-link">Services</button></li>
-            <li><button onClick={() => scrollToSection('project-showcase-slider')} className="nav-link">Projects</button></li>
-            <li><button onClick={() => scrollToSection('about')} className="nav-link">About</button></li>
+            <li><a href="#services" onClick={(e) => handleNavigation(e, 'services')} className="nav-link">Services</a></li>
+            <li><a href="#project-showcase-slider" onClick={(e) => handleNavigation(e, 'project-showcase-slider')} className="nav-link">Projects</a></li>
+            <li><a href="#about" onClick={(e) => handleNavigation(e, 'about')} className="nav-link">About</a></li>
             <li><Link href="/blog" className="nav-link">Blog</Link></li>
-            <li><button onClick={() => scrollToSection('contact')} className="nav-link">Contact</button></li>
+            <li><a href="#contact" onClick={(e) => handleNavigation(e, 'contact')} className="nav-link">Contact</a></li>
           </ul>
         </div>
         <a href="/Ahmad_Kaiss_Resume.pdf" download className="cv-button">CV</a>

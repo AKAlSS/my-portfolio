@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Preloader from '@/components/Preloader';
 import { usePathname } from 'next/navigation';
 
@@ -17,8 +17,17 @@ const Newsletter = dynamic(() => import('@/components/Newsletter'));
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [contentVisible, setContentVisible] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const hasVisited = localStorage.getItem('hasVisited');
+    if (hasVisited) {
+      setLoading(false);
+      setContentVisible(true);
+    } else {
+      localStorage.setItem('hasVisited', 'true');
+    }
+  }, []);
 
   const handleLoadingComplete = () => {
     setLoading(false);
@@ -27,54 +36,13 @@ export default function Home() {
     }, 100);
   };
 
-  useEffect(() => {
-    if (initialLoad) {
-      const timeout = setTimeout(() => {
-        setLoading(false);
-        setContentVisible(true);
-      }, 8000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [initialLoad]);
-
-  useEffect(() => {
-    if (!initialLoad) {
-      setContentVisible(true);
-    }
-  }, [pathname, initialLoad]);
-
-  const pageVariants = {
-    initial: { opacity: 0, y: 20 },
-    in: { opacity: 1, y: 0 },
-    out: { opacity: 0, y: -20 }
-  };
-
-  const pageTransition = {
-    type: 'tween',
-    ease: 'anticipate',
-    duration: 0.5
-  };
-
   return (
     <main style={{ minHeight: '100vh', backgroundColor: '#1e1e1e' }}>
       <AnimatePresence mode="wait">
-        {loading && initialLoad && (
-          <Preloader key="preloader" onLoadingComplete={() => {
-            handleLoadingComplete();
-            setInitialLoad(false);
-          }} />
-        )}
+        {loading && <Preloader key="preloader" onLoadingComplete={handleLoadingComplete} />}
       </AnimatePresence>
       {contentVisible && (
-        <motion.div
-          key={pathname}
-          initial="initial"
-          animate="in"
-          exit="out"
-          variants={pageVariants}
-          transition={pageTransition}
-        >
+        <>
           <Header />
           {pathname === '/blog' ? (
             <Newsletter />
@@ -87,7 +55,7 @@ export default function Home() {
             </>
           )}
           <Contact />
-        </motion.div>
+        </>
       )}
     </main>
   );

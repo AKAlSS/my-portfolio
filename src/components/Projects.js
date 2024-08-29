@@ -148,6 +148,7 @@ const ProjectShowcaseSlider = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const slideRef = useRef(null);
+  const detailsRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -193,7 +194,7 @@ const ProjectShowcaseSlider = () => {
   }, []);
 
   const renderTags = (tags) => {
-    const duplicatedTags = [...tags, ...tags, ...tags, ...tags]; // Duplicate tags for seamless scrolling
+    const duplicatedTags = [...tags, ...tags, ...tags, ...tags];
     return (
       <div className="project-tags">
         <div className="scrolling-tags">
@@ -206,6 +207,26 @@ const ProjectShowcaseSlider = () => {
   };
 
   const currentProject = projects[currentIndex];
+
+  const handleExpandClick = (e) => {
+    e.stopPropagation();
+    if (!isExpanded) {
+      const rect = slideRef.current.getBoundingClientRect();
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const topPosition = rect.top + scrollTop;
+
+      setIsExpanded(true);
+      setTimeout(() => {
+        if (detailsRef.current) {
+          detailsRef.current.style.top = `${topPosition}px`;
+          detailsRef.current.style.maxHeight = `calc(100vh - ${topPosition}px)`;
+          detailsRef.current.scrollTop = 0;
+        }
+      }, 0);
+    } else {
+      setIsExpanded(false);
+    }
+  };
 
   return (
     <section className="project-showcase-slider" id="project-showcase-slider">
@@ -220,7 +241,7 @@ const ProjectShowcaseSlider = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.8 }}
             transition={{ duration: 0.5 }}
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={handleExpandClick}
             onMouseEnter={() => !isMobile && setIsHovered(true)}
             onMouseLeave={() => !isMobile && setIsHovered(false)}
           >
@@ -274,114 +295,117 @@ const ProjectShowcaseSlider = () => {
                 )}
               </div>
             </motion.div>
-            {isExpanded && (
-              <motion.div
-                className="project-details"
-                initial={{ opacity: 0, y: 100 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 100 }}
-                transition={{ duration: 0.3 }}
-                onClick={(e) => e.stopPropagation()}
-              >
-                <button className="close-details" onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }}>
-                  &times;
-                </button>
-                <h4>Detailed Description</h4>
-                <p>{currentProject.detailedDescription}</p>
-                {currentProject.methodology && (
-                  <>
-                    <h4>Methodology</h4>
-                    <p>{currentProject.methodology}</p>
-                  </>
-                )}
-                {currentProject.achievements && (
-                  <>
-                    <h4>Key Achievements</h4>
-                    <ul className="achievements-list">
-                      {currentProject.achievements.map((achievement, index) => (
-                        <li key={index}>{achievement}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                <div className="project-links">
-                  {currentProject.github && (
-                    <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
-                      <FaGithub /> GitHub
-                    </a>
+            <AnimatePresence>
+              {isExpanded && (
+                <motion.div
+                  ref={detailsRef}
+                  className="project-details"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 50 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button className="close-details" onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }}>
+                    &times;
+                  </button>
+                  <h4>Detailed Description</h4>
+                  <p>{currentProject.detailedDescription}</p>
+                  {currentProject.methodology && (
+                    <>
+                      <h4>Methodology</h4>
+                      <p>{currentProject.methodology}</p>
+                    </>
                   )}
-                  {currentProject.liveDemo && (
-                    <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link live-demo-link">
-                      <FaExternalLinkAlt /> Live Demo
-                    </a>
+                  {currentProject.achievements && (
+                    <>
+                      <h4>Key Achievements</h4>
+                      <ul className="achievements-list">
+                        {currentProject.achievements.map((achievement, index) => (
+                          <li key={index}>{achievement}</li>
+                        ))}
+                      </ul>
+                    </>
                   )}
-                </div>
-                {currentProject.videoDemo && (
-                  <div className="video-demo">
-                    <h4>Video Demo</h4>
-                    <video controls width="100%" onClick={(e) => e.stopPropagation()}>
-                      <source src={currentProject.videoDemo} type="video/mp4" />
-                      Your browser does not support the video tag.
-                    </video>
+                  <div className="project-links">
+                    {currentProject.github && (
+                      <a href={currentProject.github} target="_blank" rel="noopener noreferrer" className="project-link github-link">
+                        <FaGithub /> GitHub
+                      </a>
+                    )}
+                    {currentProject.liveDemo && (
+                      <a href={currentProject.liveDemo} target="_blank" rel="noopener noreferrer" className="project-link live-demo-link">
+                        <FaExternalLinkAlt /> Live Demo
+                      </a>
+                    )}
                   </div>
-                )}
-                {currentProject.screenshots && (
-                  <div className="project-screenshots">
-                    <h4>Screenshots</h4>
-                    <div className="screenshot-gallery">
-                      {currentProject.screenshots.map((screenshot, index) => (
-                        <Image 
-                          key={index}
-                          src={screenshot}
-                          alt={`Screenshot ${index + 1}`}
-                          width={200}
-                          height={150}
-                          objectFit="cover"
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      ))}
+                  {currentProject.videoDemo && (
+                    <div className="video-demo">
+                      <h4>Video Demo</h4>
+                      <video controls width="100%" onClick={(e) => e.stopPropagation()}>
+                        <source src={currentProject.videoDemo} type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
                     </div>
-                  </div>
-                )}
-                {currentProject.artSamples && (
-                  <div className="art-samples">
-                    <h4>Art Samples</h4>
-                    <div className="art-gallery">
-                      {currentProject.artSamples.map((sample, index) => (
-                        <Image 
-                          key={index}
-                          src={sample}
-                          alt={`Art Sample ${index + 1}`}
-                          width={200}
-                          height={200}
-                          objectFit="cover"
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      ))}
+                  )}
+                  {currentProject.screenshots && (
+                    <div className="project-screenshots">
+                      <h4>Screenshots</h4>
+                      <div className="screenshot-gallery">
+                        {currentProject.screenshots.map((screenshot, index) => (
+                          <Image 
+                            key={index}
+                            src={screenshot}
+                            alt={`Screenshot ${index + 1}`}
+                            width={200}
+                            height={150}
+                            objectFit="cover"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-                {currentProject.videoDemos && (
-                  <div className="video-demos">
-                    <h4>Video Demos</h4>
-                    <div className="video-gallery">
-                      {currentProject.videoDemos.map((video, index) => (
-                        <video key={index} controls width="300" onClick={(e) => e.stopPropagation()}>
-                          <source src={video} type="video/mp4" />
-                          Your browser does not support the video tag.
-                        </video>
-                      ))}
+                  )}
+                  {currentProject.artSamples && (
+                    <div className="art-samples">
+                      <h4>Art Samples</h4>
+                      <div className="art-gallery">
+                        {currentProject.artSamples.map((sample, index) => (
+                          <Image 
+                            key={index}
+                            src={sample}
+                            alt={`Art Sample ${index + 1}`}
+                            width={200}
+                            height={200}
+                            objectFit="cover"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )}
-{currentProject.status && (
-                  <div className="project-status">
-                    <h4>Status</h4>
-                    <p>{currentProject.status}</p>
-                  </div>
-                )}
-              </motion.div>
-            )}
+                  )}
+                  {currentProject.videoDemos && (
+                    <div className="video-demos">
+                      <h4>Video Demos</h4>
+                      <div className="video-gallery">
+                        {currentProject.videoDemos.map((video, index) => (
+                          <video key={index} controls width="300" onClick={(e) => e.stopPropagation()}>
+                            <source src={video} type="video/mp4" />
+                            Your browser does not support the video tag.
+                          </video>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {currentProject.status && (
+                    <div className="project-status">
+                      <h4>Status</h4>
+                      <p>{currentProject.status}</p>
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </AnimatePresence>
         {!isMobile && (
