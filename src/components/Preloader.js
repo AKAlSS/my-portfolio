@@ -70,7 +70,7 @@ const Preloader = ({ onLoadingComplete }) => {
         }, 5000); // Adjust this time based on your actual page load time
 
         return () => window.removeEventListener('resize', checkMobile);
-    }, [onLoadingComplete]);
+    }, [onLoadingComplete, isMobile]);  // Added isMobile to the dependency array
 
     return (
         <motion.div 
