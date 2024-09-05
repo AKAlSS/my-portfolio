@@ -1,7 +1,7 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import { FaChevronDown } from 'react-icons/fa';
 
 const services = [
@@ -45,7 +45,7 @@ const services = [
   }
 ];
 
-const ServiceCard = ({ title, details, isExpanded, onClick }) => {
+const ServiceCard = React.memo(({ title, details, isExpanded, onClick }) => {
   return (
     <motion.div
       className="service-card"
@@ -83,9 +83,9 @@ const ServiceCard = ({ title, details, isExpanded, onClick }) => {
       )}
     </motion.div>
   );
-};
+});
 
-const AnimatedTitle = ({ text }) => {
+const AnimatedTitle = React.memo(({ text }) => {
   return (
     <h2 className="section-header">
       {text.split('').map((letter, index) => (
@@ -104,31 +104,40 @@ const AnimatedTitle = ({ text }) => {
       ))}
     </h2>
   );
-};
+});
 
-const Particle = ({ style }) => (
-  <motion.div
-    className="particle"
-    style={style}
-    animate={{
+const Particle = React.memo(({ style }) => {
+  const controls = useAnimation();
+
+  useEffect(() => {
+    controls.start({
       x: [0, Math.random() * window.innerWidth],
       y: [0, Math.random() * window.innerHeight],
-    }}
-    transition={{
-      duration: Math.random() * 10 + 10,
-      repeat: Infinity,
-      repeatType: "reverse",
-    }}
-  />
-);
+      transition: {
+        duration: Math.random() * 10 + 10,
+        repeat: Infinity,
+        repeatType: "reverse",
+      }
+    });
+  }, [controls]);
+
+  return (
+    <motion.div
+      className="particle"
+      style={style}
+      animate={controls}
+    />
+  );
+});
 
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);
   const [particles, setParticles] = useState([]);
+  const [isMobile, setIsMobile] = useState(false);
 
-  useEffect(() => {
-    const particlesCount = 50;
-    const newParticles = Array.from({ length: particlesCount }, (_, i) => ({
+  const generateParticles = useCallback((isMobile) => {
+    const particlesCount = isMobile ? 25 : 50;
+    return Array.from({ length: particlesCount }, (_, i) => ({
       id: i,
       style: {
         left: `${Math.random() * 100}%`,
@@ -138,29 +147,44 @@ export default function Services() {
         opacity: Math.random() * 0.5 + 0.1,
       }
     }));
-    setParticles(newParticles);
   }, []);
 
-  const handleClick = (index) => {
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      setParticles(generateParticles(mobile));
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [generateParticles]);
+
+  const handleClick = useCallback((index) => {
     setExpandedIndex(prevIndex => prevIndex === index ? null : index);
-  };
+  }, []);
+
+  const memoizedServices = useMemo(() => services.map((service, index) => (
+    <ServiceCard
+      key={index}
+      title={service.title}
+      details={service.details}
+      isExpanded={expandedIndex === index}
+      onClick={() => handleClick(index)}
+    />
+  )), [expandedIndex, handleClick]);
+
+  const memoizedParticles = useMemo(() => particles.map((particle) => (
+    <Particle key={particle.id} style={particle.style} />
+  )), [particles]);
 
   return (
     <section className="services" id="services">
-      {particles.map((particle) => (
-        <Particle key={particle.id} style={particle.style} />
-      ))}
+      {memoizedParticles}
       <AnimatedTitle text="SERVICES" />
       <div className="services-container">
-        {services.map((service, index) => (
-          <ServiceCard
-            key={index}
-            title={service.title}
-            details={service.details}
-            isExpanded={expandedIndex === index}
-            onClick={() => handleClick(index)}
-          />
-        ))}
+        {memoizedServices}
       </div>
     </section>
   );
