@@ -84,6 +84,8 @@ const ServiceCard = React.memo(({ title, details, isExpanded, onClick }) => {
     </motion.div>
   );
 });
+ServiceCard.displayName = 'ServiceCard';
+
 
 const AnimatedTitle = React.memo(({ text }) => {
   return (
@@ -105,6 +107,8 @@ const AnimatedTitle = React.memo(({ text }) => {
     </h2>
   );
 });
+AnimatedTitle.displayName = 'AnimatedTitle';
+
 
 const Particle = React.memo(({ style }) => {
   const controls = useAnimation();
@@ -129,6 +133,8 @@ const Particle = React.memo(({ style }) => {
     />
   );
 });
+Particle.displayName = 'Particle';
+
 
 export default function Services() {
   const [expandedIndex, setExpandedIndex] = useState(null);

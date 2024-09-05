@@ -177,20 +177,20 @@ const ProjectShowcaseSlider = () => {
     trackMouse: true
   });
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = useCallback((event) => {
     if (event.key === 'ArrowLeft') {
       prevProject();
     } else if (event.key === 'ArrowRight') {
       nextProject();
     }
-  };
+  }, [prevProject, nextProject]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  }, [handleKeyDown]);
 
   const renderTags = (tags) => {
     const duplicatedTags = [...tags, ...tags, ...tags, ...tags,]; // Duplicate tags for seamless scrolling
